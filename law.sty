@@ -1,0 +1,14 @@
+\ProvidesPackage{law}
+%\RequirePackage{stringstrings}
+%\newcommand{\lawquote}[1]{
+%\wordcount[q]{#1}
+%\ifnum \theresult<30
+%\shortLawQuote{#1} 
+%\else 
+%\longLawQuote{#1} 
+%\fi
+%}
+\newcommand{\shortlawquote}[1]{``#1''}
+\newcommand{\longlawquote}[1]{\begin{quote}
+{\small #1}
+\end{quote}}
