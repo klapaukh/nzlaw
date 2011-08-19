@@ -1,4 +1,5 @@
 \ProvidesPackage{law}
+\RequirePackage{enumerate}
 %\RequirePackage{stringstrings}
 %\newcommand{\lawquote}[1]{
 %\wordcount[q]{#1}
@@ -12,3 +13,13 @@
 \newcommand{\longlawquote}[1]{\begin{quote}
 {\small #1}
 \end{quote}}
+
+%Set the picture used by the enumerate command
+%per level 
+\renewcommand{\labelitemi}{$\bullet$}
+\renewcommand{\labelitemii}{$\cdot$}
+\renewcommand{\labelitemiii}{$\circ$}
+\renewcommand{\labelitemiv}{$\ast$}
+%\newcommand{\endash}{--}
+%\newcommand{\emdash}{---}
+\newcommand{\ellipsis}{\ldots}

@@ -3,3 +3,5 @@
 
 \LoadClass[a4paper,12pt]{article}
 \RequirePackage{law}
+\RequirePackage{setspace}
+\onehalfspacing
