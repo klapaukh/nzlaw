@@ -1,15 +1,6 @@
-*.bbl
 *~
 *#
-*.swp
-*.swo
-*.pdf
-*.log
-*.out
-*.aux
 *.bbl
-*~
-*#
 *.swp
 *.swo
 *.pdf
@@ -17,5 +8,7 @@
 *.out
 *.aux
 *.blg
-
+*.bib
+*.dvi
+*.xml
 
