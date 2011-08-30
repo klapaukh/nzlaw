@@ -19,6 +19,12 @@
 
 \RequirePackage{titlesec}
 
+%remove the quad from after the counter
+%\titlelabel{\thesection\quad}
+%\titlelabel{\thesubsection}
+%\titlelabel{\thesubsubsection}
+
+
 %Set the correct counters
 \renewcommand{\thesection}{\Roman{section}}
 \renewcommand{\thesubsection}{\Alph{subsection}}
@@ -31,9 +37,9 @@
 \titleformat*{\section}{\itshape}
 \titleformat*{\subsection}{\itshape}
 \titleformat*{\subsubsection}{\itshape}
-\titleformat*{\paragraph}{\rmshape}
+\titleformat*{\paragraph}{\rm}
 \titleformat*{\subparagraph}{\rm}
 
-
+\setlength{\parindent}{0pt}
 
 \endinput
