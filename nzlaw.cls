@@ -24,7 +24,7 @@
 %\titlelabel{\thesubsection}
 %\titlelabel{\thesubsubsection}
 
-
+\setcounter{secnumdepth}{5}
 %Set the correct counters
 \renewcommand{\thesection}{\Roman{section}}
 \renewcommand{\thesubsection}{\Alph{subsection}}
