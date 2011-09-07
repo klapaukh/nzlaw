@@ -5,11 +5,14 @@
 \LoadClass[a4paper,12pt]{article}
 \RequirePackage{law}
 \RequirePackage{setspace}
+\RequirePackage{fancyhdr}
 \usepackage{amssymb} %amssymb must be loaded before fontspec
 \usepackage{amsmath}
 \RequirePackage{fontspec} 
 %pick up tex character mappings
 \defaultfontfeatures{Mapping=tex-text}
+
+
 
 %set to be 1.25 line spacing
 \setstretch{1.25}
@@ -53,6 +56,8 @@
 
 %Set the paragraph indent
 %\setlength{\parindent}{0pt}
+
+%set the size of abstract font
   \renewenvironment{abstract}{
         \fontsize{10pt}{12.5}\selectfont
         \begin{center}%
@@ -60,6 +65,62 @@
         \end{center}%
         \quotation}
 
+%set footnote font size
 \renewcommand{\footnotesize}{\fontsize{10pt}{12.5pt}\selectfont}
+
+\renewcommand\maketitle{\par
+  \begingroup
+    \renewcommand\thefootnote{\@fnsymbol\c@footnote}%
+    \def\@makefnmark{\rlap{\@textsuperscript{\normalfont\@thefnmark}}}%
+    \long\def\@makefntext##1{\parindent 1em\noindent
+            \hb@xt@1.8em{%
+                \hss\@textsuperscript{\normalfont\@thefnmark}}##1}%
+    \if@twocolumn
+      \ifnum \col@number=\@ne
+        \@maketitle
+      \else
+        \twocolumn[\@maketitle]%
+      \fi
+    \else
+      \newpage
+      \global\@topnum\z@   % Prevents figures from going at top of page.
+      \@maketitle
+    \fi
+    \thispagestyle{fancy}\@thanks
+  \endgroup
+  \setcounter{footnote}{0}%
+  \global\let\thanks\relax
+  \global\let\maketitle\relax
+  \global\let\@maketitle\relax
+  \global\let\@thanks\@empty
+  \global\let\@author\@empty
+  \global\let\@date\@empty
+  \global\let\@title\@empty
+  \global\let\title\relax
+  \global\let\author\relax
+  \global\let\date\relax
+  \global\let\and\relax
+}
+
+
+\pagestyle{fancy}
+%clear header / footer
+\fancyhead{}
+\fancyfoot{}
+\fancyfoot[C]{\fontsize{8pt}{10pt}\selectfont\thepage}
+%Letter options for fancy header
+%E: Even page
+%O: Odd page
+%L: Left field
+%C: Center field
+%R: Right field
+%H: Header
+%F: Footer
+
+%set bar size 
+%\renewcommand{\headrulewidth}{0.4pt}
+%\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
 
 \endinput
