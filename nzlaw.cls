@@ -3,11 +3,11 @@
 \ProvidesClass{nzlaw}[2011/08/18 Implementation of the NZ Law Style Guide]
 
 \LoadClass[a4paper,12pt]{article}
-\RequirePackage{law}
 \RequirePackage{setspace}
 \RequirePackage{fancyhdr}
-\usepackage{amssymb} %amssymb must be loaded before fontspec
-\usepackage{amsmath}
+\RequirePackage{amssymb} %amssymb must be loaded before fontspec
+\RequirePackage{amsmath}
+\RequirePackage{enumerate}
 \RequirePackage{fontspec} 
 %pick up tex character mappings
 \defaultfontfeatures{Mapping=tex-text}
@@ -126,5 +126,24 @@
 %\renewcommand{\footrulewidth}{0.4pt}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
+
+
+
+%%Useful macros
+\newcommand{\shortquote}[1]{``#1''}
+\newcommand{\longquote}[1]{\begin{quote}
+\fontsize{11pt}{13.75pt}\selectfont
+#1
+\end{quote}}
+
+%Set the picture used by the enumerate command
+%per level 
+\renewcommand{\labelitemi}{$\bullet$}
+\renewcommand{\labelitemii}{$\cdot$}
+\renewcommand{\labelitemiii}{$\circ$}
+\renewcommand{\labelitemiv}{$\ast$}
+%\newcommand{\endash}{--}
+%\newcommand{\emdash}{---}
+\newcommand{\ellipsis}{\ldots}
 
 \endinput
