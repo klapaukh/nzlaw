@@ -102,12 +102,16 @@
   \global\let\and\relax
 }
 
+\newcommand{\studentid}[1]{\def\@studentid{#1}}
+\studentid{}
 
+\newcommand{\headerfontsize}{\fontsize{8pt}{10pt}\selectfont}
 \pagestyle{fancy}
 %clear header / footer
 \fancyhead{}
 \fancyfoot{}
-\fancyfoot[C]{\fontsize{8pt}{10pt}\selectfont\thepage}
+\fancyhead[R]{\headerfontsize\@studentid}
+\fancyfoot[C]{\headerfontsize\thepage}
 %Letter options for fancy header
 %E: Even page
 %O: Odd page
