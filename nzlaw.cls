@@ -103,7 +103,9 @@
 }
 
 \newcommand{\studentid}[1]{\def\@studentid{#1}}
+\newcommand{\wordcount}[1]{\def\@wordcount{#1}}
 \studentid{}
+\wordcount{}
 
 \newcommand{\headerfontsize}{\fontsize{8pt}{10pt}\selectfont}
 \pagestyle{fancy}
@@ -111,6 +113,7 @@
 \fancyhead{}
 \fancyfoot{}
 \fancyhead[R]{\headerfontsize\@studentid}
+\fancyhead[L]{\headerfontsize Word Count: \@wordcount}
 \fancyfoot[C]{\headerfontsize\thepage}
 %Letter options for fancy header
 %E: Even page
