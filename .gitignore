@@ -11,4 +11,6 @@
 *.bib
 *.dvi
 *.xml
+*.bcf
+*.synctex.gz
 
