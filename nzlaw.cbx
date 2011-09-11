@@ -1,12 +1,64 @@
 \ProvidesFile{nzlaw.cbx}[2011/09/09 v0.1 citation format for the NZ law style guide]
 
+\ExecuteBibliographyOptions{maxnames=3,minnames=1,indexing=true,pagetracker=true,citecounter=true,citetracker=true,ibidtracker=true,parentracker=true,firstinits=false, terseinits=true,backend=biber,labelnumber=true, useprefix=false}
 
-\ifciteseen
-\ifciteibid
 
-\iffieldequalsstr{entrytype}{book}
-{%true case
-}{%false case
+%\DeclareNameFormat[author]{default}{}
+\renewcommand{\bibnamedelima}{pp}
+\renewcommand{\bibnamedelimb}{pp}
+\renewcommand{\bibnamedelimc}{pp}
+\renewcommand{\bibnamedelimd}{\addspace}
+\renewcommand{\bibnamedelimi}{pp}
+
+
+%\renewcommand{\multicitedelim}{;\addspace} %define the citation separator
+\renewcommand{\finalnamedelim}{\addspace\bibstring{and}\addspace}
+\renewcommand{\multinamedelim}{,\addspace}
+%\renewcommand{\andothersdelim}{\addspace\bibstring{and others}}
+\DefineBibliographyStrings{english}{
+andothers = and others,
 }
 
+\newbibmacro{cite:texts}{
+\ifnameundef{author}{}
+{\printnames{author}}
+}
+
+\newbibmacro{cite:legal}{
+	
+}
+
+\newbibmacro{cite:stuff}{
+\iffieldequalstr{entrytype}{legal}
+{\usebibmacro{cite:legal}
+}{\usebibmacro{cite:texts}
+}
+}
+
+\DeclareCiteCommand{\footcite}[\mkbibfootnote] %definition of \footcite, which passes the text to \mkbibfootnote
+{\usebibmacro{prenote}} %precode - before citation stuff - should just do nothing
+{\usebibmacro{cite:stuff}} % how to actually print a citation
+{\multicitedelim} % what to put between citations
+{\usebibmacro{postnote}}  %code to run after citation
+
 \endinput
+
+%\iffieldundef
+%\ifnameundef
+%\iflistundef
+
+%\ifciteseen
+%\ifciteibid
+
+%\ifmorenames  --has this been truncated
+%\iffieldequalstr{entrytype}{book}
+%{%true case
+%}{%false case
+%}
+
+
+%\addspace - a breakable interword space
+%\addnbspace - a non-breakable interword space
+
+%\mkbibfootnote -> \footnote{\bibfootnotewrapper{text}}
+%\newcommand{\bibfootnotewrapper}{\bibsentence #1\addperiod}

@@ -8,6 +8,7 @@
 \RequirePackage{amssymb} %amssymb must be loaded before fontspec
 \RequirePackage{amsmath}
 \RequirePackage{enumerate}
+\RequirePackage{fullpage}
 \RequirePackage{fontspec} 
 %pick up tex character mappings
 \defaultfontfeatures{Mapping=tex-text}
@@ -16,6 +17,9 @@
 
 %set to be 1.25 line spacing
 \setstretch{1.25}
+
+\headheight=10pt
+\headsep=50pt  %separation between text and running header
 
 %set the correct fonts
 \setromanfont[Scale=1.0]{Palatino Linotype}
