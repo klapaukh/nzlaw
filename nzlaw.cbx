@@ -1,14 +1,14 @@
 \ProvidesFile{nzlaw.cbx}[2011/09/09 v0.1 citation format for the NZ law style guide]
 
-\ExecuteBibliographyOptions{maxnames=3,minnames=1,indexing=true,pagetracker=true,citecounter=true,citetracker=true,ibidtracker=true,parentracker=true,firstinits=false, terseinits=true,backend=biber,labelnumber=true, useprefix=false}
+\ExecuteBibliographyOptions{maxnames=3,minnames=1,indexing=true,pagetracker=true,citecounter=true,citetracker=true,ibidtracker=true,parentracker=true,firstinits=false, terseinits=true,labelnumber=true, useprefix=false}
 
 
 %\DeclareNameFormat[author]{default}{}
-\renewcommand{\bibnamedelima}{pp}
-\renewcommand{\bibnamedelimb}{pp}
-\renewcommand{\bibnamedelimc}{pp}
-\renewcommand{\bibnamedelimd}{\addspace}
-\renewcommand{\bibnamedelimi}{pp}
+%\renewcommand{\bibnamedelima}{pp}
+%\renewcommand{\bibnamedelimb}{pp}
+%\renewcommand{\bibnamedelimc}{pp}
+%\renewcommand{\bibnamedelimd}{\addspace}
+%\renewcommand{\bibnamedelimi}{pp}
 
 
 %\renewcommand{\multicitedelim}{;\addspace} %define the citation separator
@@ -19,9 +19,12 @@
 andothers = and others,
 }
 
+\DeclareFieldFormat*{it}{\emph{#1}}
+
 \newbibmacro{cite:texts}{
 \ifnameundef{author}{}
 {\printnames{author}}
+\printfield[it]{title}
 }
 
 \newbibmacro{cite:legal}{
