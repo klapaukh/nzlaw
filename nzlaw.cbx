@@ -21,6 +21,18 @@ andothers = and others,
 
 \DeclareFieldFormat[title]{it}{\emph{#1}}
 \DeclareFieldFormat[title]{quotes}{``#1''}
+\DeclareFieldFormat{postnote}{#1}
+
+
+\DeclareRobustCommand{\printpostnote}[1]{%
+\in@{}{#1}
+\ifin@
+ at #1
+\else
+ at [#1]
+ \fi
+}
+
 
 \newbibmacro{cite:book}{
 %%Do something about editors?
@@ -32,7 +44,6 @@ andothers = and others,
 \printnames{editor} \ifthenelse{\value{editor}>1}{(eds) }{%
 \ifandothers{editor}{(eds) }{(ed) }%
 }%
-%TODO insert (ed) /(eds)
 }}%
 {\printnames{author} }%
 %
@@ -43,11 +54,11 @@ andothers = and others,
 {(%
 \iffieldundef{edition}{}{\iffieldequalstr{edition}{1st}{}{\printfield{edition} ed%
 %check if you need an ,
-\ifthenelse{\iflistundef{publisher} \and \iflistundef{location} \and \iffieldundef{year} }{}{, }% location needs to use \iflistundef
+\ifthenelse{\iflistundef{publisher} \and \iflistundef{location} \and \iffieldundef{year} }{}{, }% 
 }}%finished with edition, now try publisher
 \iflistundef{publisher}{}{\printlist{publisher}%
 %check for ,
-\ifthenelse{\iflistundef{location} \and \iffieldundef{year} }{}{, }% location needs to use \iflistundef
+\ifthenelse{\iflistundef{location} \and \iffieldundef{year} }{}{, }% 
 }%end publisher
 \iflistundef{location}{}{\printlist{location}%
 %check for ,
@@ -56,7 +67,11 @@ andothers = and others,
 \printfield{year}%
 %print close brakets if needed
 )}%
+\iffieldundef{volume}{}{ vol \printfield{volume}}
 %pinpoint part if it is there
+\iffieldundef{postnote}{}{%
+\printpostnote{\thefield{postnote}}%
+}
 }
 
 \newbibmacro{cite:article}{%
