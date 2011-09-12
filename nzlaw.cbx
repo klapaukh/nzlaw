@@ -34,7 +34,7 @@ andothers = and others,
 \DeclareFieldFormat{postnote}{#1}
 
 
-\newbibmacro{cite:ibid}{%
+\newbibmacro{cite:book:ibid}{%
 Ibid%
 \ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
 \iffieldundef{postnote}{}{%
@@ -44,8 +44,11 @@ Ibid%
 
 %\ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}  
 
+\newbibmacro{cite:book}{%
+\ifciteibid{\usebibmacro{cite:book:ibid}}{\usebibmacro{cite:book:full}}%
+}
 
-\newbibmacro{cite:book}{
+\newbibmacro{cite:book:full}{%
 %%Do something about editors?
 \ifnameundef{author}{%
 %if not authors, try print editors
@@ -60,6 +63,7 @@ Ibid%
 %
 %Print the title in italics
 \printfield[it]{title} %
+\ifciteseen{ above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}}{
 %if there is edition, publisher, location or year info print ()
 \ifthenelse{\iffieldundef{edition} \and  \iflistundef{publisher} \and \iflistundef{location} \and \iffieldundef{year} }{}
 {(%
@@ -79,6 +83,7 @@ Ibid%
 %print close brakets if needed
 )}%
 \iffieldundef{volume}{}{ vol \printfield{volume}}%
+}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
 \ifin{ch }{\thefield{postnote}}{ at \thefield{postnote}}{ at [\thefield{postnote}]}%
@@ -89,7 +94,6 @@ Ibid%
 }
 
 \newbibmacro{cite:stuff}{%
-\ifciteibid{\usebibmacro{cite:ibid}}{%
 \ifthenelse{\ifciteseen}{}{\usebibmacro{cite:savepos}}%
 \iffieldequalstr{entrytype}{article}%
 {\usebibmacro{cite:article}%
@@ -98,7 +102,6 @@ Ibid%
 {\usebibmacro{cite:book}}
 {%
 %citations that are not legal and not a book
-}%
 }%
 }%
 \usebibmacro{cite:savepage}%
