@@ -43,11 +43,11 @@ andothers = and others,
 {(%
 \iffieldundef{edition}{}{\iffieldequalstr{edition}{1st}{}{\printfield{edition} ed%
 %check if you need an ,
-\ifthenelse{\iflistundef{publisher} \and \iffieldundef{location} \and \iffieldundef{year} }{}{, }% location needs to use \iflistundef
+\ifthenelse{\iflistundef{publisher} \and \iflistundef{location} \and \iffieldundef{year} }{}{, }% location needs to use \iflistundef
 }}%finished with edition, now try publisher
 \iflistundef{publisher}{}{\printlist{publisher}%
 %check for ,
-\ifthenelse{\iffieldundef{location} \and \iffieldundef{year} }{}{, }% location needs to use \iflistundef
+\ifthenelse{\iflistundef{location} \and \iffieldundef{year} }{}{, }% location needs to use \iflistundef
 }%end publisher
 \iflistundef{location}{}{\printlist{location}%
 %check for ,
