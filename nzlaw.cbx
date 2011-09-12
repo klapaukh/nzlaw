@@ -1,6 +1,6 @@
 \ProvidesFile{nzlaw.cbx}[2011/09/09 v0.1 citation format for the NZ law style guide]
 
-\ExecuteBibliographyOptions{maxnames=3,minnames=1,indexing=true,pagetracker=true,citecounter=true,citetracker=true,ibidtracker=true,parentracker=true,firstinits=false, terseinits=true,labelnumber=true, useprefix=false}
+\ExecuteBibliographyOptions{maxnames=3,minnames=1,indexing=true,pagetracker=true,citecounter=true,citetracker=true,ibidtracker=strict,parentracker=true,firstinits=false, terseinits=true,labelnumber=true, useprefix=false}
 
 
 %\DeclareNameFormat[author]{default}{}
@@ -19,19 +19,30 @@
 andothers = and others,
 }
 
+%Magic for checking substrings using \in@ but forcing expansion
+\newcommand\ifin[2]{\edef\temp{\noexpand\in@{#1}{#2}}\temp\ifin@\expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi}
+
+%magic to save what the previous number of a citation is
+\newbibmacro*{cite:savepos}{%
+\csxdef{cbx@f@\thefield{entrykey}}{\the\value{instcount}}\label{cbx@\the\value{instcount}}}
+
+\newbibmacro*{cite:savepage}{%
+\csxdef{cbx@p@\thefield{entrykey}}{\thefield{postnote}}}
+
 \DeclareFieldFormat[title]{it}{\emph{#1}}
 \DeclareFieldFormat[title]{quotes}{``#1''}
 \DeclareFieldFormat{postnote}{#1}
 
 
-\DeclareRobustCommand{\printpostnote}[1]{%
-\in@{}{#1}
-\ifin@
- at #1
-\else
- at [#1]
- \fi
+\newbibmacro{cite:ibid}{%
+Ibid%
+\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
+\iffieldundef{postnote}{}{%
+\ifin{ch }{\thefield{postnote}}{, at \thefield{postnote}}{, at [\thefield{postnote}]}%
+}}%
 }
+
+%\ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}  
 
 
 \newbibmacro{cite:book}{
@@ -67,28 +78,32 @@ andothers = and others,
 \printfield{year}%
 %print close brakets if needed
 )}%
-\iffieldundef{volume}{}{ vol \printfield{volume}}
+\iffieldundef{volume}{}{ vol \printfield{volume}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
-\printpostnote{\thefield{postnote}}%
+\ifin{ch }{\thefield{postnote}}{ at \thefield{postnote}}{ at [\thefield{postnote}]}%
 }
 }
 
 \newbibmacro{cite:article}{%
 }
 
-\newbibmacro{cite:stuff}{
-\iffieldequalstr{entrytype}{article}
-{\usebibmacro{cite:article}
-}{
-\iffieldequalstr{entrytype}{book}
-{\usebibmacro{cite:book}
-{
+\newbibmacro{cite:stuff}{%
+\ifciteibid{\usebibmacro{cite:ibid}}{%
+\ifthenelse{\ifciteseen}{}{\usebibmacro{cite:savepos}}%
+\iffieldequalstr{entrytype}{article}%
+{\usebibmacro{cite:article}%
+}{%
+\iffieldequalstr{entrytype}{book}%
+{\usebibmacro{cite:book}}
+{%
 %citations that are not legal and not a book
+}%
+}%
+}%
+\usebibmacro{cite:savepage}%
 }
-}
-}
-}
+
 
 \DeclareCiteCommand{\footcite}[\mkbibfootnote] %definition of \footcite, which passes the text to \mkbibfootnote
 {} %precode - before citation stuff - should just do nothing
