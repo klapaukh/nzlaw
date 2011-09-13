@@ -1,9 +1,24 @@
 \ProvidesFile{nzlaw.cbx}[2011/09/09 v0.1 citation format for the NZ law style guide]
 
+% What my mapping is to explain the different types of source
+%%secondary print sources
+%6.1 Text -> book
+%6.2 Essays in edited books -> inbook
+%6.3 looseleaf text -> book 
+%6.4 Journal article -> article
+%6.5 Legal Encylopdia -> reference
+%6.6 Laws of NZ -> reference
+%6.7 Thesis -> thesis
+%6.7 Unpublished -> unpublished
+
+%%%% SET UP FOR THE STYLE %%%%%%
 \ExecuteBibliographyOptions{maxnames=3,minnames=1,indexing=true,pagetracker=true,citecounter=true,citetracker=true,ibidtracker=strict,parentracker=true,firstinits=false, terseinits=true,labelnumber=true, useprefix=false}
 
 
-%\DeclareNameFormat[author]{default}{}
+%% NEEDS OPTION TO DISABLE ALL IBID FOR CONFERENCE SUBMISSION, AS WELL AS RESET ON CHAPTER
+
+%% commands to deal with name spacing
+%%Screw it, students can just enter them correctly
 %\renewcommand{\bibnamedelima}{pp}
 %\renewcommand{\bibnamedelimb}{pp}
 %\renewcommand{\bibnamedelimc}{pp}
@@ -11,6 +26,7 @@
 %\renewcommand{\bibnamedelimi}{pp}
 
 
+%%%Adjust the delimiters, and default strings
 %\renewcommand{\multicitedelim}{;\addspace} %define the citation separator
 \renewcommand{\finalnamedelim}{\addspace\bibstring{and}\addspace}
 \renewcommand{\multinamedelim}{,\addspace}
@@ -19,6 +35,18 @@
 andothers = and others,
 }
 
+
+%%%% Definitions for how to format different kinds of text, will need to be expanded to deal with the different citation types used
+%\DeclareNameFormat[author]{default}{}
+\DeclareFieldFormat[title,booktitle]{it}{\emph{#1}}
+\DeclareFieldFormat[title]{quotes}{``#1''}
+\DeclareFieldFormat{postnote}{#1}
+\DeclareFieldFormat*{pages}{#1}
+\DeclareFieldFormat*{volume}{#1}
+
+
+%%%%%%%%%%% MACROS THAT ARE SUPER IMPORTANT
+
 %Magic for checking substrings using \in@ but forcing expansion
 \newcommand\ifin[2]{\edef\temp{\noexpand\in@{#1}{#2}}\temp\ifin@\expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi}
 
@@ -26,14 +54,17 @@ andothers = and others,
 \newbibmacro*{cite:savepos}{%
 \csxdef{cbx@f@\thefield{entrykey}}{\the\value{instcount}}\label{cbx@\the\value{instcount}}}
 
+%% Magic to save what the postnote for the previous time you cited this text was
 \newbibmacro*{cite:savepage}{%
 \csxdef{cbx@p@\thefield{entrykey}}{\thefield{postnote}}}
 
-\DeclareFieldFormat[title]{it}{\emph{#1}}
-\DeclareFieldFormat[title]{quotes}{``#1''}
-\DeclareFieldFormat{postnote}{#1}
 
 
+%%%%%%%%%%% Specific definitions for citation types
+
+
+
+%%%%%%BOOK  6.1, 6.3
 \newbibmacro{cite:book:ibid}{%
 Ibid%
 \ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
@@ -42,14 +73,11 @@ Ibid%
 }}%
 }
 
-%\ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}  
-
 \newbibmacro{cite:book}{%
 \ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:book:ibid}}{\usebibmacro{cite:book:full}}}{\usebibmacro{cite:book:full}}%
 }
 
 \newbibmacro{cite:book:full}{%
-%%Do something about editors?
 \ifnameundef{author}{%
 %if not authors, try print editors
 \ifnameundef{editor}{%
@@ -62,11 +90,11 @@ Ibid%
 {\printnames{author} }%
 %
 %Print the title in italics
-\printfield[it]{title} %
-\ifciteseen{ above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}}{
+\printfield[it]{title}%
+\ifciteseen{, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}}{%
 %if there is edition, publisher, location or year info print ()
 \ifthenelse{\iffieldundef{edition} \and  \iflistundef{publisher} \and \iflistundef{location} \and \iffieldundef{year} }{}
-{(%
+{ (%
 \iffieldundef{edition}{}{\iffieldequalstr{edition}{1st}{}{\printfield{edition} ed%
 %check if you need an ,
 \ifthenelse{\iflistundef{publisher} \and \iflistundef{location} \and \iffieldundef{year} }{}{, }% 
@@ -90,24 +118,96 @@ Ibid%
 }
 }
 
+%%%%%%INBOOK    6.2
+\newbibmacro{cite:inbook}{%
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:inbook:ibid}}{\usebibmacro{cite:inbook:full}}}{\usebibmacro{cite:inbook:full}}%
+}
+
+\newbibmacro{cite:inbook:ibid}{%
+Ibid%
+\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
+\iffieldundef{postnote}{}{, at \thefield{postnote}}%
+}%
+}
+
+\newbibmacro{cite:inbook:full}{%
+\printnames{author} \printfield[quotes]{title}%
+\ifciteseen{, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}}{%
+%Stuff if this isn't an above n x citation
+%First cite the book 
+\printnames{editor} \ifthenelse{\value{editor}>1}{(eds) }{\ifandothers{editor}{(eds) }{(ed) }}%
+\printfield[it]{booktitle}%
+%if there is edition, publisher, location or year info print ()
+\ifthenelse{\iffieldundef{edition} \and  \iflistundef{publisher} \and \iflistundef{location} \and \iffieldundef{year} }{}
+{ (%
+\iffieldundef{edition}{}{\iffieldequalstr{edition}{1st}{}{\printfield{edition} ed%
+%check if you need an ,
+\ifthenelse{\iflistundef{publisher} \and \iflistundef{location} \and \iffieldundef{year} }{}{, }% 
+}}%finished with edition, now try publisher
+\iflistundef{publisher}{}{\printlist{publisher}%
+%check for ,
+\ifthenelse{\iflistundef{location} \and \iffieldundef{year} }{}{, }% 
+}%end publisher
+\iflistundef{location}{}{\printlist{location}%
+%check for ,
+\ifthenelse{\iffieldundef{year} }{}{, }%
+}%
+\printfield{year}%
+%print closing brace which must  be needed
+)}%
+%Then cite the start page
+ \printfield{pages}%
+}%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{%
+ at \thefield{postnote}%
+}
+}
+
+
+%%%%%%ARTICLE  6.4
 \newbibmacro{cite:article}{%
 }
 
+
+
+%%%%%%REFERENCE  6.5, 6.6
+\newbibmacro{cite:reference}{%
+}
+
+%%%%%%THESIS    6.7  - Thesis
+\newbibmacro{cite:thesis}{%
+}
+
+
+%%%%%%UNPUBLISHED  6.7 - Other
+\newbibmacro{cite:unpublished}{%
+}
+
+
+
+
+%%%% Dispatches different kinds of citations
+
 \newbibmacro{cite:stuff}{%
-\ifthenelse{\ifciteseen}{}{\usebibmacro{cite:savepos}}%
-\iffieldequalstr{entrytype}{article}%
-{\usebibmacro{cite:article}%
-}{%
-\iffieldequalstr{entrytype}{book}%
-{\usebibmacro{cite:book}}
-{%
-%citations that are not legal and not a book
-}%
-}%
+\ifthenelse{\ifciteseen}{}{\usebibmacro{cite:savepos}}% Save the initial position of *each* citation
+\iffieldequalstr{entrytype}{article}{\usebibmacro{cite:article}}{}%
+\iffieldequalstr{entrytype}{book}{\usebibmacro{cite:book}}{}%
+\iffieldequalstr{entrytype}{inbook}{\usebibmacro{cite:inbook}}{}%
+\iffieldequalstr{entrytype}{reference}{\usebibmacro{cite:reference}}{}%
+\iffieldequalstr{entrytype}{thesis}{\usebibmacro{cite:thesis}}{}%
+\iffieldequalstr{entrytype}{unpublished}{\usebibmacro{cite:unpublished}}{}%
+%
+%For any kind of citation, save the postnote to check if Ibid citations need to print their post note
 \usebibmacro{cite:savepage}%
 }
 
 
+
+
+
+%%%%Declaration of cite commands
+%Only \footcite is declared as that is the only useful citatation type in a law styled essay / article
 \DeclareCiteCommand{\footcite}[\mkbibfootnote] %definition of \footcite, which passes the text to \mkbibfootnote
 {} %precode - before citation stuff - should just do nothing
 {\usebibmacro{cite:stuff}} % how to actually print a citation
@@ -116,6 +216,11 @@ Ibid%
 
 \endinput
 
+
+
+
+%%%%%%%%%%%%%% DATABASE of commands that I think I might need
+% %s are used on new lines to supress extra spaces
 %\iffieldundef
 %\ifnameundef
 %\iflistundef
@@ -137,14 +242,5 @@ Ibid%
 %\newcommand{\bibfootnotewrapper}{\bibsentence #1\addperiod}
 
 
-%entry types
-%%secondary print sources
-%6.1 Text -> book
-%6.2 Essays in edited books -> inbook
-%6.3 looseleaf text -> book 
-%6.4 Journal article -> article
-%6.5 Legal Encylopdia -> reference
-%6.6 Laws of NZ -> reference
-%6.7 Thesis -> thesis
-%6.7 Unpublished -> unpublished
+
 
