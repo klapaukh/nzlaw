@@ -62,6 +62,10 @@ andothers = and others,
 \newbibmacro*{cite:savepage}{%
 \csxdef{cbx@p@\thefield{entrykey}}{\thefield{postnote}}}
 
+%% Magic to save if the orignal citation is ambiguous
+\newbibmacro*{cite:saveamb}[1]{%
+\csxdef{cbx@a@\thefield{entrykey}}{#1}}
+
 
 
 %%%%%%%%%%% Specific definitions for citation types
@@ -87,15 +91,18 @@ Ibid%
 \ifnameundef{editor}{%
 %if no editor you lose
 }{%
-\printnames{editor} \ifthenelse{\value{editor}>1}{(eds) }{%
-\ifandothers{editor}{(eds) }{(ed) }%
+\printnames{editor} \ifthenelse{\value{editor}>1}{(eds)}{%
+\ifandothers{editor}{(eds)}{(ed)}%
 }%
 }}%
-{\printnames{author} }%
+{\printnames{author}}%
 %
+\ifciteseen{%
+%check if ambigious
+\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[it]{title}}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}}{%
 %Print the title in italics
-\printfield[it]{title}%
-\ifciteseen{, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}}{%
+\addspace\printfield[it]{title}%
 %if there is edition, publisher, location or year info print ()
 \ifthenelse{\iffieldundef{edition} \and  \iflistundef{publisher} \and \iflistundef{location} \and \iffieldundef{year} }{}
 { (%
@@ -135,15 +142,19 @@ Ibid%
 }
 
 \newbibmacro{cite:inbook:full}{%
-\printnames{author} \printfield[quotes]{title}%
-\ifciteseen{, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}}{%
+\printnames{author}%
+\ifciteseen{%
+%check if ambigious
+\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}}{%
+\printfield[quotes]{title}%
 %Stuff if this isn't an above n x citation
 %First cite the book 
-\printnames{editor} \ifthenelse{\value{editor}>1}{(eds) }{\ifandothers{editor}{(eds) }{(ed) }}%
-\printfield[it]{booktitle}%
+{\addspace}in\addspace\printnames{editor}\addspace\ifthenelse{\value{editor}>1}{(eds)}{\ifandothers{editor}{(eds)}{(ed)}}%
+\addspace\printfield[it]{booktitle}%
 %if there is edition, publisher, location or year info print ()
 \ifthenelse{\iffieldundef{edition} \and  \iflistundef{publisher} \and \iflistundef{location} \and \iffieldundef{year} }{}
-{ (%
+{\addspace(%
 \iffieldundef{edition}{}{\iffieldequalstr{edition}{1st}{}{\printfield{edition} ed%
 %check if you need an ,
 \ifthenelse{\iflistundef{publisher} \and \iflistundef{location} \and \iffieldundef{year} }{}{, }% 
@@ -158,9 +169,9 @@ Ibid%
 }%
 \printfield{year}%
 %print closing brace which must  be needed
-)}%
+)\iffieldundef{volume}{}{{\addspace}vol\addspace\printfield{volume}}}%
 %Then cite the start page
- \printfield{pages}%
+\addspace\printfield{pages}%
 }%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
@@ -171,13 +182,75 @@ Ibid%
 
 %%%%%%ARTICLE  6.4
 \newbibmacro{cite:article}{%
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:article:ibid}}{\usebibmacro{cite:article:full}}}{\usebibmacro{cite:article:full}}}
+
+\newbibmacro{cite:article:ibid}{%
+Ibid%
+\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
+\iffieldundef{postnote}{}{, at \thefield{postnote}}%
+}%
+}
+
+\newbibmacro{cite:article:full}{%
+\printnames{author}%
+\ifciteseen{%
+%check if ambigious
+\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}}{%
+%Seeing article for the first time
+\addspace\printfield[quotes]{title}%Correct title format
+\iffieldundef{volume}{%
+%year in []
+{\addspace}[\printfield{year}]%
+}{%
+% year in () followed by volume number
+{\addspace}(\printfield{year})\addspace\printfield{volume}%
+}%
+\iffieldundef{journaltitle}{}{\addspace\printfield{journaltitle}}%
+\iffieldundef{pages}{}{\addspace\printfield{pages}}
+}%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{%
+{\addspace}at\addspace\thefield{postnote}%
+}
 }
 
 
 
 %%%%%%REFERENCE  6.5, 6.6
 \newbibmacro{cite:reference}{%
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:reference:ibid}}{\usebibmacro{cite:reference:full}}}{\usebibmacro{cite:reference:full}}}
+
+\newbibmacro{cite:reference:ibid}{%
+Ibid%
+\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
+\iffieldundef{postnote}{}{, at [\thefield{postnote}]}%
+}%
 }
+
+
+\newbibmacro{cite:reference:full}{%
+\printfield[it]{title}%
+\iffieldequalstr{title}{Laws of New Zealand}{%
+%NZ laws case
+\iffieldundef{topic}{}{\addspace\printfield{topic}}%
+\iffieldundef{reissue}{}{{\addspace}(\printfield{reissue})}%
+\iffieldundef{ed}{}{{\addspace}(\printfield{ed}{\addspace}ed)}%
+}{%
+{\addspace}(%
+\iffieldundef{ed}{}{{\addspace}\printfield{ed}{\addspace}ed}%
+\iffieldundef{reissue}{}{,{\addspace}(\printfield{reissue})}%
+\iffieldundef{year}{}{,{\addspace}\printfield{year}}%
+)%
+\iffieldundef{volume}{}{{\addspace}vol\addspace\printfield{volume}}
+\iffieldundef{topic}{}{\addspace\printfield{topic}}%
+%general case
+}
+\iffieldundef{postnote}{}{%
+{\addspace}at{\addspace}[\thefield{postnote}]%
+}
+}
+
 
 %%%%%%THESIS    6.7  - Thesis
 \newbibmacro{cite:thesis}{%
@@ -194,7 +267,12 @@ Ibid%
 %%%% Dispatches different kinds of citations
 
 \newbibmacro{cite:stuff}{%
-\ifthenelse{\ifciteseen}{}{\usebibmacro{cite:savepos}}% Save the initial position of *each* citation
+\ifthenelse{\ifciteseen}{}{%Need to check if the citation is ambigous, if it is new
+\ifthenelse{\value{citetotal} > 1}{% Need to do some kind of check, maybe if citecount == citetotal,having stored every previous entry. Then you can example them all with \entrydata{entry}
+%Temporary case - make all multicite things ambiguous
+\usebibmacro{cite:saveamb}{true}}{%Can't possibly be ambigious => mark as such
+\usebibmacro{cite:saveamb}{false}} %
+\usebibmacro{cite:savepos}}% Save the initial position of *each* citation
 \iffieldequalstr{entrytype}{article}{\usebibmacro{cite:article}}{}%
 \iffieldequalstr{entrytype}{book}{\usebibmacro{cite:book}}{}%
 \iffieldequalstr{entrytype}{inbook}{\usebibmacro{cite:inbook}}{}%
@@ -205,8 +283,6 @@ Ibid%
 %For any kind of citation, save the postnote to check if Ibid citations need to print their post note
 \usebibmacro{cite:savepage}%
 }
-
-
 
 
 
