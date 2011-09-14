@@ -13,4 +13,5 @@
 *.xml
 *.bcf
 *.synctex.gz
+*.backup
 
