@@ -54,6 +54,7 @@ andothers = and others,
 \DeclareFieldFormat{postnote}{#1}
 \DeclareFieldFormat*{pages}{#1}
 \DeclareFieldFormat*{volume}{#1}
+\DeclareFieldFormat*{type}{#1}
 
 
 %%%%%%%%%%% MACROS THAT ARE SUPER IMPORTANT
@@ -240,6 +241,11 @@ Ibid%
 
 \newbibmacro{cite:reference:full}{%
 \printfield[it]{title}%
+\ifciteseen{%
+%check if ambigious
+\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}}{%
+%first time seen
 \iffieldequalstr{title}{Laws of New Zealand}{%
 %NZ laws case
 \iffieldundef{topic}{}{\addspace\printfield{topic}}%
@@ -254,7 +260,7 @@ Ibid%
 \iffieldundef{volume}{}{{\addspace}vol\addspace\printfield{volume}}
 \iffieldundef{topic}{}{\addspace\printfield{topic}}%
 %general case
-}
+}}
 \iffieldundef{postnote}{}{%
 {\addspace}at{\addspace}[\thefield{postnote}]%
 }
@@ -263,12 +269,68 @@ Ibid%
 
 %%%%%%THESIS    6.7  - Thesis
 \newbibmacro{cite:thesis}{%
-}
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:thesis:ibid}}{\usebibmacro{cite:thesis:full}}}{\usebibmacro{cite:thesis:full}}}
 
+\newbibmacro{cite:thesis:ibid}{%
+Ibid%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{%
+\ifin{ch }{\thefield{postnote}}{, at \thefield{postnote}}{, at [\thefield{postnote}]}%
+}}
+
+
+\newbibmacro{cite:thesis:full}{%
+\printnames{author}%
+\ifciteseen{%
+%check if ambigious
+\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}}{%
+%first time seen
+\iffieldundef{title}{}{\addspace\printfield[quotes]{title}}%
+{\addspace}(%
+\printfield{type}%
+\iflistundef{location}{}{, \printlist{location}}%
+\iflistundef{institution}{}{, \printlist{institution}}%
+\iffieldundef{year}{}{,{\addspace}\printfield{year}}%
+)%
+}%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{%
+\ifin{ch }{\thefield{postnote}}{ at \thefield{postnote}}{ at [\thefield{postnote}]}%
+}%
+}
 
 %%%%%%UNPUBLISHED  6.7 - Other
-\newbibmacro{cite:unpublished}{%
+\newbibmacro{cite:unpublished:ibid}{%
+Ibid%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{%
+\ifin{ch }{\thefield{postnote}}{, at \thefield{postnote}}{, at [\thefield{postnote}]}%
+}}
+
+
+\newbibmacro{cite:unpublished:full}{%
+\printnames{author}%
+\ifciteseen{%
+%check if ambigious
+\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}}{%
+%first time seen
+\addspace\printfield[quotes]{title}%
+{\addspace}(%
+\iffieldundef{}{\printfield{type}}%
+\iflistundef{location}{}{\iffieldundef{type}{}{,}\addspace\printlist{location}}%
+\iffieldundef{year}{}{,{\addspace}\printfield{year}}%
+)%
+}%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{%
+\ifin{ch }{\thefield{postnote}}{ at \thefield{postnote}}{ at [\thefield{postnote}]}%
+}%
 }
+
+\newbibmacro{cite:unpublished}{%
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:unpublished:ibid}}{\usebibmacro{cite:unpublished:full}}}{\usebibmacro{cite:unpublished:full}}}
 
 
 
