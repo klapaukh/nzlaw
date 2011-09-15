@@ -11,6 +11,13 @@
 %6.7 Thesis -> thesis
 %6.7 Unpublished -> unpublished
 
+%Online materials
+%7.1 Internet Material -> online
+%7.2 Newspaper -> press
+%7.3 Interview -> interview
+%7.4 Press release -> press
+%7.5 Speech -> speech
+%7.6 Letters / email -> mail
 
 
 %% NEED TO READ ABOUT ABOVE N X FORMAT MORE CAREFULLY
@@ -66,7 +73,9 @@ andothers = and others,
 \newbibmacro*{cite:saveamb}[1]{%
 \csxdef{cbx@a@\thefield{entrykey}}{#1}}
 
-
+\newbibmacro*{cite:saveauthor}[2]{%
+\csdef{cbx@w@#1}{#2}%
+}
 
 %%%%%%%%%%% Specific definitions for citation types
 
