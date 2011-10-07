@@ -10,6 +10,8 @@
 \RequirePackage{enumerate}
 \RequirePackage{fullpage}
 \RequirePackage{fontspec} 
+\RequirePackage{lazylist}
+
 %pick up tex character mappings
 \defaultfontfeatures{Mapping=tex-text}
 

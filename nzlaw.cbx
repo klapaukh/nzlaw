@@ -78,6 +78,17 @@ andothers = and others,
 \csdef{cbx@w@#1}{#2}%
 }
 
+
+\newbibmacro*{cite:newList}[1]{%
+\csxdef{cbx@l}{\Singleton{#1}}%
+}
+
+
+\tracingmacros=1
+\newbibmacro*{cite:appendList}[1]{%
+\csxdef{cbx@l}{\Cat{\Singleton{#1}}{\csuse{cbx@l}}}%
+}
+
 %%%%%%%%%%% Specific definitions for citation types
 
 
@@ -363,9 +374,11 @@ Ibid%
 %%%% Dispatches different kinds of citations
 
 \newbibmacro{cite:stuff}{%
+\usebibmacro{cite:newList}{Hello}%
 \ifthenelse{\ifciteseen}{}{%Need to check if the citation is ambigous, if it is new
 \ifthenelse{\value{citetotal} > 1}{% Need to do some kind of check, maybe if citecount == citetotal,having stored every previous entry. Then you can example them all with \entrydata{entry}
 %Temporary case - make all multicite things ambiguous
+\Head{\csuse{cbx@l}}%
 \usebibmacro{cite:saveamb}{true}}{%Can't possibly be ambigious => mark as such
 \usebibmacro{cite:saveamb}{false}} %
 \usebibmacro{cite:savepos}}% Save the initial position of *each* citation
@@ -379,6 +392,7 @@ Ibid%
 %For any kind of citation, save the postnote to check if Ibid citations need to print their post note
 \usebibmacro{cite:savepage}%
 }
+
 
 
 

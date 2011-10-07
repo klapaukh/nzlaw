@@ -8,10 +8,9 @@
 *.out
 *.aux
 *.blg
-*.bib
+*-blx.bib
 *.dvi
 *.xml
 *.bcf
 *.synctex.gz
 *.backup
-
