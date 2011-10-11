@@ -80,7 +80,12 @@ andothers = and others,
 
 
 %need to use etoolbox for ambiguity. listxadd, xifinlist etc. 
+%ifstrequal{string}{string}{true}{false}
+\newbibmacro*{cite:addtolist}[1]{%
+\listxadd{\mylist}{#1}}
 
+
+\newbibmacro*{cite:clearlist}{\undef{\mylist}}
 %%%%%%%%%%% Specific definitions for citation types
 
 
@@ -365,10 +370,11 @@ Ibid%
 
 %%%% Dispatches different kinds of citations
 \newbibmacro{cite:stuff}{%
-\usebibmacro{cite:newList}{Hello}%
 \ifthenelse{\ifciteseen}{}{%Need to check if the citation is ambigous, if it is new
 \ifthenelse{\value{citetotal} > 1}{% Need to do some kind of check, maybe if citecount == citetotal,having stored every previous entry. Then you can example them all with \entrydata{entry}
 %Temporary case - make all multicite things ambiguous
+\usebibmacro{cite:addtolist}{\thefield{entrykey}}%
+\ifthenelse{\value{citetotal}=\value{citecount}}{\forlistloop{ }{\mylist}\usebibmacro{cite:clearlist}}{}
 \usebibmacro{cite:saveamb}{true}}{%Can't possibly be ambigious => mark as such
 \usebibmacro{cite:saveamb}{false}} %
 \usebibmacro{cite:savepos}}% Save the initial position of *each* citation
