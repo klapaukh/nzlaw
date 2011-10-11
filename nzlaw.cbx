@@ -370,14 +370,16 @@ Ibid%
 
 %%%% Dispatches different kinds of citations
 \newbibmacro{cite:stuff}{%
-\ifthenelse{\ifciteseen}{}{%Need to check if the citation is ambigous, if it is new
-\ifthenelse{\value{citetotal} > 1}{% Need to do some kind of check, maybe if citecount == citetotal,having stored every previous entry. Then you can example them all with \entrydata{entry}
-%Temporary case - make all multicite things ambiguous
+%check if the citation needs to be checked for author clashes
+\ifthenelse{\value{citetotal>1}{%There is more than one citation in this footnote
 \usebibmacro{cite:addtolist}{\thefield{entrykey}}%
 \ifthenelse{\value{citetotal}=\value{citecount}}{\forlistloop{ }{\mylist}\usebibmacro{cite:clearlist}}{}
-\usebibmacro{cite:saveamb}{true}}{%Can't possibly be ambigious => mark as such
-\usebibmacro{cite:saveamb}{false}} %
-\usebibmacro{cite:savepos}}% Save the initial position of *each* citation
+\usebibmacro{cite:saveamb}{true}%
+}{%other wise only one thing has been passed in. It cannot be unique, but only needs recording if it is new
+\ifthenelse{\ifciteseen}{}{\usebibmacro{cite:saveamb}{false}%
+}%
+\ifthenelse{\ifciteseen}{}{\usebibmacro{cite:savepos}}%save the position of all initial placings
+%Generic citation stuff
 \iffieldequalstr{entrytype}{article}{\usebibmacro{cite:article}}{}%
 \iffieldequalstr{entrytype}{book}{\usebibmacro{cite:book}}{}%
 \iffieldequalstr{entrytype}{inbook}{\usebibmacro{cite:inbook}}{}%
