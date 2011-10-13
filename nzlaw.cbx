@@ -81,6 +81,15 @@ andothers = and others,
 \newbibmacro*{cite:safe:saveamb}[1]{%
 \ifcsundef{cbx@p@\thefield{entrykey}}{\usebibmacro{cite:saveamb}{#1}}{}}
 
+\newbibmacro*{cite:safe:withentry:saveamb}[2]{%
+\ifcsundef{cbx@p@#1}{\usebibmacro{cite:saveamb}{#2}}{}}
+
+%This is the super special awesome code that assigns ambiguity \listbreak = break
+%\usebibmacro{cite:safe:withentry:saveamb}{#1}{true}}
+%\def\citedo [#1]{xx }%
+\newcommand{\citedo}[1]{\usebibmacro{cite:safe:withentry:saveamb}{#1}{true}}
+
+
 %need to use etoolbox for ambiguity. listxadd, xifinlist etc. 
 %ifstrequal{string}{string}{true}{false}
 \newbibmacro*{cite:addtolist}[1]{%
@@ -365,19 +374,12 @@ Ibid%
 %%%%%%%%%%% mail          7.6 Letters \ mail 
 \newbibmacro{cite:mail}{}
 
-
-
-
-
-
-\renewcommand*{\do}[1]{#1 }
 %%%% Dispatches different kinds of citations
 \newbibmacro{cite:stuff}{%
 %check if the citation needs to be checked for author clashes
 \ifthenelse{\value{citetotal}>1}{%There is more than one citation in this footnote
 \usebibmacro{cite:addtolist}{\thefield{entrykey}}%
-\ifthenelse{\value{citetotal}=\value{citecount}}{\dolistloop{\mylist}\usebibmacro{cite:clearlist}}{}
-\usebibmacro{cite:safe:saveamb}{true}%
+\ifthenelse{\value{citetotal}=\value{citecount}}{\forlistloop{\citedo}{\mylist}\usebibmacro{cite:clearlist}}{}%
 }{%other wise only one thing has been passed in. It cannot be unique, but only needs recording if it is new
 \usebibmacro{cite:safe:saveamb}{false}%
 }%
