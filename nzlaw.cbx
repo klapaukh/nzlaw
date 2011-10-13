@@ -48,13 +48,15 @@ andothers = and others,
 
 
 %%%% Definitions for how to format different kinds of text, will need to be expanded to deal with the different citation types used
-%\DeclareNameFormat[author]{default}{}
+%\DeclareNameFormat*{author}{#1}
 \DeclareFieldFormat[title,booktitle]{it}{\emph{#1}}
 \DeclareFieldFormat[title]{quotes}{``#1''}
 \DeclareFieldFormat{postnote}{#1}
 \DeclareFieldFormat*{pages}{#1}
 \DeclareFieldFormat*{volume}{#1}
 \DeclareFieldFormat*{type}{#1}
+\DeclareNameFormat*{compareOuter}{#1}
+\DeclareNameFormat*{compareInner}{#1}
 
 
 %%%%%%%%%%% MACROS THAT ARE SUPER IMPORTANT
@@ -87,7 +89,10 @@ andothers = and others,
 %This is the super special awesome code that assigns ambiguity \listbreak = break
 %\usebibmacro{cite:safe:withentry:saveamb}{#1}{true}}
 %\def\citedo [#1]{xx }%
-\newcommand{\citedo}[1]{\usebibmacro{cite:safe:withentry:saveamb}{#1}{true}}
+\newcommand{\checkambdo}[1]{%\usebibmacro{cite:safe:withentry:saveamb}{#1}{true}}
+\ifcsundef{cbx@p@#1}{\entrydata{#1}{\csxdef{cbx@ol@ma}{\printnames[compareOuter]{author}}}\forlistloop{\citeinnerambdo{#1}}{\mylist}}{}}
+
+\newcommand{\citeinnerambdo}[2]{\ifstrequal{#1}{#2}{}{\csuse{cbx@ol@ma} x }}
 
 
 %need to use etoolbox for ambiguity. listxadd, xifinlist etc. 
@@ -379,7 +384,7 @@ Ibid%
 %check if the citation needs to be checked for author clashes
 \ifthenelse{\value{citetotal}>1}{%There is more than one citation in this footnote
 \usebibmacro{cite:addtolist}{\thefield{entrykey}}%
-\ifthenelse{\value{citetotal}=\value{citecount}}{\forlistloop{\citedo}{\mylist}\usebibmacro{cite:clearlist}}{}%
+\ifthenelse{\value{citetotal}=\value{citecount}}{\forlistloop{\checkambdo}{\mylist}\usebibmacro{cite:clearlist}}{}%
 }{%other wise only one thing has been passed in. It cannot be unique, but only needs recording if it is new
 \usebibmacro{cite:safe:saveamb}{false}%
 }%
