@@ -144,11 +144,9 @@ Ibid%
 %
 %check if ambigious
 \ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[it]{title}}%
-, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
-\iffieldundef{postnote}{}{%
-\ifin{ch }{\thefield{postnote}}{ at \thefield{postnote}}{ at [\thefield{postnote}]}%
-}
+\iffieldundef{postnote}{}{,\ifin{ch }{\thefield{postnote}}{ at \thefield{postnote}}{ at [\thefield{postnote}]}}%
 }
 
 \newbibmacro{cite:book:full}{%
@@ -206,10 +204,10 @@ Ibid%
 \printnames{author}%
 %check if ambigious
 \ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
-, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
- at \thefield{postnote}%
+, at \thefield{postnote}%
 }
 }
 
@@ -262,10 +260,10 @@ Ibid%
 \printnames{author}%
 %check if ambigious
 \ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
-, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
-{\addspace}at\addspace\thefield{postnote}%
+,{\addspace}at\addspace\thefield{postnote}%
 }
 }
 
@@ -306,9 +304,9 @@ Ibid%
 \printfield[it]{title}%
 %check if ambigious
 \ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
-, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 \iffieldundef{postnote}{}{%
-{\addspace}at{\addspace}[\thefield{postnote}]%
+,{\addspace}at{\addspace}[\thefield{postnote}]%
 }
 }
 
@@ -326,7 +324,7 @@ Ibid%
 \iffieldundef{reissue}{}{,{\addspace}(\printfield{reissue})}%
 \iffieldundef{year}{}{,{\addspace}\printfield{year}}%
 )%
-\iffieldundef{volume}{}{{\addspace}vol\addspace\printfield{volume}}
+\iffieldundef{volume}{}{{\addspace}vol\addspace\printfield{volume}}%
 \iffieldundef{topic}{}{\addspace\printfield{topic}}%
 %general case
 }%
@@ -352,10 +350,10 @@ Ibid%
 \printnames{author}%
 %check if ambigious
 \ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
-, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
-\ifin{ch }{\thefield{postnote}}{ at \thefield{postnote}}{ at [\thefield{postnote}]}%
+,\ifin{ch }{\thefield{postnote}}{ at \thefield{postnote}}{ at [\thefield{postnote}]}%
 }%
 }
 
@@ -391,10 +389,10 @@ Ibid%
 \printnames{author}%
 %check if ambigious
 \ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
-, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
-\ifin{ch }{\thefield{postnote}}{ at \thefield{postnote}}{ at [\thefield{postnote}]}%
+,\ifin{ch }{\thefield{postnote}}{ at \thefield{postnote}}{ at [\thefield{postnote}]}%
 }%
 }
 
@@ -432,7 +430,8 @@ Ibid%
 \printnames{author}%
 %check if ambigious
 \ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
-, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,  at \thefield{postnote}}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
+\iffieldundef{postnote}{}{,  at \thefield{postnote}}%
 }
 
 
@@ -460,7 +459,8 @@ Ibid%
 \printnames{author}%
 %check if ambigious
 \ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
-, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{, at \thefield{postnote}}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
+\iffieldundef{postnote}{}{, at \thefield{postnote}}%
 }
 
 \newbibmacro{cite:press:full}{%
