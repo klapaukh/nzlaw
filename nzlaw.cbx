@@ -1,6 +1,10 @@
 \ProvidesFile{nzlaw.cbx}[2011/09/09 v0.1 citation format for the NZ law style guide]
 
 % What my mapping is to explain the different types of source
+
+%cases
+% 3.* -> case 
+
 %%secondary print sources
 %6.1 Text -> book
 %6.2 Essays in edited books -> inbook
@@ -104,6 +108,12 @@ andothers = and others,
 \newbibmacro*{cite:clearlist}{\global\undef{\mylist}}
 %%%%%%%%%%% Specific definitions for citation types
 
+%%%%%%CASES  3.*
+\newbibmacro{cite:case}{}
+\newbibmacro{cite:case:full}{}
+\newbibmacro{cite:case:ibid}{}
+\newbibmacro{cite:case:above}{}
+
 
 
 %%%%%%BOOK  6.1, 6.3
@@ -119,6 +129,27 @@ Ibid%
 \ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:book:ibid}}{\usebibmacro{cite:book:full}}}{\usebibmacro{cite:book:full}}%
 }
 
+\newbibmacro{cite:book:above}{%
+\ifnameundef{author}{%
+%if not authors, try print editors
+\ifnameundef{editor}{%
+%if no editor you lose
+}{%
+\printnames{editor} \ifthenelse{\value{editor}>1}{(eds)}{%
+\ifandothers{editor}{(eds)}{(ed)}%
+}%
+}}%
+{\printnames{author}}%
+%
+%check if ambigious
+\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[it]{title}}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{%
+\ifin{ch }{\thefield{postnote}}{ at \thefield{postnote}}{ at [\thefield{postnote}]}%
+}
+}
+
 \newbibmacro{cite:book:full}{%
 \ifnameundef{author}{%
 %if not authors, try print editors
@@ -131,10 +162,6 @@ Ibid%
 }}%
 {\printnames{author}}%
 %
-\ifciteseen{%
-%check if ambigious
-\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[it]{title}}%
-, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}}{%
 %Print the title in italics
 \addspace\printfield[it]{title}%
 %if there is edition, publisher, location or year info print ()
@@ -156,7 +183,6 @@ Ibid%
 %print close brakets if needed
 )}%
 \iffieldundef{volume}{}{ vol \printfield{volume}}%
-}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
 \ifin{ch }{\thefield{postnote}}{ at \thefield{postnote}}{ at [\thefield{postnote}]}%
