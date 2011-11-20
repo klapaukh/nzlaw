@@ -126,7 +126,7 @@ Ibid%
 }
 
 \newbibmacro{cite:book}{%
-\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:book:ibid}}{\usebibmacro{cite:book:full}}}{\usebibmacro{cite:book:full}}%
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:book:ibid}}{\usebibmacro{cite:book:above}}}{\ifciteseen{\usebibmacro{cite:book:above}}{\usebibmacro{cite:book:full}}}%
 }
 
 \newbibmacro{cite:book:above}{%
@@ -191,7 +191,7 @@ Ibid%
 
 %%%%%%INBOOK    6.2
 \newbibmacro{cite:inbook}{%
-\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:inbook:ibid}}{\usebibmacro{cite:inbook:full}}}{\usebibmacro{cite:inbook:full}}%
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:inbook:ibid}}{\usebibmacro{cite:inbook:above}}}{\ifciteseen{\usebibmacro{cite:inbook:above}}{\usebibmacro{cite:inbook:full}}}%
 }
 
 \newbibmacro{cite:inbook:ibid}{%
@@ -201,12 +201,19 @@ Ibid%
 }%
 }
 
-\newbibmacro{cite:inbook:full}{%
+\newbibmacro{cite:inbook:above}{%
 \printnames{author}%
-\ifciteseen{%
 %check if ambigious
 \ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
-, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}}{%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{%
+ at \thefield{postnote}%
+}
+}
+
+\newbibmacro{cite:inbook:full}{%
+\printnames{author}%
 \printfield[quotes]{title}%
 %Stuff if this isn't an above n x citation
 %First cite the book 
@@ -232,7 +239,6 @@ Ibid%
 )\iffieldundef{volume}{}{{\addspace}vol\addspace\printfield{volume}}}%
 %Then cite the start page
 \addspace\printfield{pages}%
-}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
  at \thefield{postnote}%
