@@ -109,7 +109,7 @@ andothers = and others,
 %%%%%%%%%%% Specific definitions for citation types
 
 %%%%%%CASES  3.*
-\newbibmacro{cite:case}{}
+\newbibmacro{cite:case}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:case:ibid}}{\usebibmacro{cite:case:above}}}{\ifciteseen{\usebibmacro{cite:case:above}}{\usebibmacro{cite:case:full}}}}
 \newbibmacro{cite:case:full}{}
 \newbibmacro{cite:case:ibid}{}
 \newbibmacro{cite:case:above}{}
@@ -248,7 +248,7 @@ Ibid%
 
 %%%%%%ARTICLE  6.4
 \newbibmacro{cite:article}{%
-\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:article:ibid}}{\usebibmacro{cite:article:full}}}{\usebibmacro{cite:article:full}}}
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:article:ibid}}{\usebibmacro{cite:article:above}}}{\ifciteseen{\usebibmacro{cite:article:above}}{\usebibmacro{cite:article:full}}}}
 
 \newbibmacro{cite:article:ibid}{%
 Ibid%
@@ -257,12 +257,19 @@ Ibid%
 }%
 }
 
-\newbibmacro{cite:article:full}{%
+\newbibmacro{cite:article:above}{%
 \printnames{author}%
-\ifciteseen{%
 %check if ambigious
 \ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
-, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}}{%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{%
+{\addspace}at\addspace\thefield{postnote}%
+}
+}
+
+\newbibmacro{cite:article:full}{%
+\printnames{author}%
 %Seeing article for the first time
 \addspace\printfield[quotes]{title}%Correct title format
 \iffieldundef{volume}{%
@@ -274,7 +281,6 @@ Ibid%
 }%
 \iffieldundef{journaltitle}{}{\addspace\printfield{journaltitle}}%
 \iffieldundef{pages}{}{\addspace\printfield{pages}}
-}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
 {\addspace}at\addspace\thefield{postnote}%
@@ -285,7 +291,7 @@ Ibid%
 
 %%%%%%REFERENCE  6.5, 6.6
 \newbibmacro{cite:reference}{%
-\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:reference:ibid}}{\usebibmacro{cite:reference:full}}}{\usebibmacro{cite:reference:full}}}
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:reference:ibid}}{\usebibmacro{cite:reference:above}}}{\ifciteseen{\usebibmacro{cite:reference:above}}{\usebibmacro{cite:reference:full}}}}
 
 \newbibmacro{cite:reference:ibid}{%
 Ibid%
@@ -295,13 +301,19 @@ Ibid%
 }
 
 
-\newbibmacro{cite:reference:full}{%
+\newbibmacro{cite:reference:above}{%
 \printfield[it]{title}%
-\ifciteseen{%
 %check if ambigious
 \ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
-, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}}{%
-%first time seen
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}
+\iffieldundef{postnote}{}{%
+{\addspace}at{\addspace}[\thefield{postnote}]%
+}
+}
+
+
+\newbibmacro{cite:reference:full}{%
+\printfield[it]{title}%
 \iffieldequalstr{title}{Laws of New Zealand}{%
 %NZ laws case
 \iffieldundef{topic}{}{\addspace\printfield{topic}}%
@@ -316,7 +328,7 @@ Ibid%
 \iffieldundef{volume}{}{{\addspace}vol\addspace\printfield{volume}}
 \iffieldundef{topic}{}{\addspace\printfield{topic}}%
 %general case
-}}
+}%
 \iffieldundef{postnote}{}{%
 {\addspace}at{\addspace}[\thefield{postnote}]%
 }
@@ -325,7 +337,7 @@ Ibid%
 
 %%%%%%THESIS    6.7  - Thesis
 \newbibmacro{cite:thesis}{%
-\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:thesis:ibid}}{\usebibmacro{cite:thesis:full}}}{\usebibmacro{cite:thesis:full}}}
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:thesis:ibid}}{\usebibmacro{cite:thesis:above}}}{\ifciteseen{\usebibmacro{cite:thesis:above}}{\usebibmacro{cite:thesis:full}}}}
 
 \newbibmacro{cite:thesis:ibid}{%
 Ibid%
@@ -335,13 +347,20 @@ Ibid%
 }}
 
 
-\newbibmacro{cite:thesis:full}{%
+\newbibmacro{cite:thesis:above}{%
 \printnames{author}%
-\ifciteseen{%
 %check if ambigious
 \ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
-, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}}{%
-%first time seen
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{%
+\ifin{ch }{\thefield{postnote}}{ at \thefield{postnote}}{ at [\thefield{postnote}]}%
+}%
+}
+
+
+\newbibmacro{cite:thesis:full}{%
+\printnames{author}%
 \iffieldundef{title}{}{\addspace\printfield[quotes]{title}}%
 {\addspace}(%
 \printfield{type}%
@@ -349,7 +368,6 @@ Ibid%
 \iflistundef{institution}{}{, \printlist{institution}}%
 \iffieldundef{year}{}{,{\addspace}\printfield{year}}%
 )%
-}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
 \ifin{ch }{\thefield{postnote}}{ at \thefield{postnote}}{ at [\thefield{postnote}]}%
@@ -357,6 +375,9 @@ Ibid%
 }
 
 %%%%%%UNPUBLISHED  6.7 - Other
+\newbibmacro{cite:unpublished}{%
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:unpublished:ibid}}{\usebibmacro{cite:unpublished:above}}}{\ifciteseen{\usebibmacro{cite:unpublished:above}}{\usebibmacro{cite:unpublished:full}}}}
+
 \newbibmacro{cite:unpublished:ibid}{%
 Ibid%
 %pinpoint part if it is there
@@ -365,12 +386,19 @@ Ibid%
 }}
 
 
-\newbibmacro{cite:unpublished:full}{%
+\newbibmacro{cite:unpublished:above}{%
 \printnames{author}%
-\ifciteseen{%
 %check if ambigious
 \ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
-, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}}{%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{%
+\ifin{ch }{\thefield{postnote}}{ at \thefield{postnote}}{ at [\thefield{postnote}]}%
+}%
+}
+
+\newbibmacro{cite:unpublished:full}{%
+\printnames{author}%
 %first time seen
 \addspace\printfield[quotes]{title}%
 {\addspace}(%
@@ -378,15 +406,11 @@ Ibid%
 \iflistundef{location}{}{\iffieldundef{type}{}{,}\addspace\printlist{location}}%
 \iffieldundef{year}{}{,{\addspace}\printfield{year}}%
 )%
-}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
 \ifin{ch }{\thefield{postnote}}{ at \thefield{postnote}}{ at [\thefield{postnote}]}%
 }%
 }
-
-\newbibmacro{cite:unpublished}{%
-\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:unpublished:ibid}}{\usebibmacro{cite:unpublished:full}}}{\usebibmacro{cite:unpublished:full}}}
 
 
 
@@ -394,22 +418,39 @@ Ibid%
 
 
 %%%%%%%%%%% Online        7.1 Online Materials
-\newbibmacro{cite:online}{}
+\newbibmacro{cite:online}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:online:ibid}}{\usebibmacro{cite:online:above}}}{\ifciteseen{\usebibmacro{cite:online:above}}{\usebibmacro{cite:online:full}}}}
+\newbibmacro{cite:online:ibid}{}
+\newbibmacro{cite:online:above}{}
+\newbibmacro{cite:online:full}{}
 
 
 %%%%%%%%%%% Press         7.2, 7.4  Newspaper, Press Release
-\newbibmacro{cite:press}{}
-
+\newbibmacro{cite:press}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:press:ibid}}{\usebibmacro{cite:press:above}}}{\ifciteseen{\usebibmacro{cite:press:above}}{\usebibmacro{cite:press:full}}}}
+\newbibmacro{cite:press:ibid}{}
+\newbibmacro{cite:press:above}{}
+\newbibmacro{cite:press:full}{}
 
 %%%%%%%%%%% Interview     7.3 Interview
-\newbibmacro{cite:interview}{}
+\newbibmacro{cite:interview}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:interview:ibid}}{\usebibmacro{cite:interview:above}}}{\ifciteseen{\usebibmacro{cite:interview:above}}{\usebibmacro{cite:interview:full}}}}
+\newbibmacro{cite:interview:ibid}{}
+\newbibmacro{cite:interview:above}{}
+\newbibmacro{cite:interview:full}{}
 
 
 %%%%%%%%%%% Speech        7.5 Speech
-\newbibmacro{cite:speech}{}
+\newbibmacro{cite:speech}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:speech:ibid}}{\usebibmacro{cite:speech:above}}}{\ifciteseen{\usebibmacro{cite:speech:above}}{\usebibmacro{cite:speech:full}}}}
+\newbibmacro{cite:speech:ibid}{}
+\newbibmacro{cite:speech:above}{}
+\newbibmacro{cite:speech:full}{}
 
 %%%%%%%%%%% mail          7.6 Letters \ mail 
-\newbibmacro{cite:mail}{}
+\newbibmacro{cite:mail}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:mail:ibid}}{\usebibmacro{cite:mail:above}}}{\ifciteseen{\usebibmacro{cite:mail:above}}{\usebibmacro{cite:mail:full}}}}
+\newbibmacro{cite:mail:ibid}{}
+\newbibmacro{cite:mail:above}{}
+\newbibmacro{cite:mail:full}{}
+
+
+
 
 %%%% Dispatches different kinds of citations
 \newbibmacro{cite:stuff}{%
@@ -428,6 +469,7 @@ Ibid%
 \iffieldequalstr{entrytype}{reference}{\usebibmacro{cite:reference}}{}%
 \iffieldequalstr{entrytype}{thesis}{\usebibmacro{cite:thesis}}{}%
 \iffieldequalstr{entrytype}{unpublished}{\usebibmacro{cite:unpublished}}{}%
+\iffieldequalstr{entrytype}{case}{\usebibmacro{cite:case}}{}%
 %
 %For any kind of citation, save the postnote to check if Ibid citations need to print their post note
 \usebibmacro{cite:savepage}%
