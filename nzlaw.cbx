@@ -499,9 +499,15 @@ Ibid%
 
 \newbibmacro{cite:mail:ibid}{Ibid}
 
-\newbibmacro{cite:mail:above}{}
+\newbibmacro{cite:mail:above}{%
+\printnames{author}%
+\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield{title}}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
+}
 
-\newbibmacro{cite:mail:full}{}
+\newbibmacro{cite:mail:full}{%
+Letter from \printnames{author} to %
+}
 
 
 
