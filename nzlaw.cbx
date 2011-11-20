@@ -419,9 +419,32 @@ Ibid%
 
 %%%%%%%%%%% Online        7.1 Online Materials
 \newbibmacro{cite:online}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:online:ibid}}{\usebibmacro{cite:online:above}}}{\ifciteseen{\usebibmacro{cite:online:above}}{\usebibmacro{cite:online:full}}}}
-\newbibmacro{cite:online:ibid}{}
-\newbibmacro{cite:online:above}{}
-\newbibmacro{cite:online:full}{}
+
+\newbibmacro{cite:online:ibid}{%
+Ibid%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{%
+, at \thefield{postnote}%
+}}
+
+\newbibmacro{cite:online:above}{%
+\printnames{author}%
+%check if ambigious
+\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}\iffieldundef{postnote}{}{,}%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{ at \thefield{postnote}}%
+}
+
+
+\newbibmacro{cite:online:full}{%
+\printnames{author}%
+\addspace\printfield[quotes]{title}%
+\iffieldundef{year}{}{{\addspace}(\printfield{year})}%
+\iffieldundef{name}{}{{\addspace}\printfield{name}}%
+\iffieldundef{postnote}{}{{\addspace}at \thefield{postnote}}%
+\iffieldundef{url}{}{{\addspace}{\textless}\printfield{url}{\textgreater}}%
+}
 
 
 %%%%%%%%%%% Press         7.2, 7.4  Newspaper, Press Release
