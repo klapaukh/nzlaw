@@ -57,8 +57,8 @@ andothers = and others,
 
 %%%% Definitions for how to format different kinds of text, will need to be expanded to deal with the different citation types used
 %\DeclareNameFormat*{author}{#1}
-\DeclareFieldFormat[title,booktitle]{it}{\emph{#1}}
-\DeclareFieldFormat[title]{quotes}{``#1''}
+\DeclareFieldFormat*{it}{\emph{#1}}
+\DeclareFieldFormat*{quotes}{``#1''}
 \DeclareFieldFormat{postnote}{#1}
 \DeclareFieldFormat*{pages}{#1}
 \DeclareFieldFormat*{volume}{#1}
@@ -470,7 +470,7 @@ Ibid%
 \newbibmacro{cite:press:full}{%
 \printnames{author}%
 \addspace\printfield[quotes]{title}%
-\iffieldundef{newspaper}{}{\printfield{newspaper}}%
+\iffieldundef{newspaper}{}{\addspace\printfield{newspaper}}%
 {\addspace}(%
 \iffieldundef{description}{}{\printfield{description}}%
 \iflistundef{location}{}{\printlist{location}}%
