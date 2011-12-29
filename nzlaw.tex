@@ -1,0 +1,66 @@
+\documentclass{nzlaw}
+\usepackage{float}
+
+\lhead{}
+\newcommand{\s}{\textbackslash}
+\newcommand{\latex}{\LaTeX}
+\begin{document}
+\title{NZ Law Latex Style Instructions}
+\author{Roman Klapaukh}
+\date{\today}
+
+\maketitle
+
+\section{General Rules: Main Text}
+\subsection{Prose}
+\subsubsection{Language}
+
+\paragraph{Foreign Languages}
+Foreign language characters such as \:e can be typed directly into the  text. However, for those who do not know how to type them, the following table contains commands for generating common accentented letters. Examples use the letter a where possible for simplicity.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+Accent & Command \\ \hline
+\"{a} & \s''\{a\} \\
+\`{a} & \s`\{a\} \\
+\'{a} & \s'\{a\} \\
+\^{a} & \s\^\{a\}\\
+\~{a} & \s\textasciitilde\{a\}\\
+\c{c} & {\s}c\{c\}\\
+\k{a} & {\s}k\{a\}\\
+\={a} & \s=\{a\}\\
+\d{a} & {\s}d\{a\}\\
+\r{a} & {\s}r\{a\}\\
+\u{a} & {\s}v\{a\}\\
+\hline
+\end{tabular}
+\caption{Accented Letters}
+\end{table}
+
+\paragraph{Punctuation}
+Punctuation in \latex~is the same as in normal text. \latex~adds a slight amount of extra space following full stops. Careful authors using fullstops in the middle of text (which should not happen in general) can stop this happening by using a \textasciitilde~instead of a space.
+
+\begin{tabular}{l l}
+Original & Output \\
+Hello. This is a Word. With. Dots. & Hello. This is a Word. With. Dots. \\
+
+Hello. This is a Word.{\textasciitilde}With.{\textasciitilde}Dots. &Hello. This is a Word.~With.~Dots.
+\end{tabular}
+
+\paragraph{Italics and Emphasis}
+Text formatting:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+Text Type & Command & Example \\ \hline
+Italics & {\s}textit  & {\s}textit\{some text\}\\
+Bold & {\s}textbf  & {\s}textbf\{some text\}\\
+\hline
+\end{tabular}
+\caption{Text Formatting Commands}
+\end{table}
+\end{document}
