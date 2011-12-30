@@ -1,7 +1,8 @@
 \ProvidesFile{nzlaw.cbx}[2011/09/09 v0.1 citation format for the NZ law style guide]
 
 %word counting can be done by sleectiively disabling commands \def\footnote#1{}
-%Types which biblatex doesn't define can't be use -- needs fixing - now! Biber might actually support this already though
+%Need to do matching of mutliple of the same author
+%Replace all ifthenelse with ifboolexpr
 
 % What my mapping is to explain the different types of source
 
@@ -559,16 +560,16 @@ Ibid%
 %Print the title in italics
 \iffieldundef{title}{}{ \printfield[it]{title}}%
 %if there is edition, publisher, location or year info print ()
-\ifthenelse{ \iffieldundef{edition} \and \iflistundef{publisher} \MARK \and \iflistundef{location} \and \iffieldundef{year} }{}
-{\MARK (%
-\MARK
+\tracingmacros=1
+\ifboolexpr{ test {\iffieldundef{edition}} and test {\iflistundef{publisher}}  and  test {\iflistundef{location}} and test {\iffieldundef{year}}  }{}
+{ (%
 \iffieldundef{edition}{}{\iffieldequalstr{edition}{1st}{}{\printfield{edition} ed%
 %check if you need an ,
-\ifthenelse{\iflistundef{publisher} \and \iflistundef{location} \and \iffieldundef{year} }{}{, }% 
+\ifboolexpr{test {\iflistundef{publisher}} and test {\iflistundef{location}} and test {\iffieldundef{year}} }{}{, }% 
 }}%finished with edition, now try publisher
 \iflistundef{publisher}{}{\printlist{publisher}%
 %check for ,
-\ifthenelse{\iflistundef{location} \and \iffieldundef{year} }{}{, }% 
+\ifboolexpr{ test {\iflistundef{location}} and test {\iffieldundef{year}} }{}{, }% 
 }%end publisher
 \iflistundef{location}{}{\printlist{location}%
 %check for ,
@@ -581,7 +582,6 @@ Ibid%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
 \ifin{ch }{\thefield{postnote}}{ at \thefield{postnote}}{ at [\thefield{postnote}]}}%
-\MARK
 }
 
 %%%%%%INBOOK    6.2
