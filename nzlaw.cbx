@@ -17,7 +17,7 @@
 
 %Other official souces
 % 5.1 Hansard -> hansard
-% 5.2 Appendix to the Journals of the House of Representatives -> article
+% 5.2 Appendix to the Journals of the House of Representatives -> appendix
 
 %%secondary print sources
 %6.1 Text -> book
@@ -257,7 +257,7 @@ Ibid%
 
 %%%%%%Other official sources
 
-%%Hansard 5.1
+%%Hansard 5.1.1
 \newbibmacro{cite:hansard}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:hansard:ibid}}{\usebibmacro{cite:hansard:above}}}{\ifciteseen{\usebibmacro{cite:hansard:above}}{\usebibmacro{cite:hansard:full}}}}
 
 
@@ -278,6 +278,97 @@ Ibid%
 \ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
 \iffieldundef{postnote}{}{, \thefield{postnote}}}%
 }
+
+
+%%% Appendix 5.1.2
+\newbibmacro{cite:appendix}{%
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:appendix:ibid}}{\usebibmacro{cite:appendix:above}}}{\ifciteseen{\usebibmacro{cite:appendix:above}}{\usebibmacro{cite:appendix:full}}}}
+
+\newbibmacro{cite:appendix:ibid}{%
+Ibid%
+\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
+\iffieldundef{postnote}{}{, at \thefield{postnote}}%
+}%
+}
+
+\newbibmacro{cite:appendix:above}{%
+\printnames{author}%
+%check if ambigious
+\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{%
+,{\addspace}at\addspace\thefield{postnote}%
+}
+}
+
+\newbibmacro{cite:appendix:full}{%
+\printnames{author}%
+%Seeing article for the first time
+\addspace\printfield[quotes]{title}%Correct title format
+{\addspace}[\printfield{year}\iffieldundef{endyear}{}{--\printfield{endyear}}]%
+\addspace\printfield{volume}%
+\iffieldundef{series}{ AJHR}{ \printfield{series}}%
+\iffieldundef{number}{}{\addspace\printfield{number}}
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{%
+{\addspace}at\addspace\thefield{postnote}%
+}
+}
+
+%%% submission to select committee 5.1.3
+\newbibmacro{cite:submission}{%
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:submission:ibid}}{\usebibmacro{cite:submission:above}}}{\ifciteseen{\usebibmacro{cite:submission:above}}{\usebibmacro{cite:submission:full}}}}
+
+\newbibmacro{cite:submission:ibid}{%
+Ibid%
+\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
+\iffieldundef{postnote}{}{, at \thefield{postnote}}%
+}%
+}
+
+\newbibmacro{cite:submission:above}{%
+\printnames{author}%
+%check if ambigious
+\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{%
+,{\addspace}at\addspace\thefield{postnote}}%
+}
+
+\newbibmacro{cite:submission:full}{%
+\printnames{author}\addspace\printfield[quotes]{title}%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{ at \thefield{postnote}}%
+}
+
+%%% Standing orders 5.1.4
+\newbibmacro{cite:orders}{%
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:orders:ibid}}{\usebibmacro{cite:orders:above}}}{\ifciteseen{\usebibmacro{cite:orders:above}}{\usebibmacro{cite:orders:full}}}}
+
+\newbibmacro{cite:orders:ibid}{%
+Ibid%
+\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
+\iffieldundef{postnote}{}{, at \thefield{postnote}}%
+}%
+}
+
+\newbibmacro{cite:orders:above}{%
+\iffieldundef{title}{Standing Orders of the House of Representatives}{\printfield[plain]{title}}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{%
+, SO \thefield{postnote}}%
+}
+
+\newbibmacro{cite:orders:full}{%
+\iffieldundef{title}{Standing Orders of the House of Representatives}{\printfield[plain]{title}}%
+\iffieldundef{year}{}{ \printfield{year}}%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{, SO \thefield{postnote}}%
+}
+
 
 %%%%%%BOOK  6.1, 6.3
 \newbibmacro{cite:book:ibid}{%
@@ -691,6 +782,9 @@ Letter from \printnames{author} to %
 \iffieldequalstr{entrytype}{bill}{\usebibmacro{cite:bill}}{}%
 \iffieldequalstr{entrytype}{regulations}{\usebibmacro{cite:regulations}}{}%
 \iffieldequalstr{entrytype}{hansard}{\usebibmacro{cite:hansard}}{}%
+\iffieldequalstr{entrytype}{appendix}{\usebibmacro{cite:appendix}}{}%
+\iffieldequalstr{entrytype}{submission}{\usebibmacro{cite:submission}}{}%
+\iffieldequalstr{entrytype}{orders}{\usebibmacro{cite:orders}}{}%
 \iffieldequalstr{entrytype}{article}{\usebibmacro{cite:article}}{}%
 \iffieldequalstr{entrytype}{book}{\usebibmacro{cite:book}}{}%
 \iffieldequalstr{entrytype}{inbook}{\usebibmacro{cite:inbook}}{}%
