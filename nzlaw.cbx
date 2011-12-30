@@ -369,7 +369,63 @@ Ibid%
 \iffieldundef{postnote}{}{, SO \thefield{postnote}}%
 }
 
+%%% Cabinet Documents 5.2.1
 
+\newbibmacro{cite:cabinetdoc}{%
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:cabinetdoc:ibid}}{\usebibmacro{cite:cabinetdoc:above}}}{\ifciteseen{\usebibmacro{cite:cabinetdoc:above}}{\usebibmacro{cite:cabinetdoc:full}}}}
+
+\newbibmacro{cite:cabinetdoc:ibid}{%
+Ibid%
+\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
+\iffieldundef{postnote}{}{, at \thefield{postnote}}%
+}%
+}
+
+\newbibmacro{cite:cabinetdoc:above}{%
+\iffieldundef{title}{Standing Orders of the House of Representatives}{\printfield[plain]{title}}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{%
+, at \thefield{postnote}}%
+}
+
+\newbibmacro{cite:cabinetdoc:full}{%
+\printfield{label}%
+\addspace\printfield[quotes]{title}%
+\addspace(\iffieldundef{day}{}{\stripzeros{\thefield{day}}}\iffieldundef{month}{}{ \printfield{month}}\iffieldundef{year}{}{ \printfield{year}})%
+\addspace\printfield{number}%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{ at \thefield{postnote}}%
+}
+
+
+%%% Cabinet Manual 5.2.1
+\newbibmacro{cite:cabinetman}{%
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:cabinetman:ibid}}{\usebibmacro{cite:cabinetman:above}}}{\ifciteseen{\usebibmacro{cite:cabinetman:above}}{\usebibmacro{cite:cabinetman:full}}}}
+
+\newbibmacro{cite:cabinetman:ibid}{%
+Ibid%
+\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
+\iffieldundef{postnote}{}{, at \thefield{postnote}}%
+}%
+}
+
+\newbibmacro{cite:cabinetman:above}{%
+Cabinet Office%
+%check if ambigious
+\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{ \textit{Cabinet Manual} \printfield[it]{year}}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{%
+, at \thefield{postnote}}%
+}
+
+\newbibmacro{cite:cabinetman:full}{%
+Cabinet Office \textit{Cabinet Manual}%
+\iffieldundef{year}{}{ \printfield[it]{year}}%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{ at \thefield{postnote}}%
+}
 %%%%%%BOOK  6.1, 6.3
 \newbibmacro{cite:book:ibid}{%
 Ibid%
@@ -785,6 +841,8 @@ Letter from \printnames{author} to %
 \iffieldequalstr{entrytype}{appendix}{\usebibmacro{cite:appendix}}{}%
 \iffieldequalstr{entrytype}{submission}{\usebibmacro{cite:submission}}{}%
 \iffieldequalstr{entrytype}{orders}{\usebibmacro{cite:orders}}{}%
+\iffieldequalstr{entrytype}{cabinetdoc}{\usebibmacro{cite:cabinetdoc}}{}%
+\iffieldequalstr{entrytype}{cabinetman}{\usebibmacro{cite:cabinetman}}{}%
 \iffieldequalstr{entrytype}{article}{\usebibmacro{cite:article}}{}%
 \iffieldequalstr{entrytype}{book}{\usebibmacro{cite:book}}{}%
 \iffieldequalstr{entrytype}{inbook}{\usebibmacro{cite:inbook}}{}%
