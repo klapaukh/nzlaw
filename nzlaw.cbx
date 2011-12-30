@@ -77,6 +77,7 @@ andothers = and others,
 \DeclareFieldFormat*{volume}{#1}
 \DeclareFieldFormat*{file}{#1}
 \DeclareFieldFormat*{type}{#1}
+\DeclareFieldFormat*{journaltitle}{#1}
 \DeclareFieldFormat*{newspaper}{\emph{#1}}
 \DeclareNameFormat*{compareOuter}{#1}
 \DeclareNameFormat*{compareInner}{#1}
@@ -460,11 +461,11 @@ Ibid%
 
 
 %%%%%%NZ Law Review 5.2.4
-\newbibmacro{cite:nzlr}{%
-\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:nzlr:ibid}}{\usebibmacro{cite:nzlr:above}}}{\ifciteseen{\usebibmacro{cite:nzlr:above}}{\usebibmacro{cite:nzlr:full}}}%
+\newbibmacro{cite:nzlc}{%
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:nzlc:ibid}}{\usebibmacro{cite:nzlc:above}}}{\ifciteseen{\usebibmacro{cite:nzlc:above}}{\usebibmacro{cite:nzlc:full}}}%
 }
 
-\newbibmacro{cite:nzlr:ibid}{%
+\newbibmacro{cite:nzlc:ibid}{%
 Ibid%
 \ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
 \iffieldundef{postnote}{}{, at \thefield{postnote}}%
@@ -472,7 +473,7 @@ Ibid%
 
 
 
-\newbibmacro{cite:nzlr:above}{%
+\newbibmacro{cite:nzlc:above}{%
 Law Commission%
 %check if ambigious
 \ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[it]{title}}%
@@ -481,8 +482,8 @@ Law Commission%
 \iffieldundef{postnote}{}{, at \thefield{postnote}}%
 }
 
-\newbibmacro{cite:nzlr:full}{%
-Law Commission \printfield[it]{title} (NZLR \printfield{number}, \printfield{year})%
+\newbibmacro{cite:nzlc:full}{%
+Law Commission \printfield[it]{title} (NZLC \printfield{number}, \printfield{year})%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{ at \thefield{postnote}}%
 }
@@ -927,7 +928,7 @@ Letter from \printnames{author} to %
 \iffieldequalstr{entrytype}{cabinetdoc}{\usebibmacro{cite:cabinetdoc}}{}%
 \iffieldequalstr{entrytype}{cabinetman}{\usebibmacro{cite:cabinetman}}{}%
 \iffieldequalstr{entrytype}{nzgazette}{\usebibmacro{cite:nzgazette}}{}%
-\iffieldequalstr{entrytype}{nzlr}{\usebibmacro{cite:nzlr}}{}%
+\iffieldequalstr{entrytype}{nzlc}{\usebibmacro{cite:nzlc}}{}%
 \iffieldequalstr{entrytype}{report}{\usebibmacro{cite:report}}{}%
 \iffieldequalstr{entrytype}{article}{\usebibmacro{cite:article}}{}%
 \iffieldequalstr{entrytype}{book}{\usebibmacro{cite:book}}{}%
