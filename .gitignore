@@ -14,3 +14,4 @@
 *.bcf
 *.synctex.gz
 *.backup
+*.synctex.gz(busy)

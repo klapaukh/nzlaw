@@ -426,6 +426,94 @@ Cabinet Office \textit{Cabinet Manual}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{ at \thefield{postnote}}%
 }
+
+%%%%%%NZ Gazette 5.2.3
+\newbibmacro{cite:nzgazette}{%
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:nzgazette:ibid}}{\usebibmacro{cite:nzgazette:above}}}{\ifciteseen{\usebibmacro{cite:nzgazette:above}}{\usebibmacro{cite:nzgazette:full}}}%
+}
+
+\newbibmacro{cite:nzgazette:ibid}{%
+Ibid%
+\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
+\iffieldundef{postnote}{}{, at \thefield{postnote}}%
+}}
+
+
+
+\newbibmacro{cite:nzgazette:above}{%
+\ifnameundef{author}{\printfield[quotes]{title}}{\printnames{author}%
+%check if ambigious
+\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{, at \thefield{postnote}}%
+}
+
+\newbibmacro{cite:nzgazette:full}{%
+\ifnameundef{author}{}{\printnames{author} }%
+\printfield[quotes]{title} \printfield{number}%
+\addspace(\iffieldundef{day}{}{\stripzeros{\thefield{day}}}\iffieldundef{month}{}{ \printfield{month}}\iffieldundef{year}{}{ \printfield{year}}) \textit{New Zealand Gazette}%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{ at \thefield{postnote}}%
+}
+
+
+%%%%%%NZ Law Review 5.2.4
+\newbibmacro{cite:nzlr}{%
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:nzlr:ibid}}{\usebibmacro{cite:nzlr:above}}}{\ifciteseen{\usebibmacro{cite:nzlr:above}}{\usebibmacro{cite:nzlr:full}}}%
+}
+
+\newbibmacro{cite:nzlr:ibid}{%
+Ibid%
+\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
+\iffieldundef{postnote}{}{, at \thefield{postnote}}%
+}}
+
+
+
+\newbibmacro{cite:nzlr:above}{%
+Law Commission%
+%check if ambigious
+\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[it]{title}}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{, at \thefield{postnote}}%
+}
+
+\newbibmacro{cite:nzlr:full}{%
+Law Commission \printfield[it]{title} (NZLR \printfield{number}, \printfield{year})%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{ at \thefield{postnote}}%
+}
+
+%%%%%%Other report 5.2.5
+\newbibmacro{cite:report}{%
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:report:ibid}}{\usebibmacro{cite:report:above}}}{\ifciteseen{\usebibmacro{cite:report:above}}{\usebibmacro{cite:report:full}}}%
+}
+
+\newbibmacro{cite:report:ibid}{%
+Ibid%
+\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
+\iffieldundef{postnote}{}{, at \thefield{postnote}}%
+}}
+
+
+
+\newbibmacro{cite:report:above}{%
+\printnames{author}%
+%check if ambigious
+\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[it]{title}}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{, at \thefield{postnote}}%
+}
+
+\newbibmacro{cite:report:full}{%
+\printnames{author} \printfield[it]{title} (\iffieldundef{note}{}{\printfield{note} }\printfield{year})%
+%pinpoint part if it is there
+\iffieldundef{postnote}{}{ at \thefield{postnote}}%
+}
+
 %%%%%%BOOK  6.1, 6.3
 \newbibmacro{cite:book:ibid}{%
 Ibid%
@@ -464,17 +552,16 @@ Ibid%
 \ifnameundef{editor}{%
 %if no editor you lose
 }{%
-\printnames{editor} \ifthenelse{\value{editor}>1}{(eds)}{%
-\ifandothers{editor}{(eds)}{(ed)}%
-}%
+\printnames{editor} \ifthenelse{\value{editor}>1}{(eds)}{\ifandothers{editor}{(eds)}{(ed)}}%
 }}%
 {\printnames{author}}%
 %
 %Print the title in italics
-\addspace\printfield[it]{title}%
+\iffieldundef{title}{}{ \printfield[it]{title}}%
 %if there is edition, publisher, location or year info print ()
-\ifthenelse{\iffieldundef{edition} \and  \iflistundef{publisher} \and \iflistundef{location} \and \iffieldundef{year} }{}
-{ (%
+\ifthenelse{ \iffieldundef{edition} \and \iflistundef{publisher} \MARK \and \iflistundef{location} \and \iffieldundef{year} }{}
+{\MARK (%
+\MARK
 \iffieldundef{edition}{}{\iffieldequalstr{edition}{1st}{}{\printfield{edition} ed%
 %check if you need an ,
 \ifthenelse{\iflistundef{publisher} \and \iflistundef{location} \and \iffieldundef{year} }{}{, }% 
@@ -485,16 +572,16 @@ Ibid%
 }%end publisher
 \iflistundef{location}{}{\printlist{location}%
 %check for ,
-\ifthenelse{\iffieldundef{year} }{}{, }%
+\iffieldundef{year}{}{, }
 }%
-\printfield{year}%
+\iffieldundef{year}{}{\printfield{year}\iffieldundef{endyear}{}{--\printfield{endyear}}}%
 %print close brakets if needed
 )}%
 \iffieldundef{volume}{}{ vol \printfield{volume}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
-\ifin{ch }{\thefield{postnote}}{ at \thefield{postnote}}{ at [\thefield{postnote}]}%
-}
+\ifin{ch }{\thefield{postnote}}{ at \thefield{postnote}}{ at [\thefield{postnote}]}}%
+\MARK
 }
 
 %%%%%%INBOOK    6.2
@@ -516,13 +603,11 @@ Ibid%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
-, at \thefield{postnote}%
-}
+, at \thefield{postnote}}%
 }
 
 \newbibmacro{cite:inbook:full}{%
-\printnames{author}%
-\printfield[quotes]{title}%
+\printnames{author} \printfield[quotes]{title}%
 %Stuff if this isn't an above n x citation
 %First cite the book 
 {\addspace}in\addspace\printnames{editor}\addspace\ifthenelse{\value{editor}>1}{(eds)}{\ifandothers{editor}{(eds)}{(ed)}}%
@@ -542,15 +627,13 @@ Ibid%
 %check for ,
 \ifthenelse{\iffieldundef{year} }{}{, }%
 }%
-\printfield{year}%
+\printfield{year}\iffieldundef{endyear}{}{--\printfield{endyear}}%
 %print closing brace which must  be needed
 )\iffieldundef{volume}{}{{\addspace}vol\addspace\printfield{volume}}}%
 %Then cite the start page
 \addspace\printfield{pages}%
 %pinpoint part if it is there
-\iffieldundef{postnote}{}{%
- at \thefield{postnote}%
-}
+\iffieldundef{postnote}{}{ at \thefield{postnote}}%
 }
 
 
@@ -843,6 +926,9 @@ Letter from \printnames{author} to %
 \iffieldequalstr{entrytype}{orders}{\usebibmacro{cite:orders}}{}%
 \iffieldequalstr{entrytype}{cabinetdoc}{\usebibmacro{cite:cabinetdoc}}{}%
 \iffieldequalstr{entrytype}{cabinetman}{\usebibmacro{cite:cabinetman}}{}%
+\iffieldequalstr{entrytype}{nzgazette}{\usebibmacro{cite:nzgazette}}{}%
+\iffieldequalstr{entrytype}{nzlr}{\usebibmacro{cite:nzlr}}{}%
+\iffieldequalstr{entrytype}{report}{\usebibmacro{cite:report}}{}%
 \iffieldequalstr{entrytype}{article}{\usebibmacro{cite:article}}{}%
 \iffieldequalstr{entrytype}{book}{\usebibmacro{cite:book}}{}%
 \iffieldequalstr{entrytype}{inbook}{\usebibmacro{cite:inbook}}{}%
@@ -894,7 +980,3 @@ Letter from \printnames{author} to %
 
 %\mkbibfootnote -> \footnote{\bibfootnotewrapper{text}}
 %\newcommand{\bibfootnotewrapper}{\bibsentence #1\addperiod}
-
-
-
-
