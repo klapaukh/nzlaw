@@ -174,7 +174,28 @@ Ibid%
 \iffieldundef{postnote}{}{, at \thefield{postnote}}%
 }
 
+%%%%%%%%%%% LEGISLATION 4.*
+\newbibmacro{cite:statute}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:statute:ibid}}{\usebibmacro{cite:statute:above}}}{\ifciteseen{\usebibmacro{cite:statute:above}}{\usebibmacro{cite:statute:full}}}}
 
+\newbibmacro{cite:statute:full}{%
+\printfield{title}%
+\iffieldundef{year}{}{ \printfield{year}}%
+\iffieldundef{note}{}{ \printfield{note}}%
+\iffieldundef{number}{}{ \printfield{number}}%
+\iflistundef{location}{}{ (\printlist{location})}%
+\iffieldundef{postnote}{}{, \thefield{postnote}}%
+}
+
+\newbibmacro{cite:statute:above}{%
+\printfield{title}, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
+\iffieldundef{postnote}{}{, at \thefield{postnote}}%
+}
+
+\newbibmacro{cite:statute:ibid}{%
+Ibid%
+\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
+\iffieldundef{postnote}{}{, \thefield{postnote}}}%
+}
 
 %%%%%%BOOK  6.1, 6.3
 \newbibmacro{cite:book:ibid}{%
@@ -584,6 +605,7 @@ Letter from \printnames{author} to %
 \ifthenelse{\ifciteseen}{}{\usebibmacro{cite:savepos}}%save the position of all initial placings
 %Generic citation stuff
 \iffieldequalstr{entrytype}{case}{\usebibmacro{cite:case}}{}%
+\iffieldequalstr{entrytype}{statute}{\usebibmacro{cite:statute}}{}%
 \iffieldequalstr{entrytype}{article}{\usebibmacro{cite:article}}{}%
 \iffieldequalstr{entrytype}{book}{\usebibmacro{cite:book}}{}%
 \iffieldequalstr{entrytype}{inbook}{\usebibmacro{cite:inbook}}{}%
