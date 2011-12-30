@@ -7,7 +7,9 @@
 
 
 %cases
-% 3.* -> case 
+% Cases with neutral citations -> case
+% Cases without neutral citations - > case 
+%maori court -> maoricase 
 
 %%secondary print sources
 %6.1 Text -> book
@@ -31,7 +33,7 @@
 %% NEED TO READ ABOUT ABOVE N X FORMAT MORE CAREFULLY
 
 %%%% SET UP FOR THE STYLE %%%%%%
-\ExecuteBibliographyOptions{maxnames=3,minnames=1,indexing=true,pagetracker=true,citecounter=true,citetracker=true,ibidtracker=strict,parentracker=true,firstinits=false, terseinits=true,labelnumber=true, useprefix=false}
+\ExecuteBibliographyOptions{maxnames=3,minnames=1,indexing=true,pagetracker=true,citecounter=true,citetracker=true,ibidtracker=strict,parentracker=true,firstinits=false, terseinits=true,labelnumber=true, useprefix=false, dateabbrev=false}
 
 
 %% NEEDS OPTION TO DISABLE ALL IBID FOR CONFERENCE SUBMISSION, AS WELL AS RESET ON CHAPTER
@@ -57,11 +59,13 @@ andothers = and others,
 
 %%%% Definitions for how to format different kinds of text, will need to be expanded to deal with the different citation types used
 %\DeclareNameFormat*{author}{#1}
+\DeclareListFormat*{it}{\emph{#1}}
 \DeclareFieldFormat*{it}{\emph{#1}}
 \DeclareFieldFormat*{quotes}{``#1''}
 \DeclareFieldFormat{postnote}{#1}
 \DeclareFieldFormat*{pages}{#1}
 \DeclareFieldFormat*{volume}{#1}
+\DeclareFieldFormat*{file}{#1}
 \DeclareFieldFormat*{type}{#1}
 \DeclareFieldFormat*{newspaper}{\emph{#1}}
 \DeclareNameFormat*{compareOuter}{#1}
@@ -80,6 +84,10 @@ andothers = and others,
 %% Magic to save what the postnote for the previous time you cited this text was
 \newbibmacro*{cite:savepage}{%
 \csxdef{cbx@p@\thefield{entrykey}}{\thefield{postnote}}}
+
+%magic to save what the last title cited is
+\newbibmacro*{cite:savetitle}{%
+\csxdef{cbx@title}{\thefield{title}}}
 
 %% Magic to save if the orignal citation is ambiguous
 \newbibmacro*{cite:saveamb}[1]{%
@@ -115,9 +123,56 @@ andothers = and others,
 
 %%%%%%CASES  3.*
 \newbibmacro{cite:case}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:case:ibid}}{\usebibmacro{cite:case:above}}}{\ifciteseen{\usebibmacro{cite:case:above}}{\usebibmacro{cite:case:full}}}}
-\newbibmacro{cite:case:full}{}
-\newbibmacro{cite:case:ibid}{}
-\newbibmacro{cite:case:above}{}
+
+\newbibmacro{cite:case:full}{%
+\iffieldundef{type}{\usebibmacro{cite:case:neutral:full}}{\iffieldequalstr{type}{unreported}{\usebibmacro{cite:case:unreported:full}}{\iffieldequalstr{type}{maori}{\usebibmacro{cite:case:maori:full}}{\usebibmacro{cite:case:neutral:full}}}}%
+}
+
+
+\newbibmacro{cite:case:neutral:full}{%
+\iffieldundef{prenote}{\printfield[it]{title}}{\thefield{prenote}\iffieldequalcs{title}{cbx@title}{}{ \printfield[it]{title}}}%
+\iffieldundef{origyear}{}{ [\thefield{origyear}] \thefield{venue} \thefield{number}}% neutral citation, if there
+\iffieldundef{year}{}{\iffieldundef{origyear}{}{,} \iffieldundef{type}{ [\printfield{year}]}{(\printfield{year})}}%print year with right type of brackets
+\iffieldundef{volume}{}{ \printfield{volume}}%
+\iffieldundef{series}{}{ \printfield{series}}%
+\iffieldundef{pages}{}{ \thefield{pages}}%
+\iffieldundef{origyear}{\iffieldundef{venue}{}{ \iffieldequalstr{type}{old}{\printfield{venue}}{(\printfield{venue})}}}{}%
+\iffieldundef{postnote}{}{ at \printfield{postnote}}%
+\iffieldundef{shorttitle}{}{ [\printfield[it]{shorttitle}]}%
+}
+
+\newbibmacro{cite:case:unreported:full}{%
+\iffieldundef{prenote}{\printfield[it]{title}}{\thefield{prenote}\iffieldequalcs{title}{cbx@title}{}{ \printfield[it]{title}}}%
+\iffieldundef{venue}{}{ \printfield{venue}}%
+\iflistundef{location}{}{ \printlist{location}}%
+\iffieldundef{number}{}{ \printfield{number}}%
+,\iffieldundef{day}{}{ \stripzeros{\thefield{day}}}\iffieldundef{month}{}{ \printfield{month}}\iffieldundef{year}{}{ \printfield{year}}%
+\iffieldundef{postnote}{}{ at \printfield{postnote}}%
+\iffieldundef{shorttitle}{}{ [\printfield[it]{shorttitle}]}%
+}
+
+
+\newbibmacro{cite:case:maori:full}{%
+\iffieldundef{prenote}{\printfield[it]{title} --}{\thefield{prenote}\iffieldequalcs{title}{cbx@title}{}{ \printfield[it]{title} --}}%
+\iflistundef{location}{}{ \printlist[it]{location}}%
+\iffieldundef{year}{}{ (\printfield{year})}
+\iffieldundef{file}{}{ \printfield{file}}%
+\iffieldundef{note}{}{ (\printfield{note})}%
+\iffieldundef{postnote}{}{ at \printfield{postnote}}%
+\iffieldundef{shorttitle}{}{ [\printfield[it]{shorttitle}]}%
+}
+
+\newbibmacro{cite:case:ibid}{%
+Ibid%
+\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
+\iffieldundef{postnote}{}{, at \thefield{postnote}}}%
+}
+
+\newbibmacro{cite:case:above}{%
+\iffieldundef{prenote}{}{\thefield{prenote} }%
+\iffieldundef{shorttitle}{\printfield[it]{title}}{\printfield[it]{shorttitle}}, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
+\iffieldundef{postnote}{}{, at \thefield{postnote}}%
+}
 
 
 
@@ -518,6 +573,7 @@ Letter from \printnames{author} to %
 
 %%%% Dispatches different kinds of citations
 \newbibmacro{cite:stuff}{%
+\usebibmacro{cite:savetitle}%Save previous title. used for aff'd and rev'd in cases
 %check if the citation needs to be checked for author clashes
 \ifthenelse{\value{citetotal}>1}{%There is more than one citation in this footnote
 \usebibmacro{cite:addtolist}{\thefield{entrykey}}%

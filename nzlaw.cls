@@ -10,6 +10,7 @@
 \RequirePackage{enumerate}
 \RequirePackage{fullpage}
 \RequirePackage{fontspec} 
+\RequirePackage[group-separator={,}]{siunitx} 
 
 %pick up tex character mappings
 \defaultfontfeatures{Mapping=tex-text}
