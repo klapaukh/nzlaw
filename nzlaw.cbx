@@ -7,9 +7,17 @@
 
 
 %cases
-% Cases with neutral citations -> case
-% Cases without neutral citations - > case 
-%maori court -> maoricase 
+% 3.* -> case [use type for identifying specifics]
+
+%Legislation
+%4.1 Statues -> statute
+%4.2 Bills -> bill
+%4.3 Regulations -> regulations
+
+
+%Other official souces
+% 5.1 Hansard -> hansard
+% 5.2 Appendix to the Journals of the House of Representatives -> article
 
 %%secondary print sources
 %6.1 Text -> book
@@ -225,7 +233,7 @@ Ibid%
 \iffieldundef{postnote}{}{,\iffieldundef{file}{\iffieldundef{note}{}{ at}}{ at} \thefield{postnote}}}%
 }
 
-%%%Regulations
+%%%Regulations 4.3
 \newbibmacro{cite:regulations}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:regulations:ibid}}{\usebibmacro{cite:regulations:above}}}{\ifciteseen{\usebibmacro{cite:regulations:above}}{\usebibmacro{cite:regulations:full}}}}
 
 
@@ -241,6 +249,31 @@ Ibid%
 }
 
 \newbibmacro{cite:regulations:ibid}{%
+Ibid%
+\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
+\iffieldundef{postnote}{}{, \thefield{postnote}}}%
+}
+
+
+%%%%%%Other official sources
+
+%%Hansard 5.1
+\newbibmacro{cite:hansard}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:hansard:ibid}}{\usebibmacro{cite:hansard:above}}}{\ifciteseen{\usebibmacro{cite:hansard:above}}{\usebibmacro{cite:hansard:full}}}}
+
+
+\newbibmacro{cite:hansard:full}{%
+(\iffieldundef{day}{}{\stripzeros{\thefield{day}}}\iffieldundef{month}{}{ \printfield{month}}\iffieldundef{year}{}{ \printfield{year}})%
+\iffieldundef{volume}{}{ \printfield{volume}}%
+\iffieldundef{title}{}{ \printfield[plain]{title}}%
+\iffieldundef{postnote}{}{ \thefield{postnote}}%
+}
+
+\newbibmacro{cite:hansard:above}{%
+\printfield[plain]{title}, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
+\iffieldundef{postnote}{}{, \thefield{postnote}}%
+}
+
+\newbibmacro{cite:hansard:ibid}{%
 Ibid%
 \ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
 \iffieldundef{postnote}{}{, \thefield{postnote}}}%
@@ -657,6 +690,7 @@ Letter from \printnames{author} to %
 \iffieldequalstr{entrytype}{statute}{\usebibmacro{cite:statute}}{}%
 \iffieldequalstr{entrytype}{bill}{\usebibmacro{cite:bill}}{}%
 \iffieldequalstr{entrytype}{regulations}{\usebibmacro{cite:regulations}}{}%
+\iffieldequalstr{entrytype}{hansard}{\usebibmacro{cite:hansard}}{}%
 \iffieldequalstr{entrytype}{article}{\usebibmacro{cite:article}}{}%
 \iffieldequalstr{entrytype}{book}{\usebibmacro{cite:book}}{}%
 \iffieldequalstr{entrytype}{inbook}{\usebibmacro{cite:inbook}}{}%
