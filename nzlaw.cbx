@@ -1,8 +1,7 @@
 \ProvidesFile{nzlaw.cbx}[2011/09/09 v0.1 citation format for the NZ law style guide]
 
-%word counting can be done by sleectiively disabling commands \def\footnote#1{}
-%Need to do matching of mutliple of the same author
-%Replace all ifthenelse with ifboolexpr
+%word counting can be done by selectively disabling commands \def\footnote#1{} or footcite etc.
+%Need to do matching of multiple of the same author
 
 % What my mapping is to explain the different types of source
 
@@ -76,6 +75,7 @@ andothers = and others,
 \DeclareFieldFormat*{pages}{#1}
 \DeclareFieldFormat*{volume}{#1}
 \DeclareFieldFormat*{file}{#1}
+\DeclareFieldFormat*{url}{#1}
 \DeclareFieldFormat*{type}{#1}
 \DeclareFieldFormat*{journaltitle}{#1}
 \DeclareFieldFormat*{newspaper}{\emph{#1}}
@@ -175,8 +175,7 @@ andothers = and others,
 
 \newbibmacro{cite:case:ibid}{%
 Ibid%
-\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
-\iffieldundef{postnote}{}{, at \thefield{postnote}}}%
+\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
 }
 
 \newbibmacro{cite:case:above}{%
@@ -206,8 +205,7 @@ Ibid%
 
 \newbibmacro{cite:statute:ibid}{%
 Ibid%
-\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
-\iffieldundef{postnote}{}{, \thefield{postnote}}}%
+\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
 }
 
 %%BILL 4.2
@@ -231,8 +229,7 @@ Ibid%
 
 \newbibmacro{cite:bill:ibid}{%
 Ibid%
-\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
-\iffieldundef{postnote}{}{,\iffieldundef{file}{\iffieldundef{note}{}{ at}}{ at} \thefield{postnote}}}%
+\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
 }
 
 %%%Regulations 4.3
@@ -252,8 +249,7 @@ Ibid%
 
 \newbibmacro{cite:regulations:ibid}{%
 Ibid%
-\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
-\iffieldundef{postnote}{}{, \thefield{postnote}}}%
+\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
 }
 
 
@@ -277,8 +273,7 @@ Ibid%
 
 \newbibmacro{cite:hansard:ibid}{%
 Ibid%
-\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
-\iffieldundef{postnote}{}{, \thefield{postnote}}}%
+\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
 }
 
 
@@ -288,15 +283,13 @@ Ibid%
 
 \newbibmacro{cite:appendix:ibid}{%
 Ibid%
-\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
-\iffieldundef{postnote}{}{, at \thefield{postnote}}%
-}%
+\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
 }
 
 \newbibmacro{cite:appendix:above}{%
 \printnames{author}%
 %check if ambigious
-\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
@@ -324,15 +317,13 @@ Ibid%
 
 \newbibmacro{cite:submission:ibid}{%
 Ibid%
-\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
-\iffieldundef{postnote}{}{, at \thefield{postnote}}%
-}%
+\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
 }
 
 \newbibmacro{cite:submission:above}{%
 \printnames{author}%
 %check if ambigious
-\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
+\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
@@ -351,9 +342,7 @@ Ibid%
 
 \newbibmacro{cite:orders:ibid}{%
 Ibid%
-\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
-\iffieldundef{postnote}{}{, at \thefield{postnote}}%
-}%
+\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
 }
 
 \newbibmacro{cite:orders:above}{%
@@ -378,9 +367,7 @@ Ibid%
 
 \newbibmacro{cite:cabinetdoc:ibid}{%
 Ibid%
-\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
-\iffieldundef{postnote}{}{, at \thefield{postnote}}%
-}%
+\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
 }
 
 \newbibmacro{cite:cabinetdoc:above}{%
@@ -407,15 +394,13 @@ Ibid%
 
 \newbibmacro{cite:cabinetman:ibid}{%
 Ibid%
-\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
-\iffieldundef{postnote}{}{, at \thefield{postnote}}%
-}%
+\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
 }
 
 \newbibmacro{cite:cabinetman:above}{%
 Cabinet Office%
 %check if ambigious
-\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{ \textit{Cabinet Manual} \printfield[it]{year}}%
+\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{ \textit{Cabinet Manual} \printfield[it]{year}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
@@ -436,16 +421,14 @@ Cabinet Office \textit{Cabinet Manual}%
 
 \newbibmacro{cite:nzgazette:ibid}{%
 Ibid%
-\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
-\iffieldundef{postnote}{}{, at \thefield{postnote}}%
-}}
+\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}}
 
 
 
 \newbibmacro{cite:nzgazette:above}{%
 \ifnameundef{author}{\printfield[quotes]{title}}{\printnames{author}%
 %check if ambigious
-\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}}%
+\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{, at \thefield{postnote}}%
@@ -467,16 +450,14 @@ Ibid%
 
 \newbibmacro{cite:nzlc:ibid}{%
 Ibid%
-\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
-\iffieldundef{postnote}{}{, at \thefield{postnote}}%
-}}
+\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}}
 
 
 
 \newbibmacro{cite:nzlc:above}{%
 Law Commission%
 %check if ambigious
-\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[it]{title}}%
+\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[it]{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{, at \thefield{postnote}}%
@@ -495,16 +476,14 @@ Law Commission \printfield[it]{title} (NZLC \printfield{number}, \printfield{yea
 
 \newbibmacro{cite:report:ibid}{%
 Ibid%
-\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
-\iffieldundef{postnote}{}{, at \thefield{postnote}}%
-}}
+\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}}
 
 
 
 \newbibmacro{cite:report:above}{%
 \printnames{author}%
 %check if ambigious
-\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[it]{title}}%
+\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[it]{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{, at \thefield{postnote}}%
@@ -519,10 +498,7 @@ Ibid%
 %%%%%%BOOK  6.1, 6.3
 \newbibmacro{cite:book:ibid}{%
 Ibid%
-\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
-\iffieldundef{postnote}{}{%
-\ifin{ch }{\thefield{postnote}}{, at \thefield{postnote}}{, at [\thefield{postnote}]}%
-}}%
+\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{\ifin{ch }{\thefield{postnote}}{, at \thefield{postnote}}{, at [\thefield{postnote}]}}%
 }
 
 \newbibmacro{cite:book}{%
@@ -535,14 +511,14 @@ Ibid%
 \ifnameundef{editor}{%
 %if no editor you lose
 }{%
-\printnames{editor} \ifthenelse{\value{editor}>1}{(eds)}{%
+\printnames{editor} \ifnumcomp{\value{editor}}{>}{1}{(eds)}{%
 \ifandothers{editor}{(eds)}{(ed)}%
 }%
 }}%
 {\printnames{author}}%
 %
 %check if ambigious
-\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[it]{title}}%
+\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[it]{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{,\ifin{ch }{\thefield{postnote}}{ at \thefield{postnote}}{ at [\thefield{postnote}]}}%
@@ -554,7 +530,7 @@ Ibid%
 \ifnameundef{editor}{%
 %if no editor you lose
 }{%
-\printnames{editor} \ifthenelse{\value{editor}>1}{(eds)}{\ifandothers{editor}{(eds)}{(ed)}}%
+\printnames{editor} \ifnumcomp{ \value{editor}}{>}{1}{(eds)}{\ifandothers{editor}{(eds)}{(ed)}}%
 }}%
 {\printnames{author}}%
 %
@@ -592,15 +568,13 @@ Ibid%
 
 \newbibmacro{cite:inbook:ibid}{%
 Ibid%
-\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
-\iffieldundef{postnote}{}{, at \thefield{postnote}}%
-}%
+\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
 }
 
 \newbibmacro{cite:inbook:above}{%
 \printnames{author}%
 %check if ambigious
-\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
+\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
@@ -611,22 +585,22 @@ Ibid%
 \printnames{author} \printfield[quotes]{title}%
 %Stuff if this isn't an above n x citation
 %First cite the book 
-{\addspace}in\addspace\printnames{editor}\addspace\ifthenelse{\value{editor}>1}{(eds)}{\ifandothers{editor}{(eds)}{(ed)}}%
+{\addspace}in\addspace\printnames{editor}\addspace\ifnumcomp{\value{editor}}{>}{1}{(eds)}{\ifandothers{editor}{(eds)}{(ed)}}%
 \addspace\printfield[it]{booktitle}%
 %if there is edition, publisher, location or year info print ()
-\ifthenelse{\iffieldundef{edition} \and  \iflistundef{publisher} \and \iflistundef{location} \and \iffieldundef{year} }{}
+\ifboolexpr{ test {\iffieldundef{edition}} and  test {\iflistundef{publisher}} and test {\iflistundef{location}} and test {\iffieldundef{year}} }{}
 {\addspace(%
 \iffieldundef{edition}{}{\iffieldequalstr{edition}{1st}{}{\printfield{edition} ed%
 %check if you need an ,
-\ifthenelse{\iflistundef{publisher} \and \iflistundef{location} \and \iffieldundef{year} }{}{, }% 
+\ifboolexpr{ test {\iflistundef{publisher}} and test {\iflistundef{location}} and test {\iffieldundef{year}} }{}{, }% 
 }}%finished with edition, now try publisher
 \iflistundef{publisher}{}{\printlist{publisher}%
 %check for ,
-\ifthenelse{\iflistundef{location} \and \iffieldundef{year} }{}{, }% 
+\ifboolexpr{ test {\iflistundef{location}} and test {\iffieldundef{year}} }{}{, }% 
 }%end publisher
 \iflistundef{location}{}{\printlist{location}%
 %check for ,
-\ifthenelse{\iffieldundef{year} }{}{, }%
+\iffieldundef{year}{}{, }%
 }%
 \printfield{year}\iffieldundef{endyear}{}{--\printfield{endyear}}%
 %print closing brace which must  be needed
@@ -644,15 +618,13 @@ Ibid%
 
 \newbibmacro{cite:article:ibid}{%
 Ibid%
-\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
-\iffieldundef{postnote}{}{, at \thefield{postnote}}%
-}%
+\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
 }
 
 \newbibmacro{cite:article:above}{%
 \printnames{author}%
 %check if ambigious
-\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
+\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
@@ -687,19 +659,17 @@ Ibid%
 
 \newbibmacro{cite:reference:ibid}{%
 Ibid%
-\ifthenelse{\equal{\thefield{postnote}}{\csuse{cbx@p@\thefield{entrykey}}}}{}{%
-\iffieldundef{postnote}{}{, at [\thefield{postnote}]}%
-}%
+\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at [\thefield{postnote}]}%
 }
 
 
 \newbibmacro{cite:reference:above}{%
 \printfield[it]{title}%
 %check if ambigious
-\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
+\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{ \printfield[it]{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 \iffieldundef{postnote}{}{%
-,{\addspace}at{\addspace}[\thefield{postnote}]%
+, at [\thefield{postnote}]%
 }
 }
 
@@ -708,17 +678,17 @@ Ibid%
 \printfield[it]{title}%
 \iffieldequalstr{title}{Laws of New Zealand}{%
 %NZ laws case
-\iffieldundef{topic}{}{\addspace\printfield{topic}}%
-\iffieldundef{reissue}{}{{\addspace}(\printfield{reissue})}%
-\iffieldundef{ed}{}{{\addspace}(\printfield{ed}{\addspace}ed)}%
+\iffieldundef{label}{}{ \printfield{label}}%
+\iffieldundef{note}{}{ (\printfield{note})}%
+\iffieldundef{edition}{}{\iffieldequalstr{edition}{1st}{}{ (\printfield{edition} ed)}}%
 }{%
 {\addspace}(%
-\iffieldundef{ed}{}{{\addspace}\printfield{ed}{\addspace}ed}%
-\iffieldundef{reissue}{}{,{\addspace}(\printfield{reissue})}%
-\iffieldundef{year}{}{,{\addspace}\printfield{year}}%
+\iffieldundef{edition}{}{\iffieldequalstr{edition}{1st}{}{\printfield{edition} ed}}%
+\iffieldundef{note}{}{\iffieldundef{edition}{}{\iffieldequalstr{edition}{1st}{}{, }}\printfield{note}}%
+\iffieldundef{year}{}{\ifboolexpr{ test{\iffieldundef{note}} and ( test {\iffieldundef{edition}} or test{\iffieldequalstr{edition}{1st}} )}{}{, }\printfield{year}}%
 )%
 \iffieldundef{volume}{}{{\addspace}vol\addspace\printfield{volume}}%
-\iffieldundef{topic}{}{\addspace\printfield{topic}}%
+\iffieldundef{label}{}{\addspace\printfield{label}}%
 %general case
 }%
 \iffieldundef{postnote}{}{%
@@ -734,15 +704,14 @@ Ibid%
 \newbibmacro{cite:thesis:ibid}{%
 Ibid%
 %pinpoint part if it is there
-\iffieldundef{postnote}{}{%
-\ifin{ch }{\thefield{postnote}}{, at \thefield{postnote}}{, at [\thefield{postnote}]}%
-}}
+\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{\ifin{ch }{\thefield{postnote}}{, at \thefield{postnote}}{, at [\thefield{postnote}]}}%
+}
 
 
 \newbibmacro{cite:thesis:above}{%
 \printnames{author}%
 %check if ambigious
-\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
+\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
@@ -773,15 +742,14 @@ Ibid%
 \newbibmacro{cite:unpublished:ibid}{%
 Ibid%
 %pinpoint part if it is there
-\iffieldundef{postnote}{}{%
-\ifin{ch }{\thefield{postnote}}{, at \thefield{postnote}}{, at [\thefield{postnote}]}%
-}}
+\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
+}
 
 
 \newbibmacro{cite:unpublished:above}{%
 \printnames{author}%
 %check if ambigious
-\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
+\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
@@ -791,12 +759,17 @@ Ibid%
 
 \newbibmacro{cite:unpublished:full}{%
 \printnames{author}%
-%first time seen
+\iffieldundef{authortype}{}{, \printfield{authortype}}%
 \addspace\printfield[quotes]{title}%
 {\addspace}(%
-\iffieldundef{}{\printfield{type}}%
-\iflistundef{location}{}{\iffieldundef{type}{}{,}\addspace\printlist{location}}%
-\iffieldundef{year}{}{,{\addspace}\printfield{year}}%
+\iffieldundef{type}{}{\iffieldequalstr{type}{paper}{paper presented to}{speech to}}%
+\iflistundef{location}{}{\iffieldundef{type}{}{ }\printlist{location}}%
+\ifboolexpr{ test {\iffieldundef{day}} and test {\iffieldundef{month}} and test {\iffieldundef{year}} }{}{%
+,%
+\iffieldundef{day}{}{ \printfield{day}}%,%
+\iffieldundef{month}{}{ \printfield{month}}%
+\iffieldundef{year}{}{ \printfield{year}}%
+}%
 )%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
@@ -815,14 +788,13 @@ Ibid%
 \newbibmacro{cite:online:ibid}{%
 Ibid%
 %pinpoint part if it is there
-\iffieldundef{postnote}{}{%
-, at \thefield{postnote}%
-}}
+\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
+}
 
 \newbibmacro{cite:online:above}{%
 \printnames{author}%
 %check if ambigious
-\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
+\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 \iffieldundef{postnote}{}{,  at \thefield{postnote}}%
 }
@@ -844,26 +816,28 @@ Ibid%
 \newbibmacro{cite:press:ibid}{%
 Ibid%
 %pinpoint part if it is there
-\iffieldundef{postnote}{}{%
-, at \thefield{postnote}%
-}}
+\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
+}
 
 \newbibmacro{cite:press:above}{%
 \printnames{author}%
 %check if ambigious
-\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield[quotes]{title}}%
+\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 \iffieldundef{postnote}{}{, at \thefield{postnote}}%
 }
 
 \newbibmacro{cite:press:full}{%
-\printnames{author}%
-\addspace\printfield[quotes]{title}%
-\iffieldundef{newspaper}{}{\addspace\printfield{newspaper}}%
+\ifnameundef{author}{}{\printnames{author}\addspace}%
+\printfield[quotes]{title}%
+\iflistundef{publisher}{}{ \printlist[it]{publisher}}%
 {\addspace}(%
-\iffieldundef{description}{}{\printfield{description}}%
+\iffieldundef{type}{}{\printfield{type}\iflistundef{location}{}{, }}%
 \iflistundef{location}{}{\printlist{location}}%
-\iffieldundef{year}{}{, \printfield{year}}%
+,%
+\iffieldundef{day}{}{ \printfield{day}}%,%
+\iffieldundef{month}{}{ \printfield{month}}%
+\iffieldundef{year}{}{ \printfield{year}}%
 )%
 \iffieldundef{postnote}{}{, at \thefield{postnote}}%
 }
@@ -871,35 +845,30 @@ Ibid%
 %%%%%%%%%%% Interview     7.3 Interview
 \newbibmacro{cite:interview}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:interview:ibid}}{\usebibmacro{cite:interview:above}}}{\ifciteseen{\usebibmacro{cite:interview:above}}{\usebibmacro{cite:interview:full}}}}
 
-\newbibmacro{cite:interview:ibid}{Ibid}
+\newbibmacro{cite:interview:ibid}{Ibid%
+\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
+}
 
-\newbibmacro{cite:interview:above}{}
+\newbibmacro{cite:interview:above}{UNIMPLEMENTED}
 
-\newbibmacro{cite:interview:full}{}
+\newbibmacro{cite:interview:full}{UNIMPLEMENTED}
 
-
-%%%%%%%%%%% Speech        7.5 Speech
-\newbibmacro{cite:speech}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:speech:ibid}}{\usebibmacro{cite:speech:above}}}{\ifciteseen{\usebibmacro{cite:speech:above}}{\usebibmacro{cite:speech:full}}}}
-
-\newbibmacro{cite:speech:ibid}{Ibid}
-
-\newbibmacro{cite:speech:above}{}
-
-\newbibmacro{cite:speech:full}{}
 
 %%%%%%%%%%% mail          7.6 Letters \ mail 
 \newbibmacro{cite:mail}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:mail:ibid}}{\usebibmacro{cite:mail:above}}}{\ifciteseen{\usebibmacro{cite:mail:above}}{\usebibmacro{cite:mail:full}}}}
 
-\newbibmacro{cite:mail:ibid}{Ibid}
+\newbibmacro{cite:mail:ibid}{Ibid%
+\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
+}
 
 \newbibmacro{cite:mail:above}{%
 \printnames{author}%
-\ifthenelse{\equal{\csuse{cbx@a@\thefield{entrykey}}}{false}}{}{\addspace\printfield{title}}%
+\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 }
 
 \newbibmacro{cite:mail:full}{%
-Letter from \printnames{author} to %
+UNIMPLEMENTED
 }
 
 
@@ -909,13 +878,13 @@ Letter from \printnames{author} to %
 \newbibmacro{cite:stuff}{%
 \usebibmacro{cite:savetitle}%Save previous title. used for aff'd and rev'd in cases
 %check if the citation needs to be checked for author clashes
-\ifthenelse{\value{citetotal}>1}{%There is more than one citation in this footnote
+\ifnumcomp{\value{citetotal}}{>}{1}{%There is more than one citation in this footnote
 \usebibmacro{cite:addtolist}{\thefield{entrykey}}%
-\ifthenelse{\value{citetotal}=\value{citecount}}{\forlistloop{\checkambdo}{\mylist}\usebibmacro{cite:clearlist}}{}%
+\ifnumcomp{\value{citetotal}}{=}{\value{citecount}}{\forlistloop{\checkambdo}{\mylist}\usebibmacro{cite:clearlist}}{}%
 }{%other wise only one thing has been passed in. It cannot be unique, but only needs recording if it is new
 \usebibmacro{cite:safe:saveamb}{false}%
 }%
-\ifthenelse{\ifciteseen}{}{\usebibmacro{cite:savepos}}%save the position of all initial placings
+\ifciteseen{}{\usebibmacro{cite:savepos}}%save the position of all initial placings
 %Generic citation stuff
 \iffieldequalstr{entrytype}{case}{\usebibmacro{cite:case}}{}%
 \iffieldequalstr{entrytype}{statute}{\usebibmacro{cite:statute}}{}%
@@ -939,7 +908,6 @@ Letter from \printnames{author} to %
 \iffieldequalstr{entrytype}{online}{\usebibmacro{cite:online}}{}%
 \iffieldequalstr{entrytype}{press}{\usebibmacro{cite:press}}{}%
 \iffieldequalstr{entrytype}{interview}{\usebibmacro{cite:interview}}{}%
-\iffieldequalstr{entrytype}{speech}{\usebibmacro{cite:speech}}{}%
 \iffieldequalstr{entrytype}{mail}{\usebibmacro{cite:mail}}{}%
 %
 %For any kind of citation, save the postnote to check if Ibid citations need to print their post note
