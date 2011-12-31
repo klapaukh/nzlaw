@@ -140,10 +140,8 @@
 
 %%Useful macros
 \newcommand{\shortquote}[1]{``#1''}
-\newcommand{\longquote}[1]{\begin{quote}
-\fontsize{11pt}{13.75pt}\selectfont
-#1
-\end{quote}}
+\newenvironment{longquote}{\begin{quote}
+\fontsize{11pt}{13.75pt}\selectfont}{\end{quote}}
 
 %Set the picture used by the enumerate command
 %per level 
