@@ -537,7 +537,6 @@ Ibid%
 %Print the title in italics
 \iffieldundef{title}{}{ \printfield[it]{title}}%
 %if there is edition, publisher, location or year info print ()
-\tracingmacros=1
 \ifboolexpr{ test {\iffieldundef{edition}} and test {\iflistundef{publisher}}  and  test {\iflistundef{location}} and test {\iffieldundef{year}}  }{}
 { (%
 \iffieldundef{edition}{}{\iffieldequalstr{edition}{1st}{}{\printfield{edition} ed%
