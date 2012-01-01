@@ -104,32 +104,42 @@ andothers = and others,
 \newbibmacro*{cite:saveamb}[1]{%
 \csxdef{cbx@a@\thefield{entrykey}}{#1}}
 
-\newbibmacro*{cite:saveauthor}[2]{%
-\csdef{cbx@w@#1}{#2}%
-}
+\newbibmacro*{cite:other:saveamb}[2]{%
+#1}%\csxdef{cbx@a@#1}{#2}}
 
 \newbibmacro*{cite:safe:saveamb}[1]{%
 \ifcsundef{cbx@p@\thefield{entrykey}}{\usebibmacro{cite:saveamb}{#1}}{}}
 
-\newbibmacro*{cite:safe:withentry:saveamb}[2]{%
-\ifcsundef{cbx@p@#1}{\usebibmacro{cite:saveamb}{#2}}{}}
-
 %This is the super special awesome code that assigns ambiguity \listbreak = break
-%\usebibmacro{cite:safe:withentry:saveamb}{#1}{true}}
-%\def\citedo [#1]{xx }%
-\newcommand{\checkambdo}[1]{%\usebibmacro{cite:safe:withentry:saveamb}{#1}{true}}
-\ifcsundef{cbx@p@#1}{\entrydata{#1}{\csxdef{cbx@ol@ma}{\printnames[compareOuter]{author}}}\forlistloop{\citeinnerambdo{#1}}{\mylist}}{}}
 
-\newcommand{\citeinnerambdo}[2]{\ifstrequal{#1}{#2}{}{\csuse{cbx@ol@ma} x }}
+\newcounter{index}
+\newcounter{entryindex}
+\newcounter{authorhits}
 
+%\newcommand{\myifstrequal}[4]{\tracingmacros=1\edef\mytemp{\noexpand\ifstrequal{#1}{#2}{#3}{#4}}\mytemp}
+
+%\newcommand{\mylistxadd}[2]{\edef\mytemp{\noexpand\listxadd{#1}{#2}}\mytemp}
+
+\newcommand{\myprintnames}[1]{\edef\mytemp{\noexpand\printnames{#1}}\mytemp}
+
+\newcommand{\checkifin}[1]{#1 \ifnumequal{\value{authorhits}}{0}{\stepcounter{index}}{}\ifstrequal{#1}{\printnames{author}}{\stepcounter{authorhits}\ifnumequal{\value{authorhits}}{2}{\usebibmacro{cite:saveamb}{true}\forlistloop{\markotherentry}{\myentrylist}\listbreak}{}}{}}
+
+\newcommand{\markotherentry}[1]{}%\stepcounter{entryindex}\ifnumequal{\value{index}}{\value{entryindex}}{\usebibmacro{cite:other:saveamb}{#1}{true}\listbreak}{}}
 
 %need to use etoolbox for ambiguity. listxadd, xifinlist etc. 
 %ifstrequal{string}{string}{true}{false}
+%important main method
 \newbibmacro*{cite:addtolist}[1]{%
-\listxadd{\mylist}{#1}}
+\iffieldequalstr{entrytype}{case}{}{% Ignore cases
+\listxadd{\myauthorlist}{\myprintnames{author}}%
+\listxadd{\myentrylist}{\thefield{entrykey}}%
+\setcounter{authorhits}{0}%
+\setcounter{index}{0}%
+\setcounter{entryindex}{0}%
+\forlistloop{\checkifin}{\myauthorlist}%
+}}
 
-
-\newbibmacro*{cite:clearlist}{\global\undef{\mylist}}
+\newbibmacro*{cite:clearlist}{\global\undef{\myauthorlist}\global\undef{\myentrylist}}
 %%%%%%%%%%% Specific definitions for citation types
 
 %%%%%%CASES  3.*
@@ -166,7 +176,7 @@ andothers = and others,
 \newbibmacro{cite:case:maori:full}{%
 \iffieldundef{prenote}{\printfield[it]{title} --}{\thefield{prenote}\iffieldequalcs{title}{cbx@title}{}{ \printfield[it]{title} --}}%
 \iflistundef{location}{}{ \printlist[it]{location}}%
-\iffieldundef{year}{}{ (\printfield{year})}
+\iffieldundef{year}{}{ (\printfield{year})}%
 \iffieldundef{file}{}{ \printfield{file}}%
 \iffieldundef{note}{}{ (\printfield{note})}%
 \iffieldundef{postnote}{}{ at \printfield{postnote}}%
@@ -549,7 +559,7 @@ Ibid%
 }%end publisher
 \iflistundef{location}{}{\printlist{location}%
 %check for ,
-\iffieldundef{year}{}{, }
+\iffieldundef{year}{}{, }%
 }%
 \iffieldundef{year}{}{\printfield{year}\iffieldundef{endyear}{}{--\printfield{endyear}}}%
 %print close brakets if needed
@@ -876,13 +886,11 @@ UNIMPLEMENTED
 %%%% Dispatches different kinds of citations
 \newbibmacro{cite:stuff}{%
 \usebibmacro{cite:savetitle}%Save previous title. used for aff'd and rev'd in cases
+\ifciteseen{}{\usebibmacro{cite:saveamb}{false}}% every citation is initially unseen
 %check if the citation needs to be checked for author clashes
 \ifnumcomp{\value{citetotal}}{>}{1}{%There is more than one citation in this footnote
-\usebibmacro{cite:addtolist}{\thefield{entrykey}}%
-\ifnumcomp{\value{citetotal}}{=}{\value{citecount}}{\forlistloop{\checkambdo}{\mylist}\usebibmacro{cite:clearlist}}{}%
-}{%other wise only one thing has been passed in. It cannot be unique, but only needs recording if it is new
-\usebibmacro{cite:safe:saveamb}{false}%
-}%
+\usebibmacro{cite:addtolist}{\thefield{entrykey}}%Check each citation if it is ambigous
+\ifnumcomp{\value{citetotal}}{=}{\value{citecount}}{\usebibmacro{cite:clearlist}}{}}{}%delete the  list after you have finished
 \ifciteseen{}{\usebibmacro{cite:savepos}}%save the position of all initial placings
 %Generic citation stuff
 \iffieldequalstr{entrytype}{case}{\usebibmacro{cite:case}}{}%
