@@ -338,7 +338,7 @@ Ibid%
 \newbibmacro{cite:submission:above}{%
 \printnames{author}%
 %check if ambigious
-\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
@@ -415,7 +415,7 @@ Ibid%
 \newbibmacro{cite:cabinetman:above}{%
 Cabinet Office%
 %check if ambigious
-\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{ \textit{Cabinet Manual} \printfield[it]{year}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{ \textit{Cabinet Manual} \printfield[it]{year}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
@@ -443,7 +443,7 @@ Ibid%
 \newbibmacro{cite:nzgazette:above}{%
 \ifnameundef{author}{\printfield[quotes]{title}}{\printnames{author}%
 %check if ambigious
-\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{, at \thefield{postnote}}%
@@ -472,7 +472,7 @@ Ibid%
 \newbibmacro{cite:nzlc:above}{%
 Law Commission%
 %check if ambigious
-\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[it]{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[it]{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{, at \thefield{postnote}}%
@@ -498,7 +498,7 @@ Ibid%
 \newbibmacro{cite:report:above}{%
 \printnames{author}%
 %check if ambigious
-\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[it]{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[it]{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{, at \thefield{postnote}}%
@@ -533,7 +533,7 @@ Ibid%
 {\printnames{author}}%
 %
 %check if ambigious
-\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[it]{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[it]{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{,\ifin{ch }{\thefield{postnote}}{ at \thefield{postnote}}{ at [\thefield{postnote}]}}%
@@ -588,7 +588,7 @@ Ibid%
 \newbibmacro{cite:inbook:above}{%
 \printnames{author}%
 %check if ambigious
-\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
@@ -638,7 +638,7 @@ Ibid%
 \newbibmacro{cite:article:above}{%
 \printnames{author}%
 %check if ambigious
-\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
@@ -680,7 +680,7 @@ Ibid%
 \newbibmacro{cite:reference:above}{%
 \printfield[it]{title}%
 %check if ambigious
-\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{ \printfield[it]{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{ \printfield[it]{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 \iffieldundef{postnote}{}{%
 , at [\thefield{postnote}]%
@@ -725,7 +725,7 @@ Ibid%
 \newbibmacro{cite:thesis:above}{%
 \printnames{author}%
 %check if ambigious
-\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
@@ -763,7 +763,7 @@ Ibid%
 \newbibmacro{cite:unpublished:above}{%
 \printnames{author}%
 %check if ambigious
-\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
@@ -808,7 +808,7 @@ Ibid%
 \newbibmacro{cite:online:above}{%
 \printnames{author}%
 %check if ambigious
-\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 \iffieldundef{postnote}{}{,  at \thefield{postnote}}%
 }
@@ -836,7 +836,7 @@ Ibid%
 \newbibmacro{cite:press:above}{%
 \printnames{author}%
 %check if ambigious
-\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 \iffieldundef{postnote}{}{, at \thefield{postnote}}%
 }
@@ -877,7 +877,7 @@ Ibid%
 
 \newbibmacro{cite:mail:above}{%
 \printnames{author}%
-\ifcsstringl{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 }
 
