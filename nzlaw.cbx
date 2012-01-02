@@ -86,7 +86,7 @@ andothers = and others,
 %%%%%%%%%%% MACROS THAT ARE SUPER IMPORTANT
 
 %Magic for checking substrings using \in@ but forcing expansion
-\newcommand\ifin[2]{\edef\temp{\noexpand\in@{#1}{#2}}\temp\ifin@\expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi}
+\newcommand\ifin[2]{\begingroup\edef\temp{\endgroup\noexpand\in@{#1}{#2}}\temp\ifin@\expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi}
 
 %magic to save what the previous number of a citation is
 \newbibmacro*{cite:savepos}{%
@@ -118,20 +118,25 @@ andothers = and others,
 
 %\newcommand{\myifstrequal}[4]{\tracingmacros=1\edef\mytemp{\noexpand\ifstrequal{#1}{#2}{#3}{#4}}\mytemp}
 
-%\newcommand{\mylistxadd}[2]{\edef\mytemp{\noexpand\listxadd{#1}{#2}}\mytemp}
+\newcommand{\mylistxadd}[2]{\begingroup\edef\mytemp{\endgroup\listxadd{\noexpand#1}{#2}}\mytemp}
 
-\newcommand{\myprintnames}[1]{\edef\mytemp{\noexpand\printnames{#1}}\mytemp}
+\newcommand{\mythename}[1]{\begingroup\edef\mytemp{\endgroup\thename{#1}}\mytemp}
 
-\newcommand{\checkifin}[1]{#1 \ifnumequal{\value{authorhits}}{0}{\stepcounter{index}}{}\ifstrequal{#1}{\printnames{author}}{\stepcounter{authorhits}\ifnumequal{\value{authorhits}}{2}{\usebibmacro{cite:saveamb}{true}\forlistloop{\markotherentry}{\myentrylist}\listbreak}{}}{}}
+%\newcommand{\myprintnames}[1]{\begingroup\edef\mytemp{\endgroup\printnames{#1}}\mytemp}
 
-\newcommand{\markotherentry}[1]{}%\stepcounter{entryindex}\ifnumequal{\value{index}}{\value{entryindex}}{\usebibmacro{cite:other:saveamb}{#1}{true}\listbreak}{}}
+\newcommand{\checkifin}[1]{\tracingmacros=1\ifnumequal{\value{authorhits}}{0}{\stepcounter{index}}{}\expandafter\ifdefstring{\mythename{author}}{#1}{FOUND!\stepcounter{authorhits}\ifnumequal{\value{authorhits}}{2}{\usebibmacro{cite:saveamb}{true}\forlistloop{\markotherentry}{\myentrylist}\listbreak}{}}{}\tracingmacros=0}
+
+\newcommand{\markotherentry}[1]{\stepcounter{entryindex}\ifnumequal{\value{index}}{\value{entryindex}}{\usebibmacro{cite:other:saveamb}{#1}{true}\listbreak}{}}
 
 %need to use etoolbox for ambiguity. listxadd, xifinlist etc. 
 %ifstrequal{string}{string}{true}{false}
 %important main method
 \newbibmacro*{cite:addtolist}[1]{%
+%{\tt\meaning\printnames}\\%
+%{\tt\makeatletter\meaning\blx@listargs\makeatletter}\\%
+%{\tt\makeatletter\meaning\blx@printnames\makeatletter}\\%
 \iffieldequalstr{entrytype}{case}{}{% Ignore cases
-\listxadd{\myauthorlist}{\myprintnames{author}}%
+\mylistxadd{\myauthorlist}{\thename{author}}%
 \listxadd{\myentrylist}{\thefield{entrykey}}%
 \setcounter{authorhits}{0}%
 \setcounter{index}{0}%
