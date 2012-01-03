@@ -104,11 +104,7 @@ andothers = and others,
 \newbibmacro*{cite:saveamb}[1]{%
 \csxdef{cbx@a@\thefield{entrykey}}{#1}}
 
-\newbibmacro*{cite:other:saveamb}[2]{%
-#1}%\csxdef{cbx@a@#1}{#2}}
-
-\newbibmacro*{cite:safe:saveamb}[1]{%
-\ifcsundef{cbx@p@\thefield{entrykey}}{\usebibmacro{cite:saveamb}{#1}}{}}
+\newbibmacro*{cite:other:saveamb}[2]{\csxdef{cbx@a@#1}{#2}}
 
 %This is the super special awesome code that assigns ambiguity \listbreak = break
 
@@ -116,15 +112,11 @@ andothers = and others,
 \newcounter{entryindex}
 \newcounter{authorhits}
 
-%\newcommand{\myifstrequal}[4]{\tracingmacros=1\edef\mytemp{\noexpand\ifstrequal{#1}{#2}{#3}{#4}}\mytemp}
-
 \newcommand{\mylistxadd}[2]{\begingroup\edef\mytemp{\endgroup\listxadd{\noexpand#1}{#2}}\mytemp}
 
-\newcommand{\mythename}[1]{\begingroup\edef\mytemp{\endgroup\thename{#1}}\mytemp}
+\newcommand{\ifeq}[2]{\begingroup\edef\mytempfirstauthor{#1}\edef\mytempsecondauthor{#2}\ifx\mytempfirstauthor\mytempsecondauthor \endgroup\expandafter\@firstoftwo\else\endgroup\expandafter\@secondoftwo\fi}
 
-%\newcommand{\myprintnames}[1]{\begingroup\edef\mytemp{\endgroup\printnames{#1}}\mytemp}
-
-\newcommand{\checkifin}[1]{\tracingmacros=1\ifnumequal{\value{authorhits}}{0}{\stepcounter{index}}{}\expandafter\ifdefstring{\mythename{author}}{#1}{FOUND!\stepcounter{authorhits}\ifnumequal{\value{authorhits}}{2}{\usebibmacro{cite:saveamb}{true}\forlistloop{\markotherentry}{\myentrylist}\listbreak}{}}{}\tracingmacros=0}
+\newcommand{\checkifin}[1]{\ifnumequal{\value{authorhits}}{0}{\stepcounter{index}}{}\expandafter\ifeq{\thename{author}}{#1}{\stepcounter{authorhits}\ifnumequal{\value{authorhits}}{2}{\usebibmacro{cite:saveamb}{true}\forlistloop{\markotherentry}{\myentrylist}\listbreak}{}}{}}
 
 \newcommand{\markotherentry}[1]{\stepcounter{entryindex}\ifnumequal{\value{index}}{\value{entryindex}}{\usebibmacro{cite:other:saveamb}{#1}{true}\listbreak}{}}
 
