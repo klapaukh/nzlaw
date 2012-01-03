@@ -935,6 +935,14 @@ UNIMPLEMENTED
 {\multicitedelim} % what to put between citations
 {}  %code to run after citation 
 
+
+%Only \cite is declared to give non footnote citations for bibliography and example printing
+\DeclareCiteCommand{\cite}
+{} %precode - before citation stuff - should just do nothing
+{\usebibmacro{cite:stuff}} % how to actually print a citation
+{\multicitedelim} % what to put between citations
+{}  %code to run after citation 
+
 \endinput
 
 

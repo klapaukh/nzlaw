@@ -1,6 +1,8 @@
 \documentclass{nzlaw}
 \usepackage{float}
+\usepackage{minted}
 
+\addbibresource{sample.bib}
 \lhead{}
 \newcommand{\s}{\textbackslash}
 \newcommand{\latex}{\LaTeX}
@@ -64,4 +66,114 @@ Underline & {\s}underline & {\s}underline\{some text\} \\
 \end{tabular}
 \caption{Text Formatting Commands}
 \end{table}
+
+\section{General Rules: Footnotes and the Citation of Sources}
+
+
+
+\section{Cases}
+
+\subsection{Principles for Citing Cases}
+
+\subsubsection{Neutral Citations}
+Neutral citations are written as follows
+\begin{minted}{latex}
+@case{astrazeneca,
+title={AstraZeneca Ltd v Comerce Commission},
+origdate={2009},
+venue={NZSC},
+number={92},
+}
+\end{minted}
+
+to get \cite{astrazeneca}.
+
+\subsection{Reported Cases}
+If they have a neutral citation they contain the neutral citation, as well as whatever extra information is needed. Otherwise they just have whatever information is available
+
+\begin{minted}{latex}
+@case{z,
+title = {Z v Dental Complaints Assessment Committee},
+origdate = {2008},
+court = {NZSC},
+number = {55},
+year ={2009},
+volume = {1},
+series = {NZLR},
+pages = {1},
+}
+\end{minted}
+
+\begin{minted}{latex}
+@case{taylor,
+title = {Taylor v New Zealand Poultry Board},
+year ={1984},
+volume = {1},
+series = {NZLR},
+pages = {394},
+venue = {CA},
+}
+\end{minted}
+\subsubsection{Common Names}
+
+Common names are included as shorttitle.
+\begin{minted}{latex}
+@case{baigents,
+title = {Simpson v Attorney-General},
+year = {1994},
+volume = {3},
+series = {NZLR},
+pages = {667},
+venue = {CA},
+shorttitle = {Baigent's case},
+}
+\end{minted}
+
+\subsubsection{Year}
+
+Round brackets for the year can be forced by including type = {round}.
+\begin{minted}{latex}
+@case{peterson,
+title = {Peterson v Commissioner of Inland Revenue},
+year = {2005},
+volume = {22},
+series = {NZTC},
+pages = {\num{19098}},
+venue = {PC},
+type = {round},
+}
+\end{minted}
+
+
+Old style ones where both round brackets and no court brackets are used are done with type = {old}.
+\begin{minted}{latex}
+@case{zohrab,
+title = {Zohrab v Fuller},
+year = {1884},
+volume = {3},
+series = {NZLR},
+venue = {SC},
+pages = {210},
+type = {old},
+}
+\end{minted}
+
+\subsubsection{Starting Page}
+
+The pilcrow sign (\textparagraph) can be printed with {\s}textpilcrow.
+
+\begin{minted}{latex}
+@case{blacker,
+title = {Blacker v National Australis Bank Ltd},
+origdate = {2001},
+year = {2001},
+venue = {FCA},
+number = {254},
+volume = {23},
+type = {round},
+series = {ATPR},
+pages = {\textparagraph41-- 817},
+}
+\end{minted}
+
 \end{document}
