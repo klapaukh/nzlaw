@@ -55,10 +55,10 @@
 \titleformat*{\subsection}{\itshape}
 \titleformat*{\subsubsection}{\itshape}
 \titleformat{\paragraph}[hang]{\rm}{\theparagraph}{1em}{}
-\titlespacing*{\paragraph}{0pt}{1.25ex plus 0.5ex minus 0.25 ex}{1ex}
+\titlespacing*{\paragraph}{2em}{1.25ex plus 0.5ex minus 0.25 ex}{1ex}
 
 \titleformat{\subparagraph}[hang]{\rm}{\thesubparagraph}{1em}{}
-\titlespacing*{\subparagraph}{0pt}{1.25ex plus 0.5ex minus 0.25 ex}{1ex}
+\titlespacing*{\subparagraph}{2em}{1.25ex plus 0.5ex minus 0.25 ex}{1ex}
 %make paragraph and subparagraph have own line
 %\titlespacing*{\subparagraph}{}{3.25ex plus 1ex minus .2ex}{.75ex plus .1ex}
 
