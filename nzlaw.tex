@@ -6,6 +6,9 @@
 \lhead{}
 \newcommand{\s}{\textbackslash}
 \newcommand{\latex}{\LaTeX}
+
+\newminted[bib]{latex}{linenos=false,fontfamily=helvetica}
+\usemintedstyle{vim}
 \begin{document}
 \title{NZ Law Latex Style Instructions}
 \author{Roman Klapaukh}
@@ -77,21 +80,21 @@ Underline & {\s}underline & {\s}underline\{some text\} \\
 
 \subsubsection{Neutral Citations}
 Neutral citations are written as follows
-\begin{minted}{latex}
+\begin{bib}
 @case{astrazeneca,
 title={AstraZeneca Ltd v Comerce Commission},
 origdate={2009},
 venue={NZSC},
 number={92},
 }
-\end{minted}
+\end{bib}
 
 to get \cite{astrazeneca}.
 
 \subsection{Reported Cases}
 If they have a neutral citation they contain the neutral citation, as well as whatever extra information is needed. Otherwise they just have whatever information is available
 
-\begin{minted}{latex}
+\begin{bib}
 @case{z,
 title = {Z v Dental Complaints Assessment Committee},
 origdate = {2008},
@@ -102,9 +105,9 @@ volume = {1},
 series = {NZLR},
 pages = {1},
 }
-\end{minted}
+\end{bib}
 
-\begin{minted}{latex}
+\begin{bib}
 @case{taylor,
 title = {Taylor v New Zealand Poultry Board},
 year ={1984},
@@ -113,11 +116,11 @@ series = {NZLR},
 pages = {394},
 venue = {CA},
 }
-\end{minted}
+\end{bib}
 \subsubsection{Common Names}
 
 Common names are included as shorttitle.
-\begin{minted}{latex}
+\begin{bib}
 @case{baigents,
 title = {Simpson v Attorney-General},
 year = {1994},
@@ -127,12 +130,12 @@ pages = {667},
 venue = {CA},
 shorttitle = {Baigent's case},
 }
-\end{minted}
+\end{bib}
 
 \subsubsection{Year}
 
 Round brackets for the year can be forced by including type = {round}.
-\begin{minted}{latex}
+\begin{bib}
 @case{peterson,
 title = {Peterson v Commissioner of Inland Revenue},
 year = {2005},
@@ -142,11 +145,11 @@ pages = {\num{19098}},
 venue = {PC},
 type = {round},
 }
-\end{minted}
+\end{bib}
 
 
 Old style ones where both round brackets and no court brackets are used are done with type = {old}.
-\begin{minted}{latex}
+\begin{bib}
 @case{zohrab,
 title = {Zohrab v Fuller},
 year = {1884},
@@ -156,13 +159,13 @@ venue = {SC},
 pages = {210},
 type = {old},
 }
-\end{minted}
+\end{bib}
 
 \subsubsection{Starting Page}
 
 The pilcrow sign (\textparagraph) can be printed with {\s}textpilcrow.
 
-\begin{minted}{latex}
+\begin{bib}
 @case{blacker,
 title = {Blacker v National Australis Bank Ltd},
 origdate = {2001},
@@ -174,6 +177,145 @@ type = {round},
 series = {ATPR},
 pages = {\textparagraph41-- 817},
 }
-\end{minted}
+\end{bib}
 
+\subsubsection{Judge Identifier}
+
+Judge identifiers can just be added to the pinpoint e.g. as {\s}footcite[\{[48]\} per Tipping J]\{mafart\} to get \cite[{[48]} per Tipping J]{mafart}.
+
+\subsubsection{Case History}
+aff'd and rev'd can be added in an extra set of [] from the pinpoint. The second case name is automatically suppressed if they are the same.  E.g. 
+
+
+\noindent{\s}footcites\{foodstuffs\}[rev'd][]\{foodstuffs1\} gives
+\cites{foodstuffs}[rev'd][]{foodstuffs1}
+
+
+\subsection{Unreported Cases - Neutral Citation}
+
+
+
+\subsection{Unreported Cases - File Number Citation (Supreme Court and Court of Appeal)}
+
+\begin{bib}
+@case{reekie,
+title = {R v Reekie},
+number = {CA339/03},
+date = {2004-08-03},
+type = {unreported},
+}
+\end{bib}
+
+
+\subsection{Unreported Cases - File Number Citation (Including the High Court and District Court)}
+
+\begin{bib}
+@case{tuhou,
+title = {R v Tuhou},
+venue = {HC},
+location = {Napier},
+number = {CRI-2007-020-2820},
+date = {2008-09-11},
+type = {unreported},
+}
+\end{bib}
+
+\subsection{M\=aori Land Court and M\=aori Appellate Court Decisions}
+
+\begin{bib}
+@case{craig,
+title = {Craig v Kira},
+location = {Wainui 2F4D},
+year = {2006},
+file = {7 Whangarei Appellate MB 1},
+note = {7 APWH 1},
+type = {maori},
+}
+\end{bib}
+
+
+\section{Legislation}
+
+\subsection{statues}
+\begin{bib}
+@statute{gaming,
+title = {Gaming Duties Act},
+year = {1971},
+}
+\end{bib}
+\begin{bib}
+@statute{terror,
+title = {Counter-Terrorism Act},
+year = {2008},
+location = {UK},
+}
+\end{bib}
+\subsubsection{Pre-1853 Ordinances}
+
+\begin{bib}
+@statute{distillation,
+title = {Distillation Prohibition Ordinance},
+year = {1841},
+note = {4 Vict},
+number = {5},
+}
+\end{bib}
+
+
+\subsection{Bills}
+
+\begin{bib}
+@bill{judicial,
+title = {Judicial Matters Bill},
+year = {2008},
+number = {216-1},
+}
+\end{bib}
+
+\subsubsection{Select Committee Reports, and Explanatory  Notes}
+\begin{bib}
+@bill{judicialex,
+title = {Judicial Matters Bill},
+year = {2008},
+number = {216-1},
+note = {explanatory note},
+}
+\end{bib}
+
+
+\subsubsection{Supplementary Order Papers}
+\begin{bib}
+@bill{evidence,
+title={Evidence Bill},
+year = {2005},
+number = {256-1},
+file = {79},
+eventdate={2006},
+note = {explanatory note},
+}
+\end{bib}
+
+\subsection{Regulations}
+
+\begin{bib}
+@regulations{costs,
+title = {Costs in Criminal Cases Regulations},
+year = {1987},
+}
+\end{bib}
+
+
+\section{Other Official Sources}
+
+\subsection{Parliamentary Materials}
+
+\subsubsection{Hansard}
+
+\begin{bib}
+@hansard{hansard,
+title= {NZPD},
+date = {2005-04-06},
+volume = {624},
+}
+\end{bib}
 \end{document}
