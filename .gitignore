@@ -1,5 +1,5 @@
-*~
-*#
+B*~
+*0;261;0c#
 *.bbl
 *.swp
 *.swo
@@ -16,3 +16,4 @@
 *.backup
 *.synctex.gz(busy)
 *.pyg
+*.toc

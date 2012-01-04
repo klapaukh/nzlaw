@@ -1,27 +1,82 @@
-\documentclass{nzlaw}
+\documentclass{book}
 \usepackage{float}
 \usepackage{minted}
+\usepackage[group-separator={,}]{siunitx} 
+\usepackage[citestyle=nzlaw,hyperref=true,backend=biber]{biblatex}
+\usepackage{hyperref}
+\usepackage{fullpage}
+\usepackage{fancyhdr}
+\usepackage{fontspec}
+\usepackage{titlesec}
+\usepackage{xcolor}
+
+\setcounter{secnumdepth}{3}
+\titleformat{\chapter}[hang]{\color{black}\bfseries\large}{\thechapter}{3em}{\MakeUppercase}[]
+
+\titleformat{\section}[hang]{\bfseries\large}{\thesection}{3em}{\MakeUppercase}[{\color{black}\titlerule[0.5mm]}]
+
+\titleformat{\subsection}[hang]{\bfseries\large}{\thesubsection}{3em}{}[{\color{gray}\titlerule[0.1mm]}]
+
+\renewcommand{\thesubsubsection}{(\alph{subsubsection})}
+\titleformat{\subsubsection}[hang]{\bfseries}{\thesubsubsection}{3em}{}[]
 
 \addbibresource{sample.bib}
-\lhead{}
+
 \newcommand{\s}{\textbackslash}
 \newcommand{\latex}{\LaTeX}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{2ex}
+
+
+\fancyhf{}
+\fancyfoot[OR]{New Zealand Law Latex Style Instructions \qquad | \qquad \thepage}
+\fancyfoot[EL]{\thepage \qquad | \qquad New Zealand Law Latex Style Instructions}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\fancypagestyle{plain}{ %
+\fancyfoot[OR]{New Zealand Law Latex Style Instructions \qquad | \qquad \thepage}
+\fancyfoot[EL]{\thepage \qquad | \qquad New Zealand Law Latex Style Instructions}
+\renewcommand{\headrulewidth}{0pt} % remove lines as well
+\renewcommand{\footrulewidth}{0pt}
+}
 
 \newminted[bib]{latex}{linenos=false,fontfamily=helvetica}
+%\newenvironment{bib}{}{}
 \usemintedstyle{vim}
 \begin{document}
-\title{NZ Law Latex Style Instructions}
+
+
+
+\title{New Zealand Law Latex Style Instructions}
 \author{Roman Klapaukh}
 \date{\today}
+\frontmatter
+\pagestyle{fancy}
 
 \maketitle
 
-\section{General Rules: Main Text}
-\subsection{Prose}
-\subsubsection{Language}
 
-\paragraph{Foreign Languages}
-Foreign language characters such as \"{e} can be typed directly into the  text. However, for those who do not know how to type them, the following table contains commands for generating common accentented letters. Examples use the letter a where possible for simplicity.
+\tableofcontents
+
+\newpage
+\addcontentsline{toc}{chapter}{\protect\numberline{}Preface}
+{\noindent\large\bfseries\MakeUppercase{Preface}\hrule \vspace{2ex}}
+Some stuff
+
+\addcontentsline{toc}{chapter}{\protect\numberline{}General Principles}
+{\noindent\large\bfseries\MakeUppercase{General Principles} \hrule\vspace{2ex}}
+
+\addcontentsline{toc}{chapter}{\protect\numberline{}Errors and Omissions}
+{\noindent\large\bfseries\MakeUppercase{Errors and Omissions}\hrule\vspace{2ex}}
+
+\mainmatter
+\chapter{General Rules: Main Text}
+\section{Prose}
+\subsection{Language}
+
+\subsubsection{Foreign Languages}
+Foreign language characters such as \"{e} can be typed directly into the  text. However, for those who do not know how to type them, the following table contains commands for generating common accented letters. Examples use the letter a where possible for simplicity.
 
 \begin{table}[H]
 \centering
@@ -44,7 +99,7 @@ Accent & Command \\ \hline
 \caption{Accented Letters}
 \end{table}
 
-\paragraph{Punctuation}
+\subsubsection{Punctuation}
 Punctuation in \latex~is the same as in normal text. \latex~adds a slight amount of extra space following full stops. Careful authors using fullstops in the middle of text (which should not happen in general) can stop this happening by using a \textasciitilde~instead of a space.
 
 \begin{tabular}{l l}
@@ -54,7 +109,7 @@ Hello. This is a Word. With. Dots. & Hello. This is a Word. With. Dots. \\
 Hello. This is a Word.{\textasciitilde}With.{\textasciitilde}Dots. &Hello. This is a Word.~With.~Dots.
 \end{tabular}
 
-\paragraph{Italics and Emphasis}
+\subsubsection{Italics and Emphasis}
 The following table provides commands for emaphsis and such. While bold and underline are not expected to be used, they are provided in case.
 
 \begin{table}[H]
@@ -70,15 +125,15 @@ Underline & {\s}underline & {\s}underline\{some text\} \\
 \caption{Text Formatting Commands}
 \end{table}
 
-\section{General Rules: Footnotes and the Citation of Sources}
+\chapter{General Rules: Footnotes and the Citation of Sources}
 
 
 
-\section{Cases}
+\chapter{Cases}
 
-\subsection{Principles for Citing Cases}
+\section{Principles for Citing Cases}
 
-\subsubsection{Neutral Citations}
+\subsection{Neutral Citations}
 Neutral citations are written as follows
 \begin{bib}
 @case{astrazeneca,
@@ -91,7 +146,7 @@ number={92},
 
 to get \cite{astrazeneca}.
 
-\subsection{Reported Cases}
+\section{Reported Cases}
 If they have a neutral citation they contain the neutral citation, as well as whatever extra information is needed. Otherwise they just have whatever information is available
 
 \begin{bib}
@@ -117,7 +172,7 @@ pages = {394},
 venue = {CA},
 }
 \end{bib}
-\subsubsection{Common Names}
+\subsection{Common Names}
 
 Common names are included as shorttitle.
 \begin{bib}
@@ -132,7 +187,7 @@ shorttitle = {Baigent's case},
 }
 \end{bib}
 
-\subsubsection{Year}
+\subsection{Year}
 
 Round brackets for the year can be forced by including type = {round}.
 \begin{bib}
@@ -161,7 +216,7 @@ type = {old},
 }
 \end{bib}
 
-\subsubsection{Starting Page}
+\subsection{Starting Page}
 
 The pilcrow sign (\textparagraph) can be printed with {\s}textpilcrow.
 
@@ -179,11 +234,11 @@ pages = {\textparagraph41-- 817},
 }
 \end{bib}
 
-\subsubsection{Judge Identifier}
+\subsection{Judge Identifier}
 
 Judge identifiers can just be added to the pinpoint e.g. as {\s}footcite[\{[48]\} per Tipping J]\{mafart\} to get \cite[{[48]} per Tipping J]{mafart}.
 
-\subsubsection{Case History}
+\subsection{Case History}
 aff'd and rev'd can be added in an extra set of [] from the pinpoint. The second case name is automatically suppressed if they are the same.  E.g. 
 
 
@@ -191,11 +246,11 @@ aff'd and rev'd can be added in an extra set of [] from the pinpoint. The second
 \cites{foodstuffs}[rev'd][]{foodstuffs1}
 
 
-\subsection{Unreported Cases - Neutral Citation}
+\section{Unreported Cases - Neutral Citation}
 
 
 
-\subsection{Unreported Cases - File Number Citation (Supreme Court and Court of Appeal)}
+\section{Unreported Cases - File Number Citation (Supreme Court and Court of Appeal)}
 
 \begin{bib}
 @case{reekie,
@@ -207,7 +262,7 @@ type = {unreported},
 \end{bib}
 
 
-\subsection{Unreported Cases - File Number Citation (Including the High Court and District Court)}
+\section{Unreported Cases - File Number Citation (Including the High Court and District Court)}
 
 \begin{bib}
 @case{tuhou,
@@ -220,7 +275,7 @@ type = {unreported},
 }
 \end{bib}
 
-\subsection{M\=aori Land Court and M\=aori Appellate Court Decisions}
+\section{M\=aori Land Court and M\=aori Appellate Court Decisions}
 
 \begin{bib}
 @case{craig,
@@ -234,9 +289,9 @@ type = {maori},
 \end{bib}
 
 
-\section{Legislation}
+\chapter{Legislation}
 
-\subsection{statues}
+\section{statues}
 \begin{bib}
 @statute{gaming,
 title = {Gaming Duties Act},
@@ -250,7 +305,7 @@ year = {2008},
 location = {UK},
 }
 \end{bib}
-\subsubsection{Pre-1853 Ordinances}
+\subsection{Pre-1853 Ordinances}
 
 \begin{bib}
 @statute{distillation,
@@ -262,7 +317,7 @@ number = {5},
 \end{bib}
 
 
-\subsection{Bills}
+\section{Bills}
 
 \begin{bib}
 @bill{judicial,
@@ -272,7 +327,7 @@ number = {216-1},
 }
 \end{bib}
 
-\subsubsection{Select Committee Reports, and Explanatory  Notes}
+\subsection{Select Committee Reports, and Explanatory  Notes}
 \begin{bib}
 @bill{judicialex,
 title = {Judicial Matters Bill},
@@ -283,7 +338,7 @@ note = {explanatory note},
 \end{bib}
 
 
-\subsubsection{Supplementary Order Papers}
+\subsection{Supplementary Order Papers}
 \begin{bib}
 @bill{evidence,
 title={Evidence Bill},
@@ -295,7 +350,7 @@ note = {explanatory note},
 }
 \end{bib}
 
-\subsection{Regulations}
+\section{Regulations}
 
 \begin{bib}
 @regulations{costs,
@@ -305,11 +360,11 @@ year = {1987},
 \end{bib}
 
 
-\section{Other Official Sources}
+\chapter{Other Official Sources}
 
-\subsection{Parliamentary Materials}
+\section{Parliamentary Materials}
 
-\subsubsection{Hansard}
+\subsection{Hansard}
 
 \begin{bib}
 @hansard{hansard,
@@ -318,4 +373,307 @@ date = {2005-04-06},
 volume = {624},
 }
 \end{bib}
+
+\subsection{Appendix to the Journals of the House of Representatives}
+
+\begin{bib}
+@appendix{palmer85,
+author = {Geoffrey Palmer},
+title = {A Bill of Rights for New Zealand: A White Paper},
+date = {1984/1985},
+volume = {I},
+number = {A6},
+}
+\end{bib}
+
+\subsection{Submissions to Select Committees}
+\begin{bib}
+@submission{library,
+author = {New Zealand Law Librarian Group Inc},
+title = {Submission to the Justice and Law Reform Committee on the Interpretation of Bill 1998},
+}
+\end{bib}
+
+\subsection{Standing Orders}
+\begin{bib}
+@orders{2008,
+year= {2008},
+}
+\end{bib}
+
+\section{Government Publications}
+
+\subsection{Cabinet Documents}
+\begin{bib}
+@cabinetdoc{conduct,
+label = {Cabinet Office Circular},
+title = {Conduct During Periods of Caretaker Government},
+date = {1999-04-21},
+number = {CO 99/5},
+}
+\end{bib}
+
+\subsection{Cabinet Manual}
+\begin{bib}
+@cabinetman{cabman,
+year = {2008}
+}
+\end{bib}
+
+\subsection{New Zealand Gazetter}
+\begin{bib}
+@nzgazette{ad,
+title = {Advertisement of Application to put Company into Liquidation by the Court},
+number = {MO No 270/97},
+date = {1997-08-21},
+}
+\end{bib}
+
+\subsection{Law Commission Reports}
+\begin{bib}
+@nzlc{prosecution,
+title = {The Prosecution of Offences},
+number = {PP12},
+year = {1990},
+}
+\end{bib}
+
+\subsection{Other Reports}
+\begin{bib}
+@report{salmon09,
+author = {Peter Salmon and Margaret Bazley and David Shand},
+title  = {Royal Commission on Auckland Governance},
+year = {2009},
+}
+\end{bib}
+\begin{bib}
+@report{price,
+author = {PricewaterhouseCoopers},
+title = {Commerce Commission Baseline Review},
+note = {prepared for the Ministry of Economic Development},
+year = {2008},
+}
+\end{bib}
+
+\section{Requests Under the Official Information Act 1982}
+
+Current Omitted. Can be added on request
+
+\chapter{Secondary Materials}
+
+\section{Texts}
+\begin{bib}
+@book{todd01,
+editor={Stephen Todd and Gordon Ramsey},
+title = {The Law of Torts in New Zealand},
+edition = {3rd},
+publisher = {Brookers},
+location = {Wellington},
+year = {2001},
+}
+\end{bib}
+\begin{bib}
+@book{butler05,
+author = {Andrew Butler and Petra Butler},
+title = {The New Zealand Bill of Rights Act: A Commentary},
+edition = {1st},
+publisher = {LexisNexis},
+location = {Wellington},
+year = {2005},
+}
+\end{bib}
+\begin{bib}
+@book{butler03,
+editor = {Andrew Butler},
+title = {Equity and Trusts in New Zealand},
+publisher = {Brookers},
+location = {Wellington},
+date = {2003/2004},
+}
+\end{bib}
+
+
+\section{Essays in Edited Books}
+\begin{bib}
+@inbook{cooke87,
+author = {Robin Cooke},
+title = {Tort and Contract},
+editor = {PD Finn},
+booktitle = {Essays on Contract},
+publisher = {Law Book Company},
+location = {Sydney},
+year = {1987},
+pages = {222},
+}
+\end{bib}
+
+\section{Looseleaf Texts}
+\begin{bib}
+@book{robertson,
+editor = {Bruce Robertson},
+edition = {looseleaf},
+title = {Adams on Criminal Law},
+publisher = {Brookers},
+}
+\end{bib}
+\begin{bib}
+@book{gault,
+editor = {Thomas Gault},
+edition ={online looseleaf},
+title = {Gault on Commercial Law},
+publisher = {Brookers},
+year = {accessed 15 June 2009},
+}
+\end{bib}
+
+\section{Journal Articles}
+\begin{bib}
+@article{watts05,
+author = {Peter Watts},
+title = {Birk's Unjust Enrichment},
+year = {2005},
+volume = {121},
+journaltitle = {LQR},
+pages = {163},
+}
+\end{bib}
+\begin{bib}
+@article{palmer07,
+author = {Jessica Palmer},
+title={Dealing with the Emerging Popularity of Sham Trusts},
+year = {2007},
+journaltitle = {NZ Law Review},
+pages = {81}
+}
+\end{bib}
+
+\section{Legal Encylopaediae}
+\begin{bib}
+@reference{companies2,
+title = {Halsbury's Laws of England},
+edition = {2nd},
+year = {1932},
+volunm = {5},
+label = {Companies},
+}
+\end{bib}
+\begin{bib}
+@reference{companies1,
+title = {Halsbury's Laws of England},
+edition = {1st},
+year = {1932},
+volume = {5},
+label = {Companies},
+}
+\end{bib}
+\begin{bib}
+@reference{contract,
+title = {Halsbury's Laws of England},
+year = {1998},
+volume = {5(1)},
+label = {Contract},
+note = {reissue}
+}
+\end{bib}
+
+\section{Laws of New Zealand}
+\begin{bib}
+@reference{equity,
+title = {Laws of New Zealand},
+label = {Equity},
+}
+\end{bib}
+\begin{bib}
+@reference{equityonline,
+title = {Laws of New Zealand},
+label = {Equity},
+edition = {online},
+}
+\end{bib}
+\begin{bib}
+@reference{parliment,
+title = {Laws of New Zealand},
+label = {Parliament},
+edition = {online},
+note = {Reissue 1},
+}
+\end{bib}
+
+\section{Unpublished Papers}
+
+\subsection{Theses and Research Papers}
+\begin{bib}
+@thesis{roberts08,
+author = {Marcus Roberts},
+title = {Reforming New Zealand's Legislative Council: A Study of Constitutional Change, 1891--1920},
+type = {LLB (Hons) Dissertation},
+institution = {University of Auckland},
+year = {2008},
+}
+\end{bib}
+
+\subsection{Seminars, and Papers Presented at Conferences}
+\begin{bib}
+@unpublished{epps04,
+author = {Tracey Epps},
+title = {Merchants in the Temple? The Implications of the GATS for Canada's Health Care System},
+location = {National Health Law Conference, Toronto},
+date = {2004-01},
+type = {paper},
+}
+\end{bib}
+
+\chapter{Other Sources}
+
+\section{Internet Materials}
+\begin{bib}
+@online{knight09,
+author = {Dean Knight},
+title = {Parliment and the Bill of Rights --- a blas\'{e} attitude?},
+year = {2009},
+maintitle = {LAWS179 Elephants and the Law},
+url = {www.laws179.co.nz},
+}
+\end{bib}
+
+\section{Newspaper Articles}
+\begin{bib}
+@press{hosking09,
+author = {Rob Hosking},
+title = {Messy Allowance Law Finally Gets Clarity},
+publisher = {The National Business Review},
+location = {New Zealand},
+date = {2009-07-17},
+}
+\end{bib}
+
+\section{Interviews}
+
+Omitted. Addition maybe on special request
+
+\section{Press Releases}
+\begin{bib}
+@press{airnz,
+author = {Air New Zealand},
+title = {Lock-out Notice issued to EPMU},
+type = {press release},
+date = {2009-04-21},
+}
+\end{bib}
+
+\section{Speeches}
+\begin{bib}
+@unpublished{elias08,
+author = {Sian Elias},
+authortype = {Chief Justice of New Zealand},
+title = {First Peoples and Human Rights, a South Seas Perspective},
+type = {speech},
+location = {Ramo Lecture 2008, New Mexico School of Law, Albuquerque},
+date = {2008-10-23},
+}
+\end{bib}
+
+\section{Letters and Emails}
+Omitted. May be added on request. Maybe
+
 \end{document}
