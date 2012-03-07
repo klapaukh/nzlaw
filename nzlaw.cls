@@ -111,7 +111,7 @@
 }
 
 \newcommand{\studentid}[1]{\def\@studentid{#1}}
-\newcommand{\wordcount}[1]{\def\@wordcount{Word Count: #1}}
+\newcommand{\wordcount}[1]{\def\@wordcount{\ifstrempty{#1}{}{Word Count: }#1}}
 \studentid{}
 \wordcount{}
 
