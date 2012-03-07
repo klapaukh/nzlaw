@@ -111,7 +111,7 @@
 }
 
 \newcommand{\studentid}[1]{\def\@studentid{#1}}
-\newcommand{\wordcount}[1]{\def\@wordcount{#1}}
+\newcommand{\wordcount}[1]{\def\@wordcount{Word Count: #1}}
 \studentid{}
 \wordcount{}
 
@@ -121,7 +121,7 @@
 \fancyhead{}
 \fancyfoot{}
 \fancyhead[R]{\headerfontsize\@studentid}
-\fancyhead[L]{\headerfontsize Word Count: \@wordcount}
+\fancyhead[L]{\headerfontsize\@wordcount}
 \fancyfoot[C]{\headerfontsize\thepage}
 %Letter options for fancy header
 %E: Even page
