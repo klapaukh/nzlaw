@@ -211,8 +211,8 @@ Ibid%
 }
 
 \newbibmacro{cite:statute:ibid}{%
-Ibid%
-\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
+Section \thefield{postnote}%
+%\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
 }
 
 %%BILL 4.2
@@ -235,8 +235,9 @@ Ibid%
 }
 
 \newbibmacro{cite:bill:ibid}{%
-Ibid%
-\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
+Section \thefield{postnote}%
+%Ibid%
+%\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
 }
 
 %%%Regulations 4.3
@@ -255,8 +256,9 @@ Ibid%
 }
 
 \newbibmacro{cite:regulations:ibid}{%
-Ibid%
-\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
+Section \thefield{postnote}%
+%Ibid%
+%\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
 }
 
 
