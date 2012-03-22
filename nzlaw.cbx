@@ -181,8 +181,7 @@ andothers = and others,
 }
 
 \newbibmacro{cite:case:ibid}{%
-Ibid%
-\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
+At \thefield{postnote}%
 }
 
 \newbibmacro{cite:case:above}{%
@@ -212,7 +211,6 @@ Ibid%
 
 \newbibmacro{cite:statute:ibid}{%
 Section \thefield{postnote}%
-%\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
 }
 
 %%BILL 4.2
@@ -236,8 +234,6 @@ Section \thefield{postnote}%
 
 \newbibmacro{cite:bill:ibid}{%
 Section \thefield{postnote}%
-%Ibid%
-%\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
 }
 
 %%%Regulations 4.3
@@ -257,8 +253,6 @@ Section \thefield{postnote}%
 
 \newbibmacro{cite:regulations:ibid}{%
 Section \thefield{postnote}%
-%Ibid%
-%\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
 }
 
 
@@ -281,8 +275,7 @@ Section \thefield{postnote}%
 }
 
 \newbibmacro{cite:hansard:ibid}{%
-Ibid%
-\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
+At \thefield{postnote}%
 }
 
 
@@ -291,8 +284,7 @@ Ibid%
 \ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:appendix:ibid}}{\usebibmacro{cite:appendix:above}}}{\ifciteseen{\usebibmacro{cite:appendix:above}}{\usebibmacro{cite:appendix:full}}}}
 
 \newbibmacro{cite:appendix:ibid}{%
-Ibid%
-\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
+At \thefield{postnote}%
 }
 
 \newbibmacro{cite:appendix:above}{%
@@ -325,8 +317,7 @@ Ibid%
 \ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:submission:ibid}}{\usebibmacro{cite:submission:above}}}{\ifciteseen{\usebibmacro{cite:submission:above}}{\usebibmacro{cite:submission:full}}}}
 
 \newbibmacro{cite:submission:ibid}{%
-Ibid%
-\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
+At \thefield{postnote}%
 }
 
 \newbibmacro{cite:submission:above}{%
@@ -350,8 +341,7 @@ Ibid%
 \ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:orders:ibid}}{\usebibmacro{cite:orders:above}}}{\ifciteseen{\usebibmacro{cite:orders:above}}{\usebibmacro{cite:orders:full}}}}
 
 \newbibmacro{cite:orders:ibid}{%
-Ibid%
-\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
+At \thefield{postnote}%
 }
 
 \newbibmacro{cite:orders:above}{%
@@ -375,8 +365,7 @@ Ibid%
 \ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:cabinetdoc:ibid}}{\usebibmacro{cite:cabinetdoc:above}}}{\ifciteseen{\usebibmacro{cite:cabinetdoc:above}}{\usebibmacro{cite:cabinetdoc:full}}}}
 
 \newbibmacro{cite:cabinetdoc:ibid}{%
-Ibid%
-\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
+At \thefield{postnote}%
 }
 
 \newbibmacro{cite:cabinetdoc:above}{%
@@ -402,8 +391,7 @@ Ibid%
 \ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:cabinetman:ibid}}{\usebibmacro{cite:cabinetman:above}}}{\ifciteseen{\usebibmacro{cite:cabinetman:above}}{\usebibmacro{cite:cabinetman:full}}}}
 
 \newbibmacro{cite:cabinetman:ibid}{%
-Ibid%
-\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
+At \thefield{postnote}%
 }
 
 \newbibmacro{cite:cabinetman:above}{%
@@ -429,8 +417,7 @@ Cabinet Office \textit{Cabinet Manual}%
 }
 
 \newbibmacro{cite:nzgazette:ibid}{%
-Ibid%
-\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}}
+At \thefield{postnote}}
 
 
 
@@ -458,8 +445,7 @@ Ibid%
 }
 
 \newbibmacro{cite:nzlc:ibid}{%
-Ibid%
-\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}}
+At \thefield{postnote}}
 
 
 
@@ -484,8 +470,7 @@ Law Commission \printfield[it]{title} (NZLC \printfield{number}, \printfield{yea
 }
 
 \newbibmacro{cite:report:ibid}{%
-Ibid%
-\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}}
+At \thefield{postnote}}
 
 
 
@@ -506,8 +491,7 @@ Ibid%
 
 %%%%%%BOOK  6.1, 6.3
 \newbibmacro{cite:book:ibid}{%
-Ibid%
-\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{\ifin{ch }{\thefield{postnote}}{, at \thefield{postnote}}{, at [\thefield{postnote}]}}%
+\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{\ifin{ch }{\thefield{postnote}}{At \thefield{postnote}}{At [\thefield{postnote}]}}%
 }
 
 \newbibmacro{cite:book}{%
@@ -575,8 +559,7 @@ Ibid%
 }
 
 \newbibmacro{cite:inbook:ibid}{%
-Ibid%
-\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
+\ifboolexpr{ test {\iffieldundef{postnote}}}{}{At \thefield{postnote}}%
 }
 
 \newbibmacro{cite:inbook:above}{%
@@ -625,8 +608,7 @@ Ibid%
 \ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:article:ibid}}{\usebibmacro{cite:article:above}}}{\ifciteseen{\usebibmacro{cite:article:above}}{\usebibmacro{cite:article:full}}}}
 
 \newbibmacro{cite:article:ibid}{%
-Ibid%
-\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
+At \thefield{postnote}%
 }
 
 \newbibmacro{cite:article:above}{%
@@ -666,8 +648,7 @@ Ibid%
 \ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:reference:ibid}}{\usebibmacro{cite:reference:above}}}{\ifciteseen{\usebibmacro{cite:reference:above}}{\usebibmacro{cite:reference:full}}}}
 
 \newbibmacro{cite:reference:ibid}{%
-Ibid%
-\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at [\thefield{postnote}]}%
+At \thefield{postnote}%
 }
 
 
@@ -710,9 +691,7 @@ Ibid%
 \ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:thesis:ibid}}{\usebibmacro{cite:thesis:above}}}{\ifciteseen{\usebibmacro{cite:thesis:above}}{\usebibmacro{cite:thesis:full}}}}
 
 \newbibmacro{cite:thesis:ibid}{%
-Ibid%
-%pinpoint part if it is there
-\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{\ifin{ch }{\thefield{postnote}}{, at \thefield{postnote}}{, at [\thefield{postnote}]}}%
+At \thefield{postnote}%
 }
 
 
@@ -748,9 +727,7 @@ Ibid%
 \ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:unpublished:ibid}}{\usebibmacro{cite:unpublished:above}}}{\ifciteseen{\usebibmacro{cite:unpublished:above}}{\usebibmacro{cite:unpublished:full}}}}
 
 \newbibmacro{cite:unpublished:ibid}{%
-Ibid%
-%pinpoint part if it is there
-\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
+At \thefield{postnote}%
 }
 
 
@@ -794,9 +771,7 @@ Ibid%
 \newbibmacro{cite:online}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:online:ibid}}{\usebibmacro{cite:online:above}}}{\ifciteseen{\usebibmacro{cite:online:above}}{\usebibmacro{cite:online:full}}}}
 
 \newbibmacro{cite:online:ibid}{%
-Ibid%
-%pinpoint part if it is there
-\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
+At \thefield{postnote}%
 }
 
 \newbibmacro{cite:online:above}{%
@@ -822,9 +797,7 @@ Ibid%
 \newbibmacro{cite:press}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:press:ibid}}{\usebibmacro{cite:press:above}}}{\ifciteseen{\usebibmacro{cite:press:above}}{\usebibmacro{cite:press:full}}}}
 
 \newbibmacro{cite:press:ibid}{%
-Ibid%
-%pinpoint part if it is there
-\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
+At \thefield{postnote}%
 }
 
 \newbibmacro{cite:press:above}{%
@@ -853,8 +826,8 @@ Ibid%
 %%%%%%%%%%% Interview     7.3 Interview
 \newbibmacro{cite:interview}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:interview:ibid}}{\usebibmacro{cite:interview:above}}}{\ifciteseen{\usebibmacro{cite:interview:above}}{\usebibmacro{cite:interview:full}}}}
 
-\newbibmacro{cite:interview:ibid}{Ibid%
-\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
+\newbibmacro{cite:interview:ibid}{%
+At \thefield{postnote}%
 }
 
 \newbibmacro{cite:interview:above}{UNIMPLEMENTED}
@@ -865,8 +838,8 @@ Ibid%
 %%%%%%%%%%% mail          7.6 Letters \ mail 
 \newbibmacro{cite:mail}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:mail:ibid}}{\usebibmacro{cite:mail:above}}}{\ifciteseen{\usebibmacro{cite:mail:above}}{\usebibmacro{cite:mail:full}}}}
 
-\newbibmacro{cite:mail:ibid}{Ibid%
-\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{, at \thefield{postnote}}%
+\newbibmacro{cite:mail:ibid}{%
+At \thefield{postnote}%
 }
 
 \newbibmacro{cite:mail:above}{%
