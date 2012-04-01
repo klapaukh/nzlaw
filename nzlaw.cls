@@ -18,6 +18,11 @@
 \defaultfontfeatures{Mapping=tex-text}
 
 
+%Make it work with texify if it is set up for biber
+\makeatletter
+\protected@write\@auxout{}{\string\bibstyle{}}
+\protected@write\@auxout{}{\string\bibdata{}}
+\makeatletter
 
 %set to be 1.25 line spacing
 \setstretch{1.25}
