@@ -149,7 +149,7 @@ andothers = and others,
 
 \newbibmacro{cite:case:neutral:full}{%
 \iffieldundef{prenote}{\printfield[it]{title}}{\thefield{prenote}\iffieldequalcs{title}{cbx@title}{}{ \printfield[it]{title}}}%
-\iffieldundef{origyear}{}{ [\thefield{origyear}] \thefield{venue} \thefield{number}}% neutral citation, if there
+\iffieldundef{origyear}{}{ [\thefield{origyear}]\iffieldundef{venue}{}{ \thefield{venue} \thefield{number}}}% neutral citation, if there
 \iffieldundef{year}{}{\iffieldundef{origyear}{}{,} \iffieldundef{type}{ [\printfield{year}]}{(\printfield{year})}}%print year with right type of brackets
 \iffieldundef{volume}{}{ \printfield{volume}}%
 \iffieldundef{series}{}{ \printfield{series}}%
