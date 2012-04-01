@@ -484,14 +484,14 @@ At \thefield{postnote}}
 }
 
 \newbibmacro{cite:report:full}{%
-\printnames{author} \printfield[it]{title} (\iffieldundef{note}{}{\printfield{note} }\printfield{year})%
+\printnames{author} \printfield[it]{title} (\iflistundef{publisher}{}{\printlist{publisher}, }\iffieldundef{note}{}{\printfield{note}, }\iffieldunderf{month}{\printfield{month} }\printfield{year})%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{ at \thefield{postnote}}%
 }
 
 %%%%%%BOOK  6.1, 6.3
 \newbibmacro{cite:book:ibid}{%
-\ifboolexpr{ test {\iffieldundef{postnote}} or test {\iffieldequalcs{postnote}{cbx@p@\thefield{entrykey}}} }{}{\ifin{ch }{\thefield{postnote}}{At \thefield{postnote}}{At [\thefield{postnote}]}}%
+At \thefield{postnote}%
 }
 
 \newbibmacro{cite:book}{%
@@ -514,7 +514,7 @@ At \thefield{postnote}}
 \ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[it]{title}}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
-\iffieldundef{postnote}{}{,\ifin{ch }{\thefield{postnote}}{ at \thefield{postnote}}{ at [\thefield{postnote}]}}%
+\iffieldundef{postnote}{}{, \thefield{postnote}}%
 }
 
 \newbibmacro{cite:book:full}{%
@@ -549,8 +549,7 @@ At \thefield{postnote}}
 )}%
 \iffieldundef{volume}{}{ vol \printfield{volume}}%
 %pinpoint part if it is there
-\iffieldundef{postnote}{}{%
-\ifin{ch }{\thefield{postnote}}{ at \thefield{postnote}}{ at [\thefield{postnote}]}}%
+\iffieldundef{postnote}{}{ at \thefield{postnote}}%
 }
 
 %%%%%%INBOOK    6.2
@@ -787,7 +786,7 @@ At \thefield{postnote}%
 \printnames{author}%
 \addspace\printfield[quotes]{title}%
 \iffieldundef{year}{}{{\addspace}(\printfield{year})}%
-\iffieldundef{name}{}{{\addspace}\printfield{name}}%
+\iffieldundef{maintitle}{}{{\addspace}\printfield[plain]{maintitle}}%
 \iffieldundef{postnote}{}{{\addspace}at \thefield{postnote}}%
 \iffieldundef{url}{}{{\addspace}{\textless}\printfield{url}{\textgreater}}%
 }
