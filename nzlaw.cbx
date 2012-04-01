@@ -206,11 +206,11 @@ At \thefield{postnote}%
 
 \newbibmacro{cite:statute:above}{%
 \printfield[plain]{title}, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
-\iffieldundef{postnote}{}{, \thefield{postnote}}%
+\iffieldundef{postnote}{}{, \ifin{,}{\thefield{postnote}}{ss}{s} \thefield{postnote}}%
 }
 
 \newbibmacro{cite:statute:ibid}{%
-Section \thefield{postnote}%
+\ifin{,}{\thefield{postnote}}{Sections}{Section} \thefield{postnote}%
 }
 
 %%BILL 4.2
@@ -224,16 +224,16 @@ Section \thefield{postnote}%
 \iffieldundef{number}{}{ (\printfield{number})}%
 \iffieldundef{file}{}{,}%
 \iffieldundef{note}{}{ (\printfield{note})}%
-\iffieldundef{postnote}{}{\iffieldundef{file}{\iffieldundef{note}{, }{ at}}{ at} \thefield{postnote}}%
+\iffieldundef{postnote}{}{\iffieldundef{file}{\iffieldundef{note}{, }{ at}}{ at} \ifin{,}{\thefield{postnote}}{ss}{s} \thefield{postnote}}%
 }
 
 \newbibmacro{cite:bill:above}{%
 \printfield[plain]{title}, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
-\iffieldundef{postnote}{}{,\iffieldundef{file}{\iffieldundef{note}{}{ at}}{ at} \thefield{postnote}}%
+\iffieldundef{postnote}{}{, \ifin{,}{\thefield{postnote}}{ss}{s} \thefield{postnote}}%
 }
 
 \newbibmacro{cite:bill:ibid}{%
-Section \thefield{postnote}%
+\ifin{,}{\thefield{postnote}}{Sections}{Section} \thefield{postnote}%
 }
 
 %%%Regulations 4.3
@@ -243,16 +243,16 @@ Section \thefield{postnote}%
 \newbibmacro{cite:regulations:full}{%
 \printfield[plain]{title}%
 \iffieldundef{year}{}{ \printfield{year}}%
-\iffieldundef{postnote}{}{, \thefield{postnote}}%
+\iffieldundef{postnote}{}{, \ifin{,}{\thefield{postnote}}{ss}{s} \thefield{postnote}}%
 }
 
 \newbibmacro{cite:regulations:above}{%
 \printfield[plain]{title}, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
-\iffieldundef{postnote}{}{, \thefield{postnote}}%
+\iffieldundef{postnote}{}{, \ifin{,}{\thefield{postnote}}{ss}{s} \thefield{postnote}}%
 }
 
 \newbibmacro{cite:regulations:ibid}{%
-Section \thefield{postnote}%
+\ifin{,}{\thefield{postnote}}{Sections}{Section} \thefield{postnote}%
 }
 
 
