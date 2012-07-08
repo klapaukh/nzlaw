@@ -484,7 +484,7 @@ At \thefield{postnote}}
 }
 
 \newbibmacro{cite:report:full}{%
-\printnames{author} \printfield[it]{title} (\iflistundef{publisher}{}{\printlist{publisher}, }\iffieldundef{note}{}{\printfield{note}, }\iffieldunderf{month}{\printfield{month} }\printfield{year})%
+\printnames{author} \printfield[it]{title} (\iflistundef{publisher}{}{\printlist{publisher}, }\iffieldundef{note}{}{\printfield{note}, }\iffieldundef{month}{\printfield{month} }\printfield{year})%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{ at \thefield{postnote}}%
 }
@@ -894,7 +894,7 @@ UNIMPLEMENTED
 
 
 %%%%Declaration of cite commands
-%Only \footcite is declared as that is the only useful citatation type in a law styled essay / article
+% \footcite is declared as that is the general citatation type in a law styled essay / article
 \DeclareCiteCommand{\footcite}[\mkbibfootnote] %definition of \footcite, which passes the text to \mkbibfootnote
 {} %precode - before citation stuff - should just do nothing
 {\usebibmacro{cite:stuff}} % how to actually print a citation
@@ -902,7 +902,7 @@ UNIMPLEMENTED
 {}  %code to run after citation 
 
 
-%Only \cite is declared to give non footnote citations for bibliography and example printing
+%\cite is declared to give non footnote citations for bibliographys, inline citations, and example printing
 \DeclareCiteCommand{\cite}
 {} %precode - before citation stuff - should just do nothing
 {\usebibmacro{cite:stuff}} % how to actually print a citation

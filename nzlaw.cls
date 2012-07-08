@@ -160,4 +160,12 @@
 %\newcommand{\emdash}{---}
 \newcommand{\ellipsis}{\ldots}
 
+
+%%%Disabling hyphenation, but still being justified 
+\setlength{\emergencystretch}{10pt} %give room 
+\lefthyphenmin=64  %Make word length requrement infinite
+%\exhyphenpenalty=1000 %Make explicit hyphen not allowed to break lines
+\sloppy   %Sloppy spacing
+
+
 \endinput

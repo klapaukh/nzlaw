@@ -1,6 +1,5 @@
-\documentclass{book}
+\documentclass[draft]{book}
 \usepackage{float}
-\usepackage{minted}
 \usepackage[group-separator={,}]{siunitx} 
 \usepackage[citestyle=nzlaw,hyperref=true,backend=biber]{biblatex}
 \usepackage{hyperref}
@@ -9,6 +8,16 @@
 \usepackage{fontspec}
 \usepackage{titlesec}
 \usepackage{xcolor}
+\usepackage{ifdraft}
+\ifdraft{
+  \usepackage{fancyvrb}
+  \DefineVerbatimEnvironment{minted}{Verbatim}{}
+  \DefineVerbatimEnvironment{bib}{Verbatim}{}
+}{
+  \usepackage{minted} % syntax coloring. 
+  \newminted[bib]{latex}{linenos=false,fontfamily=helvetica}
+  \usemintedstyle{vim}
+}
 
 \setcounter{secnumdepth}{3}
 \titleformat{\chapter}[hang]{\color{black}\bfseries\large}{\thechapter}{3em}{\MakeUppercase}[]
@@ -41,9 +50,9 @@
 \renewcommand{\footrulewidth}{0pt}
 }
 
-\newminted[bib]{latex}{linenos=false,fontfamily=helvetica}
+
 %\newenvironment{bib}{}{}
-\usemintedstyle{vim}
+
 \begin{document}
 
 
@@ -62,16 +71,40 @@
 \newpage
 \addcontentsline{toc}{chapter}{\protect\numberline{}Preface}
 {\noindent\large\bfseries\MakeUppercase{Preface}\hrule \vspace{2ex}}
-Some stuff
+
+This is an attempt to provide an alternative to typesetting legal document in Microsoft Word. 
+All software required to run this is open source and will work on any of the common operating systems: Windows, Mac OS and Linux. 
+This manual documents a \LaTeX package which formats according to the rules set out in the New Zealand Law Style Guide (2nd ed).  
+
 
 \addcontentsline{toc}{chapter}{\protect\numberline{}General Principles}
 {\noindent\large\bfseries\MakeUppercase{General Principles} \hrule\vspace{2ex}}
+This guide is written on the principle that all the resources required should be freely available to all possible interested parties. 
+There should be no restrictions irrespective of the user. 
+This imposes no extra limitations in commertial use over use in educational contexts.
 
 \addcontentsline{toc}{chapter}{\protect\numberline{}Errors and Omissions}
 {\noindent\large\bfseries\MakeUppercase{Errors and Omissions}\hrule\vspace{2ex}}
+This document is full of errors and omissions. Any feedback or corrections would be much appreciated. It is hoped that in time the package this documents will be able to provide all the formatting needs of the community.
+
 
 \mainmatter
 \chapter{General Rules: Main Text}
+
+Every document created using this package will have the following general layout:
+
+\begin{bib}
+\documentclass{nzlaw}
+
+\addbibresource{bibliograph.bib}
+\studentid{300123456}
+\wordcount{1000}
+
+\begin{document}
+
+\end{document}
+\end{bib}
+
 \section{Prose}
 \subsection{Language}
 
@@ -100,13 +133,22 @@ Accent & Command \\ \hline
 \end{table}
 
 \subsubsection{Punctuation}
-Punctuation in \latex~is the same as in normal text. \latex~adds a slight amount of extra space following full stops. Careful authors using fullstops in the middle of text (which should not happen in general) can stop this happening by using a \textasciitilde~instead of a space.
+Punctuation in \latex~is the same as in normal text. 
+This format adds a slight amount of extra space following full stops. 
+Careful authors using fullstops in the middle of text (which should not happen in general) can stop this happening by using a {\s}@ after the fullstop. 
+If a sentence ends on a capital letter it will not put in an exapanded space after the full stop as it assumes that the sentence isn't finished. 
+To correct this put {\s}@ before the full stop. 
+Note how this is the same as to shrink the space, except placed before the full stop.
+If you do not like having extra spaces after the full stop, you can put {\s}frenchspacing at the begining of your document to make all spaces the same. 
 
 \begin{tabular}{l l}
 Original & Output \\
-Hello. This is a Word. With. Dots. & Hello. This is a Word. With. Dots. \\
+Hello. This is a sentence. with. dots. & Hello. This is a sentence. with. dots. \\
 
-Hello. This is a Word.{\textasciitilde}With.{\textasciitilde}Dots. &Hello. This is a Word.~With.~Dots.
+Hello. This is a sentence.{\s}@ with.{\s}@ dots. &Hello. This is a sentence.\@ with.\@ dots.\\
+
+HOWDY. How are you? & HOWDY. How are you?\\
+HOWDY{\s}@. How are you? & HOWDY\@. How are you?\\
 \end{tabular}
 
 \subsubsection{Italics and Emphasis}
@@ -127,7 +169,7 @@ Underline & {\s}underline & {\s}underline\{some text\} \\
 
 \chapter{General Rules: Footnotes and the Citation of Sources}
 
-
+Footnotes and citations share a common numbering system, and a similar mechanism for entering them. 
 
 \chapter{Cases}
 
