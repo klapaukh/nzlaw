@@ -2,3 +2,20 @@
 
 %Need to declare the citation style in the bibliography file then use
 %\usedriver to run the citation style of the bibliograph style I think. :S
+%maybe it can be used the other way as well though.
+
+\defbibenvironment{bibliography}
+{\list
+{\printfield[labelnumberwidth]{labelnumber}}
+{\setlength{\labelwidth}{\labelnumberwidth}%
+\setlength{\leftmargin}{\labelwidth}%
+\setlength{\labelsep}{\biblabelsep}%
+\addtolength{\leftmargin}{\labelsep}%
+\setlength{\itemsep}{\bibitemsep}%
+\setlength{\parsep}{\bibparsep}}%
+\renewcommand*{\makelabel}[1]{\hss##1}}
+{\endlist}
+{\item}
+
+
+\DeclareBibliographyDriver{article}{\usedriver{cite:article}{article}}
