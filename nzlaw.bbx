@@ -6,16 +6,71 @@
 
 \defbibenvironment{bibliography}
 {\list
-{\printfield[labelnumberwidth]{labelnumber}}
+{\relax}
 {\setlength{\labelwidth}{\labelnumberwidth}%
 \setlength{\leftmargin}{\labelwidth}%
 \setlength{\labelsep}{\biblabelsep}%
 \addtolength{\leftmargin}{\labelsep}%
 \setlength{\itemsep}{\bibitemsep}%
 \setlength{\parsep}{\bibparsep}}%
-\renewcommand*{\makelabel}[1]{\hss##1}}
+\renewcommand*{\makelabel}[1]{\relax}
 {\endlist}
 {\item}
 
 
-\DeclareBibliographyDriver{article}{\usedriver{cite:article}{article}}
+\DeclareBibliographyDriver{case}{cite:case:full}
+\DeclareBibliographyDriver{article}{}
+
+
+\newbibmacro{cite:case:full}{%                                   
+\iffieldundef{type}{\usebibmacro{cite:case:neutral:full}}{\iffie\
+ldequalstr{type}{unreported}{\usebibmacro{cite:case:unreported:f\
+ull}}{\iffieldequalstr{type}{maori}{\usebibmacro{cite:case:maori\
+:full}}{\usebibmacro{cite:case:neutral:full}}}}%                 
+}
+
+
+\newbibmacro{cite:case:maori:full}{%                             
+\iffieldundef{prenote}{\printfield[it]{title} --}{\thefield{pren\
+ote}\iffieldequalcs{title}{cbx@title}{}{ \printfield[it]{title} \
+--}}%                                                            
+\iflistundef{location}{}{ \printlist[it]{location}}%             
+\iffieldundef{year}{}{ (\printfield{year})}%                     
+\iffieldundef{file}{}{ \printfield{file}}%                       
+\iffieldundef{note}{}{ (\printfield{note})}%                     
+\iffieldundef{postnote}{}{ at \printfield{postnote}}%            
+\iffieldundef{shorttitle}{}{ [\printfield[it]{shorttitle}]}%     
+}
+
+\newbibmacro{cite:case:unreported:full}{%                        
+\iffieldundef{prenote}{\printfield[it]{title}}{\thefield{prenote\
+}\iffieldequalcs{title}{cbx@title}{}{ \printfield[it]{title}}}%  
+\iffieldundef{venue}{}{ \printfield{venue}}%                     
+\iflistundef{location}{}{ \printlist{location}}%                 
+\iffieldundef{number}{}{ \printfield{number}}%                   
+,\iffieldundef{day}{}{ \stripzeros{\thefield{day}}}\iffieldundef\
+{month}{}{ \printfield{month}}\iffieldundef{year}{}{ \printfield\
+{year}}%                                                         
+\iffieldundef{postnote}{}{ at \printfield{postnote}}%            
+\iffieldundef{shorttitle}{}{ [\printfield[it]{shorttitle}]}%     
+}
+
+
+
+\newbibmacro{cite:case:neutral:full}{%                           
+\iffieldundef{prenote}{\printfield[it]{title}}{\thefield{prenote\
+}\iffieldequalcs{title}{cbx@title}{}{ \printfield[it]{title}}}%  
+\iffieldundef{origyear}{}{ [\thefield{origyear}]\iffieldundef{ve\
+nue}{}{ \thefield{venue} \thefield{number}}}% neutral citation, \
+if there                                                         
+\iffieldundef{year}{}{\iffieldundef{origyear}{}{,} \iffieldundef\
+{type}{ [\printfield{year}]}{(\printfield{year})}}%print year wi\
+th right type of brackets                                        
+\iffieldundef{volume}{}{ \printfield{volume}}%                   
+\iffieldundef{series}{}{ \printfield{series}}%                   
+\iffieldundef{pages}{}{ \thefield{pages}}%                       
+\iffieldundef{origyear}{\iffieldundef{venue}{}{ \iffieldequalstr\
+{type}{old}{\printfield{venue}}{(\printfield{venue})}}}{}%       
+\iffieldundef{postnote}{}{ at \printfield{postnote}}%            
+\iffieldundef{shorttitle}{}{ [\printfield[it]{shorttitle}]}%     
+}
