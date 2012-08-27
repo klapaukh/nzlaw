@@ -1,0 +1,6 @@
+\ProvidesFile{nzlaw.dbx}[2012/08/27 v0.1 nzlaw style guide]
+\DeclareDatamodelEntrytypes{case,dinner,etc}
+
+\DelareDatamodelFields[]{field1,field2}
+
+
