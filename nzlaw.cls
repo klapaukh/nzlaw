@@ -11,7 +11,7 @@
 \RequirePackage{fullpage}
 \RequirePackage{fontspec} 
 \RequirePackage[group-separator={,}]{siunitx} 
-\RequirePackage[citestyle=nzlaw,hyperref=true,backend=biber]{biblatex}
+\RequirePackage[style=nzlaw,hyperref=true,backend=biber]{biblatex}
 \RequirePackage{hyperref}
 
 %pick up tex character mappings
