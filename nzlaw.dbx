@@ -3,7 +3,7 @@
 %%Remove all the defaults so that I can make things as I need them
 %\ResetDatamodelEntrytypes
 %\ResetDatamodelFields
-%\ResetDatamodelEntryfields
+\ResetDatamodelEntryfields
 \ResetDatamodelConstraints
 
 %%Declare available extra fields
@@ -20,42 +20,34 @@
 %%Declare the types of entries that are needed.
 \DeclareDatamodelEntrytypes{
  appendix,
- article,
  bill,
- book,
  cabinetdoc,
  cabinetman,
  case,
  hansard,
- inbook,
  nzgazette,
  nzlc,
- online,
  orders,
  press,
- reference,
  regulations,
- report,
  statute,
- submission,
- thesis,
- unpublished}
+ submission}
 
- \DeclareDatamodelEntryfields[statute]{
+\DeclareDatamodelEntryfields[statute]{
  title,
  year,
  jurisdiction,
  regnalyear,
  ordinanceno}
  
- \DeclareDatamodelConstraints[statute]{
+\DeclareDatamodelConstraints[statute]{
   \constraint[type=mandatory]{
     \constraintfield{year}
     \constraintfield{title}
   }
 }
 
- \DeclareDatamodelEntryfields[bill]{
+\DeclareDatamodelEntryfields[bill]{
  title,
  year,
  number,
@@ -63,7 +55,7 @@
  sopnumber,
  note}
  
- \DeclareDatamodelConstraints[bill]{
+\DeclareDatamodelConstraints[bill]{
   \constraint[type=mandatory]{
     \constraintfield{year}
     \constraintfield{title}
@@ -71,12 +63,44 @@
   }
 }
 
- \DeclareDatamodelEntryfields[regulations]{
+\DeclareDatamodelEntryfields[regulations]{
  title,
  year}
  
- \DeclareDatamodelConstraints[regulations]{
+\DeclareDatamodelConstraints[regulations]{
   \constraint[type=mandatory]{
     \constraintfield{title}
+  }
+}
+
+\DeclareDatamodelEntryfields[hansard]{
+ title,
+ year,
+ volume,
+ day,
+ month}
+ 
+\DeclareDatamodelConstraints[hansard]{
+  \constraint[type=mandatory]{
+    \constraintfield{date}
+    \constraintfield{title}
+    \constraintfield{volume}
+  }
+}
+
+\DeclareDatamodelEntryfields[appendix]{
+ title,
+ author,
+ endyear,
+ year,
+ volume,
+ series,
+ number}
+ 
+ \DeclareDatamodelConstraints[appendix]{
+  \constraint[type=mandatory]{
+    \constraintfield{title}
+    \constraintfield{year}
+    \constraintfield{author}
   }
 }
