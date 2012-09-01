@@ -60,11 +60,59 @@
 \renewcommand{\finalnamedelim}{\addspace\bibstring{and}\addspace}
 \renewcommand{\multinamedelim}{,\addspace}
 %\renewcommand{\andothersdelim}{\addspace\bibstring{and others}}
+
+\NewBibliographyString{ss,s,
+subs,
+subss,
+para,
+paras,
+sch,
+schs,
+pt,
+pts,
+art,
+arts,
+r,
+rr,
+sub-r,
+sub-rr,
+reg,
+regs,
+sub-reg,
+sub-regs,
+cl,
+cls,
+sub-cl,
+sub-cls}
+
 \DefineBibliographyStrings{english}{
 andothers = and others,
 references = Bibliography,
+s = Section,
+ss = Sections,
+subs = Subsection,
+subss = Subsections,
+para = Paragraph,
+paras = Paragraphs,
+sch = Schedule,
+schs = Schedules,
+pt = Part,
+pts = Parts,
+art = Article,
+arts = Articles,
+r = Rule,
+rr = Rules,
+sub-r = Sub-rule,
+sub-rr = Sub-rules,
+reg = Regulation,
+regs = Regulations,
+sub-reg = Sub-regulation,
+sub-regs = Sub-regulations,
+cl = Clause,
+cls = Clauses,
+sub-cl = Sub-clause,
+sub-cls = Sub-clauses
 }
-
 
 %%%% Definitions for how to format different kinds of text, will need to be expanded to deal with the different citation types used
 %\DeclareNameFormat*{author}{#1}
@@ -140,14 +188,27 @@ references = Bibliography,
 \newbibmacro*{cite:clearlist}{\global\undef{\myauthorlist}\global\undef{\myentrylist}}
 %%%%%%%%%%% Specific definitions for citation types
 
+%\newcommand\ifin[2]{\begingroup\edef\temp{\endgroup\noexpand\in@{#1}{#2}}\temp\ifin@\expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi}
+
+%%Magic to expand acronyms
+\DeclareDocumentCommand{\toFullType}{u{ }}{\biblstring{#1} }
+
+\newcommand{\id}[1]{}
+
+\newcommand{\expandacron}[1]
+{\begingroup\edef\id{\endgroup\noexpand\toFullType#1}\id}
+
 %%%%Legislation ibid
 \newbibmacro{cite:leg:ibid}{%
-\ifin{,}{\thefield{postnote}}{Sections}{Section} \thefield{postnote}%
-}
+\iffieldundef{postnote}{}
+{\ifin{ }{\thefield{postnote}}
+{\expandacron{\thefield{postnote}}}
+{\printfield{postnote}}%
+}}
 
 %%%%Normal Ibid
 \newbibmacro{cite:normal:ibid}{%
-At \thefield{postnote}%
+At \printfield{postnote}%
 }
 
 %%%%%%CASES  3.*
