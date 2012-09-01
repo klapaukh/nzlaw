@@ -97,10 +97,21 @@
  series,
  number}
  
- \DeclareDatamodelConstraints[appendix]{
+\DeclareDatamodelConstraints[appendix]{
   \constraint[type=mandatory]{
     \constraintfield{title}
     \constraintfield{year}
+    \constraintfield{author}
+  }
+}
+
+\DeclareDatamodelEntryfields[submission]{
+ title,
+ author}
+ 
+\DeclareDatamodelConstraints[submission]{
+  \constraint[type=mandatory]{
+    \constraintfield{title}
     \constraintfield{author}
   }
 }
