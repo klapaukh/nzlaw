@@ -10,7 +10,7 @@
 % 3.* -> case [use type for identifying specifics]
 
 %Legislation
-%4.1 Statues -> statute
+%4.1 Statutes -> statute
 %4.2 Bills -> bill
 %4.3 Regulations -> regulations
 
@@ -140,8 +140,18 @@ references = Bibliography,
 \newbibmacro*{cite:clearlist}{\global\undef{\myauthorlist}\global\undef{\myentrylist}}
 %%%%%%%%%%% Specific definitions for citation types
 
+%%%%Legislation ibid
+\newbibmacro{cite:leg:ibid}{%
+\ifin{,}{\thefield{postnote}}{Sections}{Section} \thefield{postnote}%
+}
+
+%%%%Normal Ibid
+\newbibmacro{cite:normal:ibid}{%
+At \thefield{postnote}%
+}
+
 %%%%%%CASES  3.*
-\newbibmacro{cite:case}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:case:ibid}}{\usebibmacro{cite:case:above}}}{\ifciteseen{\usebibmacro{cite:case:above}}{\usebibmacro{cite:case:full}}}}
+\newbibmacro{cite:case}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:normal:ibid}}{\usebibmacro{cite:case:above}}}{\ifciteseen{\usebibmacro{cite:case:above}}{\usebibmacro{cite:case:full}}}}
 
 \newbibmacro{cite:case:full}{%
 \iffieldundef{type}{\usebibmacro{cite:case:neutral:full}}{\iffieldequalstr{type}{unreported}{\usebibmacro{cite:case:unreported:full}}{\iffieldequalstr{type}{maori}{\usebibmacro{cite:case:maori:full}}{\usebibmacro{cite:case:neutral:full}}}}%
@@ -181,10 +191,6 @@ references = Bibliography,
 \iffieldundef{shorttitle}{}{ [\printfield[it]{shorttitle}]}%
 }
 
-\newbibmacro{cite:case:ibid}{%
-At \thefield{postnote}%
-}
-
 \newbibmacro{cite:case:above}{%
 \iffieldundef{prenote}{}{\thefield{prenote} }%
 \iffieldundef{shorttitle}{\printfield[it]{title}}{\printfield[it]{shorttitle}}, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
@@ -194,14 +200,15 @@ At \thefield{postnote}%
 %%%%%%%%%%% LEGISLATION 4.*
 
 %%%STATUTE 4.1
-\newbibmacro{cite:statute}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:statute:ibid}}{\usebibmacro{cite:statute:above}}}{\ifciteseen{\usebibmacro{cite:statute:above}}{\usebibmacro{cite:statute:full}}}}
+\newbibmacro{cite:statute}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:leg:ibid}}{\usebibmacro{cite:statute:above}}}{\ifciteseen{\usebibmacro{cite:statute:above}}{\usebibmacro{cite:statute:full}}}}
 
 \newbibmacro{cite:statute:full}{%
 \printfield[plain]{title}%
-\iffieldundef{year}{}{ \printfield{year}}%
-\iffieldundef{note}{}{ \printfield{note}}%
-\iffieldundef{number}{}{ \printfield{number}}%
-\iflistundef{location}{}{ (\printlist{location})}%
+\setunit*{\addspace}%
+\printfield{year}%
+\iffieldundef{regnalyear}{}{ \printfield{regnalyear}}%
+\iffieldundef{ordinanceno}{}{ \printfield{ordinanceno}}%
+\iffieldundef{jurisdiction}{}{ (\printfield{jurisdiction})}%
 \iffieldundef{postnote}{}{, \thefield{postnote}}%
 }
 
@@ -210,12 +217,8 @@ At \thefield{postnote}%
 \iffieldundef{postnote}{}{, \ifin{,}{\thefield{postnote}}{ss}{s} \thefield{postnote}}%
 }
 
-\newbibmacro{cite:statute:ibid}{%
-\ifin{,}{\thefield{postnote}}{Sections}{Section} \thefield{postnote}%
-}
-
 %%BILL 4.2
-\newbibmacro{cite:bill}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:bill:ibid}}{\usebibmacro{cite:bill:above}}}{\ifciteseen{\usebibmacro{cite:bill:above}}{\usebibmacro{cite:bill:full}}}}
+\newbibmacro{cite:bill}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:leg:ibid}}{\usebibmacro{cite:bill:above}}}{\ifciteseen{\usebibmacro{cite:bill:above}}{\usebibmacro{cite:bill:full}}}}
 
 \newbibmacro{cite:bill:full}{%
 \iffieldundef{eventyear}{}{Supplementary Order Paper \printfield{eventyear}}%
@@ -233,12 +236,9 @@ At \thefield{postnote}%
 \iffieldundef{postnote}{}{, \ifin{,}{\thefield{postnote}}{ss}{s} \thefield{postnote}}%
 }
 
-\newbibmacro{cite:bill:ibid}{%
-\ifin{,}{\thefield{postnote}}{Sections}{Section} \thefield{postnote}%
-}
 
 %%%Regulations 4.3
-\newbibmacro{cite:regulations}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:regulations:ibid}}{\usebibmacro{cite:regulations:above}}}{\ifciteseen{\usebibmacro{cite:regulations:above}}{\usebibmacro{cite:regulations:full}}}}
+\newbibmacro{cite:regulations}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:leg:ibid}}{\usebibmacro{cite:regulations:above}}}{\ifciteseen{\usebibmacro{cite:regulations:above}}{\usebibmacro{cite:regulations:full}}}}
 
 
 \newbibmacro{cite:regulations:full}{%
@@ -252,15 +252,11 @@ At \thefield{postnote}%
 \iffieldundef{postnote}{}{, \ifin{,}{\thefield{postnote}}{ss}{s} \thefield{postnote}}%
 }
 
-\newbibmacro{cite:regulations:ibid}{%
-\ifin{,}{\thefield{postnote}}{Sections}{Section} \thefield{postnote}%
-}
-
 
 %%%%%%Other official sources
 
 %%Hansard 5.1.1
-\newbibmacro{cite:hansard}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:hansard:ibid}}{\usebibmacro{cite:hansard:above}}}{\ifciteseen{\usebibmacro{cite:hansard:above}}{\usebibmacro{cite:hansard:full}}}}
+\newbibmacro{cite:hansard}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:normal:ibid}}{\usebibmacro{cite:hansard:above}}}{\ifciteseen{\usebibmacro{cite:hansard:above}}{\usebibmacro{cite:hansard:full}}}}
 
 
 \newbibmacro{cite:hansard:full}{%
@@ -275,18 +271,13 @@ At \thefield{postnote}%
 \iffieldundef{postnote}{}{, \thefield{postnote}}%
 }
 
-\newbibmacro{cite:hansard:ibid}{%
-At \thefield{postnote}%
-}
+
 
 
 %%% Appendix 5.1.2
 \newbibmacro{cite:appendix}{%
-\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:appendix:ibid}}{\usebibmacro{cite:appendix:above}}}{\ifciteseen{\usebibmacro{cite:appendix:above}}{\usebibmacro{cite:appendix:full}}}}
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:normal:ibid}}{\usebibmacro{cite:appendix:above}}}{\ifciteseen{\usebibmacro{cite:appendix:above}}{\usebibmacro{cite:appendix:full}}}}
 
-\newbibmacro{cite:appendix:ibid}{%
-At \thefield{postnote}%
-}
 
 \newbibmacro{cite:appendix:above}{%
 \printnames{author}%
@@ -315,11 +306,9 @@ At \thefield{postnote}%
 
 %%% submission to select committee 5.1.3
 \newbibmacro{cite:submission}{%
-\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:submission:ibid}}{\usebibmacro{cite:submission:above}}}{\ifciteseen{\usebibmacro{cite:submission:above}}{\usebibmacro{cite:submission:full}}}}
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:normal:ibid}}{\usebibmacro{cite:submission:above}}}{\ifciteseen{\usebibmacro{cite:submission:above}}{\usebibmacro{cite:submission:full}}}}
 
-\newbibmacro{cite:submission:ibid}{%
-At \thefield{postnote}%
-}
+
 
 \newbibmacro{cite:submission:above}{%
 \printnames{author}%
@@ -339,11 +328,8 @@ At \thefield{postnote}%
 
 %%% Standing orders 5.1.4
 \newbibmacro{cite:orders}{%
-\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:orders:ibid}}{\usebibmacro{cite:orders:above}}}{\ifciteseen{\usebibmacro{cite:orders:above}}{\usebibmacro{cite:orders:full}}}}
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:normal:ibid}}{\usebibmacro{cite:orders:above}}}{\ifciteseen{\usebibmacro{cite:orders:above}}{\usebibmacro{cite:orders:full}}}}
 
-\newbibmacro{cite:orders:ibid}{%
-At \thefield{postnote}%
-}
 
 \newbibmacro{cite:orders:above}{%
 \iffieldundef{title}{Standing Orders of the House of Representatives}{\printfield[plain]{title}}%
@@ -363,11 +349,7 @@ At \thefield{postnote}%
 %%% Cabinet Documents 5.2.1
 
 \newbibmacro{cite:cabinetdoc}{%
-\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:cabinetdoc:ibid}}{\usebibmacro{cite:cabinetdoc:above}}}{\ifciteseen{\usebibmacro{cite:cabinetdoc:above}}{\usebibmacro{cite:cabinetdoc:full}}}}
-
-\newbibmacro{cite:cabinetdoc:ibid}{%
-At \thefield{postnote}%
-}
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:normal:ibid}}{\usebibmacro{cite:cabinetdoc:above}}}{\ifciteseen{\usebibmacro{cite:cabinetdoc:above}}{\usebibmacro{cite:cabinetdoc:full}}}}
 
 \newbibmacro{cite:cabinetdoc:above}{%
 \iffieldundef{title}{Standing Orders of the House of Representatives}{\printfield[plain]{title}}%
@@ -389,11 +371,9 @@ At \thefield{postnote}%
 
 %%% Cabinet Manual 5.2.1
 \newbibmacro{cite:cabinetman}{%
-\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:cabinetman:ibid}}{\usebibmacro{cite:cabinetman:above}}}{\ifciteseen{\usebibmacro{cite:cabinetman:above}}{\usebibmacro{cite:cabinetman:full}}}}
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:normal:ibid}}{\usebibmacro{cite:cabinetman:above}}}{\ifciteseen{\usebibmacro{cite:cabinetman:above}}{\usebibmacro{cite:cabinetman:full}}}}
 
-\newbibmacro{cite:cabinetman:ibid}{%
-At \thefield{postnote}%
-}
+
 
 \newbibmacro{cite:cabinetman:above}{%
 Cabinet Office%
@@ -414,13 +394,8 @@ Cabinet Office \textit{Cabinet Manual}%
 
 %%%%%%NZ Gazette 5.2.3
 \newbibmacro{cite:nzgazette}{%
-\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:nzgazette:ibid}}{\usebibmacro{cite:nzgazette:above}}}{\ifciteseen{\usebibmacro{cite:nzgazette:above}}{\usebibmacro{cite:nzgazette:full}}}%
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:normal:ibid}}{\usebibmacro{cite:nzgazette:above}}}{\ifciteseen{\usebibmacro{cite:nzgazette:above}}{\usebibmacro{cite:nzgazette:full}}}%
 }
-
-\newbibmacro{cite:nzgazette:ibid}{%
-At \thefield{postnote}}
-
-
 
 \newbibmacro{cite:nzgazette:above}{%
 \ifnameundef{author}{\printfield[quotes]{title}}{\printnames{author}%
@@ -442,13 +417,8 @@ At \thefield{postnote}}
 
 %%%%%%NZ Law Review 5.2.4
 \newbibmacro{cite:nzlc}{%
-\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:nzlc:ibid}}{\usebibmacro{cite:nzlc:above}}}{\ifciteseen{\usebibmacro{cite:nzlc:above}}{\usebibmacro{cite:nzlc:full}}}%
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:normal:ibid}}{\usebibmacro{cite:nzlc:above}}}{\ifciteseen{\usebibmacro{cite:nzlc:above}}{\usebibmacro{cite:nzlc:full}}}%
 }
-
-\newbibmacro{cite:nzlc:ibid}{%
-At \thefield{postnote}}
-
-
 
 \newbibmacro{cite:nzlc:above}{%
 Law Commission%
@@ -467,13 +437,8 @@ Law Commission \printfield[it]{title} (NZLC \printfield{number}, \printfield{yea
 
 %%%%%%Other report 5.2.5
 \newbibmacro{cite:report}{%
-\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:report:ibid}}{\usebibmacro{cite:report:above}}}{\ifciteseen{\usebibmacro{cite:report:above}}{\usebibmacro{cite:report:full}}}%
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:normal:ibid}}{\usebibmacro{cite:report:above}}}{\ifciteseen{\usebibmacro{cite:report:above}}{\usebibmacro{cite:report:full}}}%
 }
-
-\newbibmacro{cite:report:ibid}{%
-At \thefield{postnote}}
-
-
 
 \newbibmacro{cite:report:above}{%
 \printnames{author}%
@@ -491,12 +456,8 @@ At \thefield{postnote}}
 }
 
 %%%%%%BOOK  6.1, 6.3
-\newbibmacro{cite:book:ibid}{%
-At \thefield{postnote}%
-}
-
 \newbibmacro{cite:book}{%
-\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:book:ibid}}{\usebibmacro{cite:book:above}}}{\ifciteseen{\usebibmacro{cite:book:above}}{\usebibmacro{cite:book:full}}}%
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:normal:ibid}}{\usebibmacro{cite:book:above}}}{\ifciteseen{\usebibmacro{cite:book:above}}{\usebibmacro{cite:book:full}}}%
 }
 
 \newbibmacro{cite:book:above}{%
@@ -555,11 +516,7 @@ At \thefield{postnote}%
 
 %%%%%%INBOOK    6.2
 \newbibmacro{cite:inbook}{%
-\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:inbook:ibid}}{\usebibmacro{cite:inbook:above}}}{\ifciteseen{\usebibmacro{cite:inbook:above}}{\usebibmacro{cite:inbook:full}}}%
-}
-
-\newbibmacro{cite:inbook:ibid}{%
-\ifboolexpr{ test {\iffieldundef{postnote}}}{}{At \thefield{postnote}}%
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:normal:ibid}}{\usebibmacro{cite:inbook:above}}}{\ifciteseen{\usebibmacro{cite:inbook:above}}{\usebibmacro{cite:inbook:full}}}%
 }
 
 \newbibmacro{cite:inbook:above}{%
@@ -605,11 +562,8 @@ At \thefield{postnote}%
 
 %%%%%%ARTICLE  6.4
 \newbibmacro{cite:article}{%
-\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:article:ibid}}{\usebibmacro{cite:article:above}}}{\ifciteseen{\usebibmacro{cite:article:above}}{\usebibmacro{cite:article:full}}}}
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:normal:ibid}}{\usebibmacro{cite:article:above}}}{\ifciteseen{\usebibmacro{cite:article:above}}{\usebibmacro{cite:article:full}}}}
 
-\newbibmacro{cite:article:ibid}{%
-At \thefield{postnote}%
-}
 
 \newbibmacro{cite:article:above}{%
 \printnames{author}%
@@ -645,11 +599,7 @@ At \thefield{postnote}%
 
 %%%%%%REFERENCE  6.5, 6.6
 \newbibmacro{cite:reference}{%
-\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:reference:ibid}}{\usebibmacro{cite:reference:above}}}{\ifciteseen{\usebibmacro{cite:reference:above}}{\usebibmacro{cite:reference:full}}}}
-
-\newbibmacro{cite:reference:ibid}{%
-At \thefield{postnote}%
-}
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:normal:ibid}}{\usebibmacro{cite:reference:above}}}{\ifciteseen{\usebibmacro{cite:reference:above}}{\usebibmacro{cite:reference:full}}}}
 
 
 \newbibmacro{cite:reference:above}{%
@@ -688,11 +638,7 @@ At \thefield{postnote}%
 
 %%%%%%THESIS    6.7  - Thesis
 \newbibmacro{cite:thesis}{%
-\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:thesis:ibid}}{\usebibmacro{cite:thesis:above}}}{\ifciteseen{\usebibmacro{cite:thesis:above}}{\usebibmacro{cite:thesis:full}}}}
-
-\newbibmacro{cite:thesis:ibid}{%
-At \thefield{postnote}%
-}
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:normal:ibid}}{\usebibmacro{cite:thesis:above}}}{\ifciteseen{\usebibmacro{cite:thesis:above}}{\usebibmacro{cite:thesis:full}}}}
 
 
 \newbibmacro{cite:thesis:above}{%
@@ -724,11 +670,7 @@ At \thefield{postnote}%
 
 %%%%%%UNPUBLISHED  6.7 - Other
 \newbibmacro{cite:unpublished}{%
-\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:unpublished:ibid}}{\usebibmacro{cite:unpublished:above}}}{\ifciteseen{\usebibmacro{cite:unpublished:above}}{\usebibmacro{cite:unpublished:full}}}}
-
-\newbibmacro{cite:unpublished:ibid}{%
-At \thefield{postnote}%
-}
+\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:normal:ibid}}{\usebibmacro{cite:unpublished:above}}}{\ifciteseen{\usebibmacro{cite:unpublished:above}}{\usebibmacro{cite:unpublished:full}}}}
 
 
 \newbibmacro{cite:unpublished:above}{%
@@ -768,11 +710,8 @@ At \thefield{postnote}%
 
 
 %%%%%%%%%%% Online        7.1 Online Materials
-\newbibmacro{cite:online}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:online:ibid}}{\usebibmacro{cite:online:above}}}{\ifciteseen{\usebibmacro{cite:online:above}}{\usebibmacro{cite:online:full}}}}
+\newbibmacro{cite:online}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:normal:ibid}}{\usebibmacro{cite:online:above}}}{\ifciteseen{\usebibmacro{cite:online:above}}{\usebibmacro{cite:online:full}}}}
 
-\newbibmacro{cite:online:ibid}{%
-At \thefield{postnote}%
-}
 
 \newbibmacro{cite:online:above}{%
 \printnames{author}%
@@ -794,11 +733,8 @@ At \thefield{postnote}%
 
 
 %%%%%%%%%%% Press         7.2, 7.4  Newspaper, Press Release
-\newbibmacro{cite:press}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:press:ibid}}{\usebibmacro{cite:press:above}}}{\ifciteseen{\usebibmacro{cite:press:above}}{\usebibmacro{cite:press:full}}}}
+\newbibmacro{cite:press}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:normal:ibid}}{\usebibmacro{cite:press:above}}}{\ifciteseen{\usebibmacro{cite:press:above}}{\usebibmacro{cite:press:full}}}}
 
-\newbibmacro{cite:press:ibid}{%
-At \thefield{postnote}%
-}
 
 \newbibmacro{cite:press:above}{%
 \printnames{author}%
@@ -824,11 +760,8 @@ At \thefield{postnote}%
 }
 
 %%%%%%%%%%% Interview     7.3 Interview
-\newbibmacro{cite:interview}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:interview:ibid}}{\usebibmacro{cite:interview:above}}}{\ifciteseen{\usebibmacro{cite:interview:above}}{\usebibmacro{cite:interview:full}}}}
+\newbibmacro{cite:interview}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:normal:ibid}}{\usebibmacro{cite:interview:above}}}{\ifciteseen{\usebibmacro{cite:interview:above}}{\usebibmacro{cite:interview:full}}}}
 
-\newbibmacro{cite:interview:ibid}{%
-At \thefield{postnote}%
-}
 
 \newbibmacro{cite:interview:above}{UNIMPLEMENTED}
 
@@ -836,11 +769,7 @@ At \thefield{postnote}%
 
 
 %%%%%%%%%%% mail          7.6 Letters \ mail 
-\newbibmacro{cite:mail}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:mail:ibid}}{\usebibmacro{cite:mail:above}}}{\ifciteseen{\usebibmacro{cite:mail:above}}{\usebibmacro{cite:mail:full}}}}
-
-\newbibmacro{cite:mail:ibid}{%
-At \thefield{postnote}%
-}
+\newbibmacro{cite:mail}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:normal:ibid}}{\usebibmacro{cite:mail:above}}}{\ifciteseen{\usebibmacro{cite:mail:above}}{\usebibmacro{cite:mail:full}}}}
 
 \newbibmacro{cite:mail:above}{%
 \printnames{author}%

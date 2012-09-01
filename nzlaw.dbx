@@ -1,6 +1,54 @@
 \ProvidesFile{nzlaw.dbx}[2012/08/27 v0.1 nzlaw style guide]
-\DeclareDatamodelEntrytypes{appendix,article,bill,book,cabinetdoc,cabinetman,case,hansard,inbook,nzgazette,nzlc,online,orders,press,reference,regulations,report,statue,submission,thesis,unpublished}
 
-%\DeclareDatamodelFields[]{field1,field2}
+%%Remove all the defaults so that I can make things as I need them
+%\ResetDatamodelEntrytypes
+%\ResetDatamodelFields
+%\ResetDatamodelEntryfields
+%\ResetDatamodelConstraints
 
+%%Declare available extra fields
 
+\DeclareDatamodelFields[type=field, datatype=literal]{
+ regnalyear,
+ jurisdiction}
+ 
+\DeclareDatamodelFields[type=field, datatype=integer]{
+ ordinanceno}
+
+%%Declare the types of entries that are needed.
+\DeclareDatamodelEntrytypes{
+ appendix,
+ article,
+ bill,
+ book,
+ cabinetdoc,
+ cabinetman,
+ case,
+ hansard,
+ inbook,
+ nzgazette,
+ nzlc,
+ online,
+ orders,
+ press,
+ reference,
+ regulations,
+ report,
+ statute,
+ submission,
+ thesis,
+ unpublished}
+
+ \DeclareDatamodelEntryfields[statute]{
+ title,
+ year,
+ jurisdiction,
+ regnalyear,
+ ordinanceno}
+ 
+ \DeclareDatamodelConstraints[statute]{
+  \constraint[type=mandatory]{
+    \constraintfield{year}
+    \constraintfield{title}
+  }
+}
