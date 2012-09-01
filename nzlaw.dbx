@@ -4,12 +4,14 @@
 %\ResetDatamodelEntrytypes
 %\ResetDatamodelFields
 %\ResetDatamodelEntryfields
-%\ResetDatamodelConstraints
+\ResetDatamodelConstraints
 
 %%Declare available extra fields
 
 \DeclareDatamodelFields[type=field, datatype=literal]{
  regnalyear,
+ sopyear,
+ sopnumber,
  jurisdiction}
  
 \DeclareDatamodelFields[type=field, datatype=integer]{
@@ -50,5 +52,21 @@
   \constraint[type=mandatory]{
     \constraintfield{year}
     \constraintfield{title}
+  }
+}
+
+ \DeclareDatamodelEntryfields[bill]{
+ title,
+ year,
+ number,
+ sopyear,
+ sopnumber,
+ note}
+ 
+ \DeclareDatamodelConstraints[bill]{
+  \constraint[type=mandatory]{
+    \constraintfield{year}
+    \constraintfield{title}
+    \constraintfield{number}
   }
 }

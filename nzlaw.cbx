@@ -209,31 +209,30 @@ At \thefield{postnote}%
 \iffieldundef{regnalyear}{}{ \printfield{regnalyear}}%
 \iffieldundef{ordinanceno}{}{ \printfield{ordinanceno}}%
 \iffieldundef{jurisdiction}{}{ (\printfield{jurisdiction})}%
-\iffieldundef{postnote}{}{, \ifin{,}{\thefield{postnote}}{ss}{s} \thefield{postnote}}%
+\iffieldundef{postnote}{}{, \thefield{postnote}}%
 }
 
 \newbibmacro{cite:statute:above}{%
 \printfield[plain]{title}, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
-\iffieldundef{postnote}{}{, \ifin{,}{\thefield{postnote}}{ss}{s} \thefield{postnote}}%
+\iffieldundef{postnote}{}{, \thefield{postnote}}%
 }
 
 %%BILL 4.2
 \newbibmacro{cite:bill}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:leg:ibid}}{\usebibmacro{cite:bill:above}}}{\ifciteseen{\usebibmacro{cite:bill:above}}{\usebibmacro{cite:bill:full}}}}
 
 \newbibmacro{cite:bill:full}{%
-\iffieldundef{eventyear}{}{Supplementary Order Paper \printfield{eventyear}}%
-\iffieldundef{file}{}{ (\printfield{file}) }%
+\iffieldundef{sopyear}{}{Supplementary Order Paper \printfield{sopyear}}%
+\iffieldundef{sopnumber}{}{ (\printfield{sopnumber}) }%
 \printfield[plain]{title}%
 \iffieldundef{year}{}{ \printfield{year}}%
 \iffieldundef{number}{}{ (\printfield{number})}%
-\iffieldundef{file}{}{,}%
 \iffieldundef{note}{}{ (\printfield{note})}%
-\iffieldundef{postnote}{}{\iffieldundef{file}{\iffieldundef{note}{, }{ at}}{ at} \ifin{,}{\thefield{postnote}}{ss}{s} \thefield{postnote}}%
+\iffieldundef{postnote}{}{\iffieldundef{sopnumber}{\iffieldundef{note}{, }{ at}}{ at} \thefield{postnote}}%
 }
 
 \newbibmacro{cite:bill:above}{%
 \printfield[plain]{title}, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
-\iffieldundef{postnote}{}{, \ifin{,}{\thefield{postnote}}{ss}{s} \thefield{postnote}}%
+\iffieldundef{postnote}{}{, \thefield{postnote}}%
 }
 
 
