@@ -1,7 +1,7 @@
 \ProvidesFile{nzlaw.dbx}[2012/08/27 v0.1 nzlaw style guide]
 
 %%Remove all the defaults so that I can make things as I need them
-%\ResetDatamodelEntrytypes
+\ResetDatamodelEntrytypes
 %\ResetDatamodelFields
 \ResetDatamodelEntryfields
 \ResetDatamodelConstraints
@@ -31,7 +31,15 @@
  press,
  regulations,
  statute,
- submission}
+ submission,
+ book,
+ unpublished,
+ thesis,
+ online,
+ inbook,
+ reference,
+ article,
+ report}
 
  
 \DeclareDatamodelEntryfields[case]{
