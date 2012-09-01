@@ -320,7 +320,7 @@ At \thefield{postnote}%
 }
 
 \newbibmacro{cite:submission:full}{%
-\printnames{author}\addspace\printfield[quotes]{title}%
+\printnames{author}\setunit*{\addspace}\printfield[quotes]{title}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{ at \thefield{postnote}}%
 }
