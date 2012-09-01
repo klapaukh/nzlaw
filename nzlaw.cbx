@@ -243,12 +243,12 @@ At \thefield{postnote}%
 \newbibmacro{cite:regulations:full}{%
 \printfield[plain]{title}%
 \iffieldundef{year}{}{ \printfield{year}}%
-\iffieldundef{postnote}{}{, \ifin{,}{\thefield{postnote}}{ss}{s} \thefield{postnote}}%
+\iffieldundef{postnote}{}{, \thefield{postnote}}%
 }
 
 \newbibmacro{cite:regulations:above}{%
 \printfield[plain]{title}, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
-\iffieldundef{postnote}{}{, \ifin{,}{\thefield{postnote}}{ss}{s} \thefield{postnote}}%
+\iffieldundef{postnote}{}{, \thefield{postnote}}%
 }
 
 

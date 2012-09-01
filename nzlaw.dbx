@@ -70,3 +70,13 @@
     \constraintfield{number}
   }
 }
+
+ \DeclareDatamodelEntryfields[regulations]{
+ title,
+ year}
+ 
+ \DeclareDatamodelConstraints[regulations]{
+  \constraint[type=mandatory]{
+    \constraintfield{title}
+  }
+}
