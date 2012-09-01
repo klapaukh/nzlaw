@@ -33,6 +33,25 @@
  statute,
  submission}
 
+ 
+\DeclareDatamodelEntryfields[case]{
+ prenote,
+ origyear,
+ volume,
+ series,
+ pages,
+ shorttitle,
+ venue,
+ location,
+ title,
+ year,
+ day,
+ month,
+ number,
+ type,
+ file,
+ note}
+
 \DeclareDatamodelEntryfields[statute]{
  title,
  year,
@@ -127,4 +146,107 @@
     \constraintfield{year}
   }
 }
+
+\DeclareDatamodelEntryfields[cabinetdoc]{
+day,
+label,
+month,
+year,
+number,
+title}
+
+\DeclareDatamodelEntryfields[cabinetman]{
+year}
+
+\DeclareDatamodelEntryfields[nzgazette]{
+year,
+day,
+month,
+number,
+title}
+
+\DeclareDatamodelEntryfields[nzlc]{
+number,
+title,
+year}
+
+\DeclareDatamodelEntryfields[report]{
+number,
+title,
+year,
+note,
+author}
+
+\DeclareDatamodelEntryfields[book]{
+edition,
+publisher,
+author,
+title,
+year,
+endyear,
+location,
+editor}
+
+\DeclareDatamodelEntryfields[inbook]{
+author,
+booktitle,
+title,
+publisher,
+year,
+editor,
+location,
+pages}
+
+
+\DeclareDatamodelEntryfields[article]{
+author,
+journaltitle,
+pages,
+title,
+volume,
+year}
+
+\DeclareDatamodelEntryfields[reference]{
+edition,
+label,
+title,
+volume,
+year,
+note}
+
+\DeclareDatamodelEntryfields[thesis]{
+title,
+author,
+institution,
+type,
+year}
+
+\DeclareDatamodelEntryfields[unpublished]{
+author,
+location,
+month,
+title,
+type,
+year,
+authortype,
+day}
+
+\DeclareDatamodelEntryfields[online]{
+author,
+maintitle,
+title,
+url,
+year}
+
+\DeclareDatamodelEntryfields[press]{
+day,
+author,
+month,
+year,
+publisher,
+title,
+type,
+location}
+
+
 
