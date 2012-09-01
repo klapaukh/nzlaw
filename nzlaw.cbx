@@ -209,7 +209,7 @@ At \thefield{postnote}%
 \iffieldundef{regnalyear}{}{ \printfield{regnalyear}}%
 \iffieldundef{ordinanceno}{}{ \printfield{ordinanceno}}%
 \iffieldundef{jurisdiction}{}{ (\printfield{jurisdiction})}%
-\iffieldundef{postnote}{}{, \thefield{postnote}}%
+\iffieldundef{postnote}{}{, \ifin{,}{\thefield{postnote}}{ss}{s} \thefield{postnote}}%
 }
 
 \newbibmacro{cite:statute:above}{%
