@@ -82,7 +82,9 @@
  
 \DeclareDatamodelConstraints[hansard]{
   \constraint[type=mandatory]{
-    \constraintfield{date}
+    \constraintfield{day}
+    \constraintfield{month}
+    \constraintfield{year}
     \constraintfield{title}
     \constraintfield{volume}
   }
@@ -115,3 +117,14 @@
     \constraintfield{author}
   }
 }
+
+\DeclareDatamodelEntryfields[orders]{
+ title,
+ year}
+ 
+\DeclareDatamodelConstraints[orders]{
+  \constraint[type=mandatory]{
+    \constraintfield{year}
+  }
+}
+
