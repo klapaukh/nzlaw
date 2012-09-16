@@ -212,6 +212,7 @@ journaltitle,
 pages,
 title,
 volume,
+number,
 year}
 
 \DeclareDatamodelEntryfields[reference]{
