@@ -1,4 +1,4 @@
-\documentclass[draft]{book}
+\documentclass{book}
 \usepackage{float}
 \usepackage[group-separator={,}]{siunitx} 
 \usepackage[citestyle=nzlaw,hyperref=true,backend=biber]{biblatex}
@@ -8,7 +8,7 @@
 \usepackage{fontspec}
 \usepackage{titlesec}
 \usepackage{xcolor}
-\usepackage{ifdraft}
+\usepackage[draft]{ifdraft}
 \ifdraft{
   \usepackage{fancyvrb}
   \DefineVerbatimEnvironment{minted}{Verbatim}{}
@@ -72,44 +72,90 @@
 \addcontentsline{toc}{chapter}{\protect\numberline{}Preface}
 {\noindent\large\bfseries\MakeUppercase{Preface}\hrule \vspace{2ex}}
 
-This is an attempt to provide an alternative to typesetting legal document in Microsoft Word. 
-All software required to run this is open source and will work on any of the common operating systems: Windows, Mac OS and Linux. 
-This manual documents a \LaTeX package which formats according to the rules set out in the New Zealand Law Style Guide (2nd ed).  
+This is an attempt to provide an alternative to typesetting Microsoft Word. 
+This is a package for a free typesetting sysetm known as \LaTeX. 
+All software required to run use this is freely available and will work on 
+most common operating systems including Windows, Mac OS, and Linux.
+
+The purpose is to allow users to write their documents with no consideration
+for formatting, and have the formatting be performed automatically by the computer.
+As this is a small project this is impractical in general. However, care will be taken
+to make this as true as possible. 
+
+This manual documents the usage of the \LaTeX package which formats documents
+according to the rules set out in the New Zealand Law Style Guide (2nd ed).
+Unfortunately it is not yet complete and probably contains numerous errors.
+In the case of missing functionality or incorrect output please contact the 
+author. This document has been written to mimic the  structure and appearance
+of the New Zealand Law Style Guide to simplify uptake for people already 
+familiar with manually writing citations and formating.
 
 
 \addcontentsline{toc}{chapter}{\protect\numberline{}General Principles}
 {\noindent\large\bfseries\MakeUppercase{General Principles} \hrule\vspace{2ex}}
 This guide is written on the principle that all the resources required should be freely available to all possible interested parties. 
 There should be no restrictions irrespective of the user. 
-This imposes no extra limitations in commertial use over use in educational contexts.
+This imposes no extra limitations in commercial use over use in educational contexts.
 
 \addcontentsline{toc}{chapter}{\protect\numberline{}Errors and Omissions}
 {\noindent\large\bfseries\MakeUppercase{Errors and Omissions}\hrule\vspace{2ex}}
-This document is full of errors and omissions. Any feedback or corrections would be much appreciated. It is hoped that in time the package this documents will be able to provide all the formatting needs of the community.
+This document is full of errors and omissions. 
+Any feedback or corrections would be much appreciated. 
+It is hoped that eventually this document will be mostly correct.
 
 
 \mainmatter
 \chapter{General Rules: Main Text}
 
-Every document created using this package will have the following general layout:
+Every document created using this package will have the extension \texttt{.tex} and
+the following general layout:
 
 \begin{bib}
 \documentclass{nzlaw}
 
 \addbibresource{bibliograph.bib}
-\studentid{300123456}
+\studentid{312345678}
 \wordcount{1000}
 
 \begin{document}
 
+[Your document text here]
+
 \end{document}
 \end{bib}
+
+The \texttt{{\s}documentclass} is an instruction on what formatting rules to apply to this
+document. There are a large number of these classes that have been written. However,
+in order to get formatting using the nzlaw class that must contain the word ```nzlaw''.
+
+\texttt{{\s}addbibresource} contains the file that all of your citations are in. In 
+\LaTeX documents every reading that is done is entered into the bilibography file.
+These can then be referenced within the document as citations. This file must be
+in the same directory as the tex file for the document. A large part of this 
+document will specify the format of this bibliograph file. 
+
+The commands \texttt{{\s}studentid} and \texttt{{\s}wordcount} are provided for the
+convience of students submitting essays. The values in them should be replaced by the
+document authors student id and essay word count. These will then be placed in the
+document header. 
+
+\texttt{{\s}begin\{document\}} and \texttt{{\s}end\{document\}} mark the start and
+end of your text. The text must be written sequentially as you would in any other
+circumstance. 
 
 \section{Prose}
 \subsection{Language}
 
+\LaTeX has no ability to check your language for you. While it will provide formatting
+it requires you to make sure you follow the appropriate style rules, as well as spelling
+and grammar checking the document yourself. No amount of automation can as of yet replace
+proof reading. 
+
 \subsubsection{Foreign Languages}
-Foreign language characters such as \"{e} can be typed directly into the  text. However, for those who do not know how to type them, the following table contains commands for generating common accented letters. Examples use the letter a where possible for simplicity.
+Foreign language characters such as \"{e} can be typed directly into the text. 
+However, for those who do not know how to type them, the following table contains 
+commands for generating common accented letters. 
+Examples use the letter a where possible for simplicity.
 
 \begin{table}[H]
 \centering
@@ -134,12 +180,21 @@ Accent & Command \\ \hline
 
 \subsubsection{Punctuation}
 Punctuation in \latex~is the same as in normal text. 
-This format adds a slight amount of extra space following full stops. 
-Careful authors using fullstops in the middle of text (which should not happen in general) can stop this happening by using a {\s}@ after the fullstop. 
-If a sentence ends on a capital letter it will not put in an exapanded space after the full stop as it assumes that the sentence isn't finished. 
+By default this format adds a slight amount of extra space following full stops. 
+This is known as English spacing (as opposed to French spacing), except that these
+extra spaces should only occur after full stops at the end of a sentence. However,
+\LaTeX  is unable to tell if full stop denotes the end of a sentence and so may 
+insert these extra spaces incorrectly.  
+Careful authors using fullstops in the middle of text (which should not happen in general) 
+can stop this happening by using a {\s}@ after the fullstop. 
+If a sentence ends on a capital letter it will not put in an exapanded space after the
+ full stop as it assumes that the sentence isn't finished. 
 To correct this put {\s}@ before the full stop. 
 Note how this is the same as to shrink the space, except placed before the full stop.
-If you do not like having extra spaces after the full stop, you can put {\s}frenchspacing at the begining of your document to make all spaces the same. 
+If you do not like having extra spaces after the full stop, you can put {\s}frenchspacing 
+at the begining of your document to make all spaces the same. 
+
+Here are some example sentences to Illustrate this effect.
 
 \begin{tabular}{l l}
 Original & Output \\
@@ -152,7 +207,10 @@ HOWDY{\s}@. How are you? & HOWDY\@. How are you?\\
 \end{tabular}
 
 \subsubsection{Italics and Emphasis}
-The following table provides commands for emaphsis and such. While bold and underline are not expected to be used, they are provided in case.
+In order to make a section of text italicised, or emphasised in any other way,
+the appropriate text should be put inside the appropriate instruction.
+The following table provides commands for emaphsis and such. 
+While bold and underline are not expected to be used, they are provided in case.
 
 \begin{table}[H]
 \centering
@@ -169,7 +227,20 @@ Underline & {\s}underline & {\s}underline\{some text\} \\
 
 \chapter{General Rules: Footnotes and the Citation of Sources}
 
-Footnotes and citations share a common numbering system, and a similar mechanism for entering them. 
+\section{Footnotes and author notes}
+Footnotes can be inserted in \LaTeX in a similar fashion to italics. To footnote
+text, you simple write {\s}footnote\{Footnote text\} at the place you wish to 
+insert the footnote. The text inside the curly braces will be the text of the footnote.
+Here is an example.\footnote{Footnote text}. As the law citation style uses footnote
+citations footnotes and citations share a common numbering system.
+
+
+\section{Citations}
+
+Citations are slightly more complicated when using \LaTeX than when using word. 
+This is because \LaTeX needs to keep track of all possible citations so they can
+be used in your document when needed. In order to do this it uses a special
+bibliography file.  
 
 \chapter{Cases}
 
