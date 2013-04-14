@@ -857,7 +857,7 @@ UNIMPLEMENTED
 \iffieldundef{parties}{}{,\addspace\printfield{parties}}%
 \addspace%
 \printfield{series}%
-\addspace(\printfield{type} \printfield{origday} \printfield{origmonth} \printfield{origyear},\addspace%
+\addspace(\printfield{type} \printfield{origday} \mkbibmonth{\thefield{origmonth}} \printfield{origyear},\addspace%
 \iffieldundef{year}{not yet in force}{entered into force \printfield{day} \printfield{month} \printfield{year}})%
 \iffieldundef{postnote}{}{, \thefield{postnote}}%
 }
