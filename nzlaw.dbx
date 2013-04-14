@@ -2,17 +2,17 @@
 
 %%Remove all the defaults so that I can make things as I need them
 \ResetDatamodelEntrytypes
-%\ResetDatamodelFields
+%\ResetDatamodelFields  % I probably want to keep most of the fields as they are
 \ResetDatamodelEntryfields
 \ResetDatamodelConstraints
 
-%%Declare available extra fields
-
+%%Declare available extra fields that are not 
 \DeclareDatamodelFields[type=field, datatype=literal]{
  regnalyear,
  sopyear,
  sopnumber,
- jurisdiction}
+ jurisdiction,
+ court}
  
 \DeclareDatamodelFields[type=field, datatype=integer]{
  ordinanceno}
@@ -49,7 +49,7 @@
  series,
  pages,
  shorttitle,
- venue,
+ court,
  location,
  title,
  year,

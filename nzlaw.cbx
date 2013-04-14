@@ -38,8 +38,6 @@
 %7.6 Letters / email -> mail
 
 
-%% NEED TO READ ABOUT ABOVE N X FORMAT MORE CAREFULLY
-
 %%%% SET UP FOR THE STYLE %%%%%%
 \ExecuteBibliographyOptions{maxnames=3,minnames=1,indexing=true,pagetracker=true,citecounter=true,citetracker=true,ibidtracker=strict,parentracker=true,firstinits=false, terseinits=true,labelnumber=true, useprefix=false, dateabbrev=false}
 
@@ -221,7 +219,7 @@ At \printfield{postnote}%
 
 \newbibmacro{cite:case:neutral:full}{%
 \iffieldundef{prenote}{\printfield[it]{title}}{\thefield{prenote}\iffieldequalcs{title}{cbx@title}{}{ \printfield[it]{title}}}%
-\iffieldundef{origyear}{}{ [\thefield{origyear}]\iffieldundef{venue}{}{ \thefield{venue} \thefield{number}}}% neutral citation, if there
+\iffieldundef{origyear}{}{ [\thefield{origyear}]\iffieldundef{court}{}{ \thefield{court} \thefield{number}}}% neutral citation, if there
 \iffieldundef{year}{}{\iffieldundef{origyear}{}{,} \iffieldundef{type}{ [\printfield{year}]}{(\printfield{year})}}%print year with right type of brackets
 \iffieldundef{volume}{}{ \printfield{volume}}%
 \iffieldundef{series}{}{ \printfield{series}}%
@@ -233,7 +231,7 @@ At \printfield{postnote}%
 
 \newbibmacro{cite:case:unreported:full}{%
 \iffieldundef{prenote}{\printfield[it]{title}}{\thefield{prenote}\iffieldequalcs{title}{cbx@title}{}{ \printfield[it]{title}}}%
-\iffieldundef{venue}{}{ \printfield{venue}}%
+\iffieldundef{court}{}{ \printfield{court}}%
 \iflistundef{location}{}{ \printlist{location}}%
 \iffieldundef{number}{}{ \printfield{number}}%
 ,\iffieldundef{day}{}{ \stripzeros{\thefield{day}}}\iffieldundef{month}{}{ \printfield{month}}\iffieldundef{year}{}{ \printfield{year}}%
