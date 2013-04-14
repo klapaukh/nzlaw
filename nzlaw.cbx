@@ -224,7 +224,7 @@ At \printfield{postnote}%
 \iffieldundef{volume}{}{ \printfield{volume}}%
 \iffieldundef{series}{}{ \printfield{series}}%
 \iffieldundef{pages}{}{ \thefield{pages}}%
-\iffieldundef{origyear}{\iffieldundef{venue}{}{ \iffieldequalstr{type}{old}{\printfield{venue}}{(\printfield{venue})}}}{}%
+\iffieldundef{origyear}{\iffieldundef{court}{}{ \iffieldequalstr{type}{old}{\printfield{court}}{(\printfield{court})}}}{}%
 \iffieldundef{postnote}{}{ at \printfield{postnote}}%
 \iffieldundef{shorttitle}{}{ [\printfield[it]{shorttitle}]}%
 }
