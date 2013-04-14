@@ -44,7 +44,8 @@
  article,
  report,
  treaty,
- un}
+ un,
+ yilc}
 
  
 \DeclareDatamodelEntryfields[case]{
@@ -301,4 +302,19 @@ number}
   }
 }
 
+\DeclareDatamodelEntryfields[yilc]{
+title,
+year,
+volume,
+part,
+pages}
+
+\DeclareDatamodelConstraints[yilc]{
+ \constraint[type=mandatory]{
+  \constraintfield{title}
+  \constraintfield{year}
+  \constraintfield{volume}
+  \constraintfield{pages}
+ }
+}
 

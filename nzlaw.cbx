@@ -850,7 +850,8 @@ UNIMPLEMENTED
 \newbibmacro{cite:treaty}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:leg:ibid}}{\usebibmacro{cite:treaty:above}}}{\ifciteseen{\usebibmacro{cite:treaty:above}}{\usebibmacro{cite:treaty:full}}}}
 
 \newbibmacro{cite:treaty:above}{%
-\printfield{title}, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}}
+\printfield{title}, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
+\iffieldundef{postnote}{}{, \thefield{postnote}}}
 
 \newbibmacro{cite:treaty:full}{%
 \printfield{title}%
@@ -870,14 +871,15 @@ UNIMPLEMENTED
 
 \newbibmacro{cite:un:above}{%
 \iffieldundef{author}{\printfield{title}}{\printnames{author}%
-\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield{title}}%
-, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield{title}}}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
+\iffieldundef{postnote}{}{,at \thefield{postnote}}%
 }
 
 
 \newbibmacro{cite:un:full}{%
-\iffieldundef{resolution}%
-{\printfield{title}\iffieldundef{postnote}{}{, \thefield{postnote}}}
+\iffieldundef{year}%
+{\printfield[plain]{title}\iffieldundef{postnote}{}{, \thefield{postnote}}}
 {%
 \iffieldundef{author}{}{\printnames{author}\addspace}%
 \printfield[it]{title}\addspace\printfield{resolution}%
@@ -886,6 +888,28 @@ UNIMPLEMENTED
 \iffieldundef{year}{}{\addspace(\printfield{year})}%
 \iffieldundef{postnote}{}{ at \thefield{postnote}}%
 }}
+
+
+%%%%%%%%%%5%%%% yilc 10.4.3 Yearbook of the International Law Commission
+\newbibmacro{cite:yilc}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:normal:ibid}}{\usebibmacro{cite:yilc:above}}}{\ifciteseen{\usebibmacro{cite:yilc:above}}{\usebibmacro{cite:yilc:full}}}}
+
+
+\newbibmacro{cite:yilc:above}{%
+\printfield[it]{title}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
+\iffieldundef{postnote}{}{, at \thefield{postnote}}%
+}
+
+\newbibmacro{cite:yilc:full}{%
+\printfield[it]{title}%
+\addspace[\printfield{year}]%
+{\addspace}vol\addspace\thefield{volume}%
+\iffieldundef{part}{}{, pt \printfield[plain]{part}}%
+{\addspace}YILC\addspace%
+\printfield{pages}%
+\iffieldundef{postnote}{}{ at \thefield{postnote}}
+}
+
 
 %%%% Dispatches different kinds of citations
 \newbibmacro{cite:stuff}{%
@@ -922,6 +946,7 @@ UNIMPLEMENTED
 \iffieldequalstr{entrytype}{mail}{\usebibmacro{cite:mail}}{}%
 \iffieldequalstr{entrytype}{un}{\usebibmacro{cite:un}}{}%
 \iffieldequalstr{entrytype}{treaty}{\usebibmacro{cite:treaty}}{}%
+\iffieldequalstr{entrytype}{yilc}{\usebibmacro{cite:yilc}}{}%
 %
 %For any kind of citation, save the postnote to check if Ibid citations need to print their post note
 \usebibmacro{cite:savepage}%
