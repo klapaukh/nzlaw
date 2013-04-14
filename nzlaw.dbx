@@ -12,7 +12,10 @@
  sopyear,
  sopnumber,
  jurisdiction,
- court}
+ court,
+ parties,
+ resolution,
+ session}
  
 \DeclareDatamodelFields[type=field, datatype=integer]{
  ordinanceno}
@@ -39,7 +42,9 @@
  inbook,
  reference,
  article,
- report}
+ report,
+ treaty,
+ un}
 
  
 \DeclareDatamodelEntryfields[case]{
@@ -257,5 +262,43 @@ title,
 type,
 location}
 
+
+\DeclareDatamodelEntryfields[treaty]{
+title,
+series,
+parties,
+date,
+origdate,
+type,
+year,
+day,
+month,
+origday,
+origmonth,
+origyear}
+
+\DeclareDatamodelConstraints[treaty]{
+ \constraint[type=mandatory]{
+  \constraintfield{title}
+  \constraintfield{type}
+  \constraintfield{origyear}
+  \constraintfield{origmonth}
+  \constraintfield{origday}
+ }
+}
+
+\DeclareDatamodelEntryfields[un]{
+title,
+author,
+year,
+resolution,
+session,
+number}
+
+\DeclareDatamodelConstraints[un]{
+  \constraint[type=mandatory]{
+    \constraintfield{title}
+  }
+}
 
 

@@ -37,9 +37,15 @@
 %7.5 Speech -> speech
 %7.6 Letters / email -> mail
 
+%International Materials
+%10.1 Treaties -> treaty
+%10.2
+%10.3
+%10.4 United Nations Materials -> un
 
 %%%% SET UP FOR THE STYLE %%%%%%
-\ExecuteBibliographyOptions{maxnames=3,minnames=1,indexing=true,pagetracker=true,citecounter=true,citetracker=true,ibidtracker=strict,parentracker=true,firstinits=false, terseinits=true,labelnumber=true, useprefix=false, dateabbrev=false}
+\ExecuteBibliographyOptions{maxnames=3,minnames=1,indexing=true,pagetracker=true,citecounter=true,citetracker=true,ibidtracker=strict,parentracker=true,firstinits=false, terseinits=true,labelnumber=true, useprefix=false, alldates=comp, dateabbrev=false, abbreviate=false}
+
 
 
 %% NEEDS OPTION TO DISABLE ALL IBID FOR CONFERENCE SUBMISSION, AS WELL AS RESET ON CHAPTER
@@ -840,7 +846,46 @@ UNIMPLEMENTED
 }
 
 
+%%%%%%%%%%%%%%%%%%%%%%%% treaty   10.1 treaty
+\newbibmacro{cite:treaty}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\usebibmacro{cite:leg:ibid}}{\usebibmacro{cite:treaty:above}}}{\ifciteseen{\usebibmacro{cite:treaty:above}}{\usebibmacro{cite:treaty:full}}}}
 
+\newbibmacro{cite:treaty:above}{%
+\printfield{title}, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}}
+
+\newbibmacro{cite:treaty:full}{%
+\printfield{title}%
+\iffieldundef{parties}{}{,\addspace\printfield{parties}}%
+\addspace%
+\printfield{series}%
+\addspace(\printfield{type} \printfield{origday} \printfield{origmonth} \printfield{origyear},\addspace%
+\iffieldundef{year}{not yet in force}{entered into force \printfield{day} \printfield{month} \printfield{year}})%
+\iffieldundef{postnote}{}{, \thefield{postnote}}%
+}
+
+
+
+%%%%%%%%%%%%%%%55 un           10.4 UN Materials
+\newbibmacro{cite:un}{\ifciteibid{\ifsamepage{\value{instcount}}{\value{instcount}-1}{\iffieldundef{resolution}{\usebibmacro{cite:leg:ibid}}{\usebibmacro{cite:normal:ibid}}}{\usebibmacro{cite:un:above}}}{\ifciteseen{\usebibmacro{cite:un:above}}{\usebibmacro{cite:un:full}}}}
+
+
+\newbibmacro{cite:un:above}{%
+\iffieldundef{author}{\printfield{title}}{\printnames{author}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield{title}}%
+, above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}}%
+}
+
+
+\newbibmacro{cite:un:full}{%
+\iffieldundef{resolution}%
+{\printfield{title}\iffieldundef{postnote}{}{, \thefield{postnote}}}
+{%
+\iffieldundef{author}{}{\printnames{author}\addspace}%
+\printfield[it]{title}\addspace\printfield{resolution}%
+\iffieldundef{session}{}{\addspace\printfield{session}}%
+\iffieldundef{number}{}{\addspace\printfield{number}}%
+\iffieldundef{year}{}{\addspace(\printfield{year})}%
+\iffieldundef{postnote}{}{ at \thefield{postnote}}%
+}}
 
 %%%% Dispatches different kinds of citations
 \newbibmacro{cite:stuff}{%
@@ -875,6 +920,8 @@ UNIMPLEMENTED
 \iffieldequalstr{entrytype}{press}{\usebibmacro{cite:press}}{}%
 \iffieldequalstr{entrytype}{interview}{\usebibmacro{cite:interview}}{}%
 \iffieldequalstr{entrytype}{mail}{\usebibmacro{cite:mail}}{}%
+\iffieldequalstr{entrytype}{un}{\usebibmacro{cite:un}}{}%
+\iffieldequalstr{entrytype}{treaty}{\usebibmacro{cite:treaty}}{}%
 %
 %For any kind of citation, save the postnote to check if Ibid citations need to print their post note
 \usebibmacro{cite:savepage}%
