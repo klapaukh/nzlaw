@@ -514,7 +514,7 @@ Law Commission \printfield[it]{title} (NZLC \printfield{number}, \printfield{yea
 }
 
 \newbibmacro{cite:report:full}{%
-\printnames{author} \printfield[it]{title} (\iflistundef{publisher}{}{\printlist{publisher}, }\iffieldundef{note}{}{\printfield{note}, }\iffieldundef{month}{\printfield{month} }\printfield{year})%
+\printnames{author} \printfield[it]{title} (\iflistundef{publisher}{}{\printlist{publisher}, }\iffieldundef{note}{}{\printfield{note}, }\iffieldundef{month}{}{\printfield{month} }\printfield{year})%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{ at \thefield{postnote}}%
 }
