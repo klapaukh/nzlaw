@@ -814,9 +814,9 @@ Law Commission \printfield[it]{title} (NZLC \printfield{number}, \printfield{yea
 \iflistundef{publisher}{}{ \printlist[it]{publisher}}%
 {\addspace}(%
 \iffieldundef{type}{}{\printfield{type}\iflistundef{location}{}{, }}%
-\iflistundef{location}{}{\printlist{location}}%
-,%
-\iffieldundef{day}{}{ \printfield{day}}%,%
+\iflistundef{location}{}{\printlist{location}, }%
+%
+\iffieldundef{day}{}{\printfield{day}}%,%
 \iffieldundef{month}{}{ \printfield{month}}%
 \iffieldundef{year}{}{ \printfield{year}}%
 )%
