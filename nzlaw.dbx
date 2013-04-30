@@ -189,7 +189,8 @@ number,
 title,
 year,
 note,
-author}
+author,
+publisher}
 
 \DeclareDatamodelEntryfields[book]{
 edition,
