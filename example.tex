@@ -1,0 +1,133 @@
+\documentclass{nzlaw}
+
+\addbibresource{sample.bib}
+
+
+%opening
+\studentid{123456789}
+\wordcount{1334}
+
+\begin{document}
+
+\section{Introduction}
+\label{sec:Introduction}
+
+This is an example to how to use the nzlaw style format. 
+There are commands for quoting: \shortquote{Hello all},
+and way of writing the three different kinds of dashes -,--,---.
+You can also cite papers with pinpoints.\footcite[99]{astrazeneca}  
+Things like ibid citations are automatically taken care 
+of.\footcite[99]{astrazeneca} 
+There is a slight issue if you want to use square brackets ([]) in a 
+pinpoint for a citations, where you have to do them this
+way.\footcite[22 and {[5]}]{astrazeneca} 
+Above n x ciations are also supported.\footcite{z}
+Automatically.\footcite[22]{astrazeneca} 
+
+With citations for legislation you should always use the short
+form in the pinpoint.\footcite[s 2]{gaming}
+When it is used as an ibid citation it will automatically be 
+expanded.\footcite[s 5]{gaming}
+
+\subsection{Sub headings}
+We have a number of different kinds of headings available. 
+The full list is section, subsection, subsubsection, paragraph
+and subparagraph. Each is automatically formatted in the correct 
+style. 
+
+\subsubsection{Text emphasis}
+Some times when writing text we wish to emphasise certain words.
+This can be done with \emph{italics}, \textbf{bold} or \textsc{small
+caps}. Underlining is possible, but shouldn't be done.
+
+\paragraph{Quoting}
+
+There are two kinds of quotes. Short quotes \shortquote{of under 30
+words}. And long quotes:
+
+\begin{longquote}
+These require separate spacing, fontsizes and margins. Fortunately
+this is already done.
+\end{longquote}
+
+
+
+\subparagraph{More citations}
+Sometimes you want more complicated pinpoints. Fortunately this is
+just the same as a normal pinpoint.\footcite[{[48]} per Tipping J]{mafart}
+You may also wish to cite multiple cases in one citations, perhaps
+even related ones.\footcites{foodstuffs}[rev'd][]{foodstuffs1}
+
+\subparagraph{Lists!!}
+
+We can have itemized (unnumbered lists):
+
+\begin{itemize}
+\item First thing
+\item Second thing
+\item Nested thing
+\begin{itemize}
+ \item Nested item 1
+ \item Nested item 2
+\end{itemize}
+\end{itemize}
+
+Or we can have numbered lists. With these we can tell them how
+to write the numbers:
+
+\begin{enumerate}[(a)]
+\item First
+\item Second item in the list
+\end{enumerate}
+
+Or with arabic numbers with internal citations. 
+\begin{enumerate}[(1)]
+\item An item\footcite{reekie}
+\item too many items\footcite{tuhou}
+\end{enumerate}
+
+\cleardoublepage
+
+\section{Bibliography}
+
+Finally we want a bibliography section, and we want it to be on its own
+facing page. In future it is hoped that 
+bibliographies will be automatically generated. However, the rules
+behind the bibliographies are rather complicated and I have not
+gotten round to doing that yet. So instead we have the following.
+
+First we tell it to forget all about what citations it has done.
+\newrefsection
+
+Then we want to make the spacing a bit nicer so that the citations are
+not indented like paragraphs.
+\parindent=0pt
+
+Then we use the special \verb|\cite| command to print a bibliography
+entry (not in a footnote). This can of course be done anywhere.
+
+\subsection{Cases}
+
+\cite{reekie}
+
+\cite{mafart}
+
+\cite{z}
+
+\cite{astrazeneca}
+
+\subsection{Legislation}
+\cite{gaming}
+
+
+That said there has been some progress along the line to using
+biblatex commands to print out the bibliography. But it isn't 
+quite working write.
+
+\nocite{*}
+%\printbibliography[title={Cases},type=case,sorting=nyt]
+
+
+Or in complete form:
+\printbibliography
+\end{document}
