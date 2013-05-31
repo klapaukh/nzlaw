@@ -1,0 +1,5 @@
+This is a latex class and bibliography style that implements the New Zealand Law Style Guide.
+
+It relies on xelatex (to provide fonts expected by universities), and biblatex (with biber) for citations.
+
+It it not currently complete, but is being gradually developed. 
