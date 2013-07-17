@@ -2,4 +2,7 @@ This is a latex class and bibliography style that implements the New Zealand Law
 
 It relies on xelatex (to provide fonts expected by universities), and biblatex (with biber) for citations.
 
-It it not currently complete, but is being gradually developed. 
+A large amount of the core functionality has been implemented (all of chapter 3, most of chapters 4, 5, 6 and 7 and some of 10) . 
+However, it it not currently complete. If you find any bugs or would like any features implemented add them to the issue tracker, and I will attempt to address them.
+All the formatting is done based on the assumption that this is for university work. Class options to allow for general work will be added at a later date (or if requested).
+
