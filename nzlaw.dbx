@@ -16,10 +16,14 @@
  parties,
  resolution,
  session,
- url}
+ url,
+ subject}
  
 \DeclareDatamodelFields[type=field, datatype=integer]{
  ordinanceno}
+
+\DeclareDatamodelFields[type=list, datatype=name]{
+ recipient}
 
 %%Declare the types of entries that are needed.
 \DeclareDatamodelEntrytypes{
@@ -46,7 +50,8 @@
  report,
  treaty,
  un,
- yilc}
+ yilc,
+ mail}
 
  
 \DeclareDatamodelEntryfields[case]{
@@ -320,3 +325,19 @@ pages}
  }
 }
 
+\DeclareDatamodelEntryfields[mail]{
+ author,
+ recipient,
+ subject,
+ date,
+ day,
+ month,
+ year,
+ type}
+
+\DeclareDatamodelConstraints[mail]{
+ \constraint[type=mandatory]{
+	\constraintfield{type}
+	\constraintfield{recipient}
+} 
+}

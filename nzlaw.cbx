@@ -842,7 +842,13 @@ Law Commission \printfield[it]{title} (NZLC \printfield{number}, \printfield{yea
 }
 
 \newbibmacro{cite:mail:full}{%
-UNIMPLEMENTED
+\printfield{type}%
+from%
+\addspace\printnames{author}\addspace%
+to%
+\addspace\printnames{recipient}\addspace%
+\printfield{subject}\addspace%
+(\printfield{day} \printfield{month} \printfield{year})%
 }
 
 
