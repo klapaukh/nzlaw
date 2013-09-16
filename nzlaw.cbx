@@ -346,7 +346,7 @@ At \printfield{postnote}%
 \newbibmacro{cite:appendix:above}{%
 \printnames{author}%
 %check if ambigious
-\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{true}{\addspace\printfield[quotes]{title}}{}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
@@ -377,7 +377,7 @@ At \printfield{postnote}%
 \newbibmacro{cite:submission:above}{%
 \printnames{author}%
 %check if ambigious
-\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{true}{\addspace\printfield[quotes]{title}}{}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
@@ -442,7 +442,7 @@ At \printfield{postnote}%
 \newbibmacro{cite:cabinetman:above}{%
 Cabinet Office%
 %check if ambigious
-\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{ \textit{Cabinet Manual} \printfield[it]{year}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{true}{ \textit{Cabinet Manual} \printfield[it]{year}}{}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
@@ -464,7 +464,7 @@ Cabinet Office \textit{Cabinet Manual}%
 \newbibmacro{cite:nzgazette:above}{%
 \ifnameundef{author}{\printfield[quotes]{title}}{\printnames{author}%
 %check if ambigious
-\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{true}{\addspace\printfield[quotes]{title}}}{}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{, at \thefield{postnote}}%
@@ -487,7 +487,7 @@ Cabinet Office \textit{Cabinet Manual}%
 \newbibmacro{cite:nzlc:above}{%
 Law Commission%
 %check if ambigious
-\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[it]{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{true}{\addspace\printfield[it]{title}}{}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{, at \thefield{postnote}}%
@@ -507,7 +507,7 @@ Law Commission \printfield[it]{title} (NZLC \printfield{number}, \printfield{yea
 \newbibmacro{cite:report:above}{%
 \printnames{author}%
 %check if ambigious
-\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[it]{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{true}{\addspace\printfield[it]{title}}{}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{, at \thefield{postnote}}%
@@ -537,7 +537,7 @@ Law Commission \printfield[it]{title} (NZLC \printfield{number}, \printfield{yea
 {\printnames{author}}%
 %
 %check if ambigious
-\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[it]{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{true}{\addspace\printfield[it]{title}}{}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{, \thefield{postnote}}%
@@ -586,7 +586,7 @@ Law Commission \printfield[it]{title} (NZLC \printfield{number}, \printfield{yea
 \newbibmacro{cite:inbook:above}{%
 \printnames{author}%
 %check if ambigious
-\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{true}{\addspace\printfield[quotes]{title}}{}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
@@ -632,7 +632,7 @@ Law Commission \printfield[it]{title} (NZLC \printfield{number}, \printfield{yea
 \newbibmacro{cite:article:above}{%
 \printnames{author}%
 %check if ambigious
-\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{true}{\addspace\printfield[quotes]{title}}{}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
@@ -669,7 +669,7 @@ Law Commission \printfield[it]{title} (NZLC \printfield{number}, \printfield{yea
 \newbibmacro{cite:reference:above}{%
 \printfield[it]{title}%
 %check if ambigious
-\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{ \printfield[it]{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{true}{ \printfield[it]{title}}{}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 \iffieldundef{postnote}{}{%
 , at [\thefield{postnote}]%
@@ -708,7 +708,7 @@ Law Commission \printfield[it]{title} (NZLC \printfield{number}, \printfield{yea
 \newbibmacro{cite:thesis:above}{%
 \printnames{author}%
 %check if ambigious
-\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{true}{\addspace\printfield[quotes]{title}}{}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
@@ -740,7 +740,7 @@ Law Commission \printfield[it]{title} (NZLC \printfield{number}, \printfield{yea
 \newbibmacro{cite:unpublished:above}{%
 \printnames{author}%
 %check if ambigious
-\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{true}{\addspace\printfield[quotes]{title}}{}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 %pinpoint part if it is there
 \iffieldundef{postnote}{}{%
@@ -780,7 +780,7 @@ Law Commission \printfield[it]{title} (NZLC \printfield{number}, \printfield{yea
 \newbibmacro{cite:online:above}{%
 \printnames{author}%
 %check if ambigious
-\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{true}{\addspace\printfield[quotes]{title}}{}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 \iffieldundef{postnote}{}{,  at \thefield{postnote}}%
 }
@@ -803,7 +803,7 @@ Law Commission \printfield[it]{title} (NZLC \printfield{number}, \printfield{yea
 \newbibmacro{cite:press:above}{%
 \printnames{author}%
 %check if ambigious
-\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield[quotes]{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{true}{\addspace\printfield[quotes]{title}}{}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 \iffieldundef{postnote}{}{, at \thefield{postnote}}%
 }
@@ -837,7 +837,7 @@ Law Commission \printfield[it]{title} (NZLC \printfield{number}, \printfield{yea
 
 \newbibmacro{cite:mail:above}{%
 \printnames{author}%
-\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield{title}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{true}{\addspace\printfield{title}}{}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 }
 
@@ -877,7 +877,7 @@ to%
 
 \newbibmacro{cite:un:above}{%
 \iffieldundef{author}{\printfield{title}}{\printnames{author}%
-\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{false}{}{\addspace\printfield{title}}}%
+\ifcsstring{\csuse{cbx@a@\thefield{entrykey}}}{true}{\addspace\printfield{title}}}{}%
 , above n \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
 \iffieldundef{postnote}{}{, at \thefield{postnote}}%
 }
